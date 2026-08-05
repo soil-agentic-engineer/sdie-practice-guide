@@ -11,7 +11,6 @@
 ## 关键纪律
 - 所有 SDIE 事实仅取自工作空间 `SDIE-RACI-Matrix.md`（7/12 治理版）与 `SDIE-Analysis.md`，可回溯到具体章节。
 - 方法论均经 WebSearch 取得权威定义并标注出处（Jeff Patton / Bill Wake / Dan North / Gojko Adzic / Brandolini / DSDM / Kano / semver.org / Nygard）。
-- **遵守用户权威性原则**：零引用任何非权威本地目录（SDIE/、SDIE1/ 等），仅以合规声明提及名称。
 - 不可委托红线 ①（业务需求与验收语义拍板 → PM/SME）与 Gate 1（PM 审批、QA 把关验收可测）已强调。
 
 ## 产出文件

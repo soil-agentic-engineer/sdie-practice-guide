@@ -1,0 +1,25 @@
+---
+id: EVAL-CAP-<ITER>
+title: <项目>Agent 能力指标
+status: review
+phase: Evaluation
+owner: eval-agent           # Eval Agent（●，R 侧）；人类复核 QA/Tech Lead
+related_docs:
+  - QUALITY-DASH-<ITER>
+last_updated: 2026-08-06
+---
+
+# <项目>Agent 能力指标（Eval Agent 产出）
+
+> **作者**：Eval Agent（●，R 侧）；**复核**：QA / Tech Lead。落位 `docs/eval/`（与 §4 Eval Agent 落位一致）。
+> 用于衡量 AI Coding 在本迭代的能力水位，指导下一迭代的 Harness 规则迭代（⑩）。
+
+metrics:
+  hallucination_rate: 0.00      # 幻觉率（越低越好）
+  task_accuracy: 0.00          # 任务准确率
+  guardrail_pass_rate: 0.00    # 护栏通过率
+  coverage_of_ac: 0.00         # 验收标准覆盖率（应=1.0）
+  self_heal_success: 0.00      # 自愈成功率（可选）
+
+notes: >
+  指标采集需人类复核，不得由 Agent 自报自批；异常值触发 Retrospective 行动项。

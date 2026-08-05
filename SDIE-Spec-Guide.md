@@ -17,8 +17,8 @@ last_updated: 2026-08-05
 > ④ 材料内容具体有哪些（字段级）？⑤ 如何版本化、迭代与管理？
 >
 > **权威来源约定（用户硬约束）**：本文所有 SDIE 事实仅取自当前工作空间
-> `SDIE-RACI-Matrix.md`（7 人类 / 12 Agent 治理版，唯一权威明细）与 `SDIE-Analysis.md`，
-> 任何本地其他目录（如 SDIE/、SDIE1/）均不引用。方法论与外部实践通过 WebSearch 取得权威定义并标注出处。
+> `SDIE-RACI-Matrix.md`（7 人类 / 12 Agent 治理版，唯一权威明细）与 `SDIE-Analysis.md`。
+> 方法论与外部实践通过 WebSearch 取得权威定义并标注出处。
 
 ---
 

@@ -1,0 +1,26 @@
+# TASK-*.yaml 结构化任务规格模板
+# 落位：docs/specs/task-specs/*.yaml
+# 依据：SDIE-Spec-Guide.md §6.4 / §7.1；RACI §3.5.1
+# RACI：Dev (Task Owner) = R；PM/PO = A（Gate 1 审批）
+
+id: TASK-<FEATURE>-001
+title: <任务标题>
+
+# ---- frontmatter 七字段（§7.1）----
+status: draft            # draft → review → baseline → change → superseded（§7.2）
+phase: Spec
+owner: <dev-owner>       # Task Owner（R）；最终 A 为 PM/PO（Gate 1）
+related_docs:
+  - PRD-<feature>.md
+  - AC-<feature>.md
+last_updated: 2026-08-06
+
+# ---- 人类强制手写核心三字段（红线：Agent 不得代写，§3.5.1 #6 / §4）----
+why: <业务动机，人类写>          # 为什么做
+what: <做什么，人类写>           # 提供什么能力/接口
+out: <期望产出/验收，人类写>     # 成功标准
+
+# ---- Agent 可补草稿（需人类审核）----
+agent_hint: <Agent 建议的实现提示，人类审核>
+context_sources:
+  - <相关代码/文档路径>
