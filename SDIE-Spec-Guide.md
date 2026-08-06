@@ -275,6 +275,27 @@ context_sources:
   - docs/design/cart-ADR-003.md
 ```
 
+### 6.5 REQ → task-spec 判定规则（基于 PRD 内容）
+
+> 判定某个 REQ 是否需要执行 task-spec（即新建 `TASK-*.yaml`），由 **三层过滤** 组成，全过才执行。
+> 依据：`1-Spec/PRD-template.md` §2 范围 / §7 优先级；本文 §6.4；`SDIE-RACI-Matrix.md` ①。
+
+**判定表（三层全过 → 建 task-spec）**
+
+| 层 | 过滤依据（PRD 位置） | 通过条件（做） | 不通过（不做） |
+|----|---------------------|--------------|---------------|
+| ① 范围 | §2 `in_scope` / `out_of_scope` | REQ ∈ `in_scope` | REQ ∈ `out_of_scope` → 不建 |
+| ② 双维优先级 | §7 `KANO 类型` + `MoSCoW 等级` | MoSCoW∈{Must, Should, Could} 且 KANO∉{Reverse, Indifferent} | MoSCoW=Won't，或 KANO∈{Reverse, Indifferent} → 不建，转 `deferred` / 剔除 |
+| ③ 版本归属 | §7 `所属版本` + 用户故事地图 `release` slices | 所属版本 = 当前目标 release（如 MVP v1.0.0） | 所属版本 = 后续 release 或 `deferred` → 本期不建，延至对应 release |
+
+**落到 task-spec（三层全过之后）**
+- **执行**：Dev (Task Owner) = R 基于 PRD 起草 `TASK-*.yaml`，`why/what/out` 人类手写（红线①），`related_docs` 回指 `PRD-<feature>.md` + `AC-<feature>.md`（见 §6.4）。
+- **定夺**：PM/PO = A/R，业务需求与验收语义拍板 **不可委托①**，Agent 仅建议；判定在 **Gate 1 前冻结**。
+- **确认**：`TASK-*.yaml` 须 `status=baseline` + **PM 签 Gate 1** 才正式确认，进 Design（§6.4 / §7.2）。
+- **粒度**：`TASK-*.yaml` 按 `TASK-<FEATURE>-NNN` 编号（feature 级），一个 feature 的多个"做" REQ 聚为一条或几条 TASK；后续 Design 阶段再 1:N 拆 `DECOMP-*`。**绑定键始终是 `related_docs → PRD-<feature>.md`**。
+
+**判定流程（一句话）**：REQ 在 `in_scope` 且 §7 双维标为"做"且所属版本=当前 release → 由 Dev 起草、PM 在 Gate 1 冻结确认 → 建 `TASK-*.yaml`；否则不建（进 `out_of_scope` 或 `deferred`）。
+
 ---
 
 ## 7. 版本化 / 迭代 / 变更管理

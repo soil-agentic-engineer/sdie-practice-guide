@@ -25,6 +25,7 @@
 | WBS / PMBOK | 任务分解 | PMI（PMBOK Guide） | SDIE-Design-Guide §6.2、2-Design/Decomposition-template.yml |
 | Story Points / Planning Poker | 估算 | M. Cohn / R. Jeffries / J. Grenning | Decomposition 讨论（task `estimate` 字段） |
 | Risk Matrix（概率×影响） | 风险管理 | PMBOK 7th / ISO 31000:2018 | Decomposition 讨论（task `risk` 字段） |
+| Agent Task Complexity（L1–L5 可执行性分级） | 任务复杂度分级 | Temporal L1–L5 / SWE-bench 结构因子 / Parasuraman LOA | Decomposition 讨论（task `estimated_complexity` 字段） |
 | Spec 阶段方法集（Impact Mapping / User Story Mapping / INVEST / BDD-Gherkin / Spec-by-Example / Event Storming） | 需求 / 规格方法论 | Adzic / Patton / Wake / North / Brandolini | SDIE-Spec-Guide §5 |
 | Docs-as-Code（YAML frontmatter） | 文档工程 | Jekyll / Hugo / MkDocs 生态 | SDIE-Spec-Guide §7.1（frontmatter 载体） |
 | Git / Conventional Commits / trunk-based | 版本控制约定 | Git / conventionalcommits.org / P. Hammant | 各阶段指南 §7、README「通用约定」 |

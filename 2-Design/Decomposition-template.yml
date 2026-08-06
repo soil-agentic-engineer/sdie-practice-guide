@@ -26,18 +26,24 @@ tasks:
     depends_on: []              # 前置原子任务 id 列表，构成依赖 DAG；[]=入口任务
     acceptance_ref: [AC-1, AC-2]  # 对应 Spec AC-<feature>.md 的验收编号；须引用、禁止自创（① 人类语义）
     context_scope: [src/checkout/*, docs/design/ADR-012]  # 允许 Agent 读取的范围；须与 Context-Injection 对齐（⑤ 安全，不得读 secrets/）
+    risk: { probability: 3, impact: 3, level: med }  # 量表见 risk-matrix.md；依据：接口入参组合多、回归验证面大
+    estimated_complexity: L3  # Agent 可执行性分级 L1-L5（非工作量估算、非威胁评级）；客观信号见 0-References/agent-task-complexity.md；依据：跨模块、无既有模式、需对齐多服务契约（L3：改文件数 2–5）
   - id: DECOMP-CART-002
     title: 库存校验守卫
     agent_assignable: true
     depends_on: [DECOMP-CART-001]
     acceptance_ref: [AC-2]
     context_scope: [src/inventory/*]
+    risk: { probability: 2, impact: 2, level: low }  # 量表见 risk-matrix.md；依据：单表查询，失败影响局部（低风险可不标，此处仅演示）
+    estimated_complexity: L2  # L1-L5；依据：单表查询、模式清晰、改动行数≤20（L2）
   - id: DECOMP-CART-003
     title: 并发超卖防护
     agent_assignable: false            # 需人类先写骨架，Agent 仅补实现
     depends_on: [DECOMP-CART-001, DECOMP-CART-002]
     acceptance_ref: [AC-3]
-    context_scope: [src/checkout/*, src/inventory/*]
+    context_scope: [src/checkout/*, src/inventory/*]  # 不得读 secrets/（⑤）
+    risk: { probability: 4, impact: 5, level: high }  # 量表见 risk-matrix.md；依据：高并发库存扣减竞态，可能超卖致资损；high 触发 Gate2 优先审/Implement 优先验
+    estimated_complexity: L5  # L1-L5；依据：无锁并发算法、无既有模式、需人类定骨架（L5：等价于 agent_assignable:false 场景）
 
 # 依赖与验收映射（人类审阅 = WBS Dictionary）：
 # - DECOMP-CART-001 入口（无前置）；002 依赖 001；003 处理并发边界，依赖前两者。
@@ -45,4 +51,6 @@ tasks:
 # - agent_assignable=false 的任务需人类先写骨架，Agent 仅补实现。
 # - context_scope 须与 Context-Injection-<feature>.md 一致，落实 ⑤ 安全越权/泄漏防护（不得读 secrets/）。
 # 人类把关点（不可委托/须复核）：agent_assignable（⑨ 越级拦截）、context_scope（⑤ 安全）、acceptance_ref（① 不自创）三字段终值须 Task Owner/Tech Lead 确认，Agent 仅起草。
+# risk 字段为可选（建议非强制）：仅对带不确定性/后果严重的 task 标注；level=high 触发 Gate 2 优先审、Implement 优先验、加强 Review（联动 0-References/risk-matrix.md）；评分标尺以团队 Risk Management Plan 为准。med/high 建议在 risk 行末补一句依据注释（威胁/为何打此分），便于 Gate 2 复核；low 可不标亦可不注。
+# estimated_complexity 字段为可选（建议非强制）：Agent 可执行性分级 L1-L5，指导 Implement 调度/上下文预算/风险预判；客观信号清单（改文件数/行数、跨子系统、领域知识、并发/安全边界）见 0-References/agent-task-complexity.md。与 risk（威胁轴）、estimate（工作量轴，本模板不含）三者正交，互不可替。Dev 起草、Tech Lead 在 Gate 2 确认。
 # status=baseline 须人类确认；整份经 Tech Lead 在 Gate 2 签 Gate 2 Approved，结果记入 approved_by / approved_at（Harness 可据此校验非空才放行）。

@@ -172,14 +172,20 @@ Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在
 
 ### 6.2 原子分解方案（Decomposition）
 
-| 字段 | 说明 | 示例 |
-|------|------|------|
-| `task_id` | 原子任务标识（挂 TASK-*.yaml 关联） | DECOMP-CART-001 |
-| `title` | 任务名 | 购物车加入商品接口 |
-| `agent_assignable` | 是否可由 Coding Agent 独立完成 | true / false（false=需人类写骨架） |
-| `depends_on` | 依赖的前置任务 | [DECOMP-CART-000] |
-| `acceptance_ref` | 对应 `acceptance_criteria` 编号 | AC-1, AC-2 |
-| `context_scope` | 该任务允许 Agent 读取的文件/目录（上下文注入） | src/checkout/*, docs/design/cart-ADR-012.md |
+> 规范格式见 `2-Design/Decomposition-template.yml`（纯 YAML 单文档，供 Coding Agent / Harness 程序化消费；字段说明以 YAML 行内注释承载，即"方案 A"风格）。
+
+| 字段 | 必填 | 说明 | 示例 |
+|------|------|------|------|
+| `id` | 是 | 原子任务标识（带 `<FEATURE>` 前缀，挂接 TASK-*.yaml 关联键） | DECOMP-CART-001 |
+| `title` | 是 | 任务名 | 购物车加入商品接口 |
+| `agent_assignable` | 是 | 是否可由 Coding Agent 独立完成 | true / false（false=需人类写骨架，Agent 仅补实现，牵连 ⑨ 越级拦截） |
+| `depends_on` | 是 | 依赖的前置任务（构成 DAG） | [DECOMP-CART-001] |
+| `acceptance_ref` | 是 | 对应 Spec `acceptance_criteria` 编号（须引用、禁止自创，① 人类语义） | [AC-1, AC-2] |
+| `context_scope` | 是 | 该任务允许 Agent 读取的文件/目录（须与 Context-Injection 对齐，⑤ 不得读 secrets/） | [src/checkout/*, docs/design/ADR-012] |
+| `risk` | 可选 | `probability×impact` 1–5 分级（low/med/high），见 `0-References/risk-matrix.md`；high 联动 Gate 2 优先审 / Implement 优先验 | { probability: 4, impact: 5, level: high } |
+| `estimated_complexity` | 可选 | Agent 可执行性分级 L1–L5，指导 Implement 调度 / 上下文预算 / 风险预判；与 `risk`（威胁轴）、`estimate`（工作量轴，本模板不含）三者正交 | L3 |
+
+> 必填六字段 + 可选两字段（`risk`、`estimated_complexity`）。二者均"建议非强制"：仅对带不确定性/后果严重/复杂度高的 task 标注；med/high 风险与 L4/L5 复杂度建议在行末补一句依据注释，便于 Gate 2 复核。Dev(R) 起草，Tech Lead(A) 在 Gate 2 确认。
 
 ### 6.3 测试策略 + 门禁阈值草案（Test Strategy）
 
