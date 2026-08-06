@@ -55,6 +55,23 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 > Spec 阶段 Tech Lead 仅做**架构可行性初判**（C）；门禁阈值（覆盖率/变异/安全级别）由 Tech Lead 与 QA **共定**（③），
 > 不能由任一方单独拍板（§3.2 / §3.5.2 / §2.1）。
 
+### Gate 2 准入检查清单（Tech Lead 签批前逐项核对）
+
+> 本清单是 `SDIE-RACI-Matrix.md:346` Gate 2 准入标准（**分解合理、上下文策略就绪、Harness 确认**）的可执行化。Tech Lead 作为 A，必须**逐项确认通过**后方可签 Gate 2 放行进 Implement。
+
+| # | 检查项 | 对应产出物 / 依据 | 不可委托红线 |
+|---|--------|------------------|--------------|
+| 1 | **架构选型已定稿**：ADR 的 `Status/Decision` 由 Tech Lead 定稿（Design Agent 仅起草） | `2-Design/ADR-template.md`；§6.1 | ② 架构选型与 ADR 定稿（Tech Lead human-only） |
+| 2 | **原子分解合理**：每个 `DECOMP` 任务粒度满足"Agent 可独立完成"，`depends_on` 依赖图闭合、`acceptance_ref` 对应 Spec 的 AC 且不自创 | `2-Design/Decomposition-template.md`；§6.2 | — |
+| 3 | **上下文注入策略就绪**：`allow_read`/`deny_read` 已定义，`context_scope` 与之对齐，无越权读 secrets 风险 | `2-Design/Context-Injection-template.md`；§6.4 | ⑤ 安全判定权 |
+| 4 | **门禁阈值已共定**：覆盖率/变异/安全级别由 Tech Lead + QA 共同设定，写入 Harness 草案 | `2-Design/Test-Strategy-template.md`；§6.3 | ③ 阈值共定（不可单方拍板） |
+| 5 | **测试策略已起草**：分级占比（单元/集成/端到端）与测试数据方案明确 | §6.3 | — |
+| 6 | **安全设计点已落**：认证/授权、数据保护、红队攻击面已标注 | `2-Design/Security-Design-template.md`；§6.5 | ⑤ |
+| 7 | **Harness 确认**：`AGENTS.md` / 校验脚本 / `Jenkinsfile` 与最新 RACI 同步且可执行 | 不可委托 ⑩（Dev + Tech Lead） | ⑩ |
+| 8 | **基线化完成**：上述 Design 包 `status=baseline`（非 draft/review） | §7 状态机 | 只有 baseline 才能过 Gate 2 |
+
+> **放行动作**：Tech Lead 在 #1–#8 全部 ✅ 后，于 PR 描述或 `2-Design/README.md` 签 **Gate 2 Approved**，Design 包方可进入 Implement。任一 ❌ 即退回对应 R 修正，**不得带伤过门**。
+
 ---
 
 ## 2. Design 阶段 RACI 速查（引自 §3.2）

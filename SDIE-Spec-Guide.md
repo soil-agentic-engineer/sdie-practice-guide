@@ -55,6 +55,20 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 > 关键纪律：Gate 1 的 A 是 PM，不是 Tech Lead。架构选型（②）留到 Design 阶段，Spec 阶段
 > Tech Lead 仅做**架构可行性初判**（C），不担 A（§3.1 / §3.5.1）。
 
+### Gate 1 准入检查清单（PM 签批前逐项核对）
+
+> 本清单是 `SDIE-RACI-Matrix.md:345` Gate 1 准入标准（**Task Spec 完整、AGENTS.md 最新、验收可测**）的可执行化。PM 作为 A 必须**逐项确认通过**后方可签 Gate 1 放行进 Design；QA 作为 C 把关"验收可测"。
+
+| # | 检查项 | 对应产出物 / 依据 | 不可委托红线 |
+|---|--------|------------------|--------------|
+| 1 | **Task Spec 完整**：PRD / 用户故事地图 / `acceptance_criteria` / `TASK-*.yaml` 四类齐备，均挂 frontmatter 七字段；`TASK-*.yaml` 的 why/what/out 为人类手写 | `1-Spec/*` 模板；§6 | ① 业务需求与验收语义拍板（PM/SME） |
+| 2 | **AGENTS.md 最新**：执行边界承载与最新 RACI 同步，含本任务上下文与不可委托红线 | `AGENTS.md`；§2.1 | ⑩ Harness 维护（Dev+TL） |
+| 3 | **验收可测**：`acceptance_criteria` 具备 Given/When/Then 或正反例，QA 作为 C 确认可测 | `acceptance_criteria`；§6.3 | ① 验收语义拍板（PM/SME） |
+| 4 | **优先级已冻结**：PRD 功能清单逐条双维标注（KANO+MoSCoW+理由+版本），Gate 1 前冻结，无串联决策 | `PRD-template.md` §7；§5.x | ① 定级签字（PM/A） |
+| 5 | **基线化完成**：Spec 包 `status=baseline`（非 draft/review） | §7 状态机 | 只有 baseline 才能过 Gate 1 |
+
+> **放行动作**：PM 在 #1–#5 全部 ✅ 后，于 PR 描述或 `1-Spec/README.md` 签 **Gate 1 Approved**，Spec 包方可进入 Design。任一 ❌ 即退回对应 R 修正，**不得带伤过门**。
+
 ---
 
 ## 2. Spec 阶段 RACI 速查（引自 §3.1）
