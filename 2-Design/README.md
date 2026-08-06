@@ -16,7 +16,7 @@
 | 模板 | 产出物 | 主要作者（R） | A（问责） |
 |------|--------|--------------|-----------|
 | `ADR-template.md` | ADR 架构决策记录 | Tech Lead（Design Agent 起草） | Tech Lead（②） |
-| `Decomposition-template.md` | 原子分解方案 | Dev (Task Owner) | Tech Lead（Gate 2） |
+| `Decomposition-template.yml` | 原子分解方案 | Dev (Task Owner) | Tech Lead（Gate 2） |
 | `Test-Strategy-template.md` | 测试策略 + 门禁阈值草案 | QA（C，草案） | Tech Lead+QA（③ 共定） |
 | `Context-Injection-template.md` | 上下文注入策略 | Tech Lead（R/A） | Tech Lead |
 | `Security-Design-template.md` | 安全设计点 | 安全/红队（C） | 安全/红队（⑤ 判定权） |

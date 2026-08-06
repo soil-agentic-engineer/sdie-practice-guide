@@ -1,0 +1,48 @@
+# Decomposition Template — 原子分解方案（纯 YAML，供 Coding Agent / Harness 消费）
+# 与上游 TASK-*.yaml 字段对齐；本方案为实施计划(Plan)，非契约。
+# 作者 Dev(Task Owner)=R；问责/审批 Tech Lead(Gate 2)。
+
+# ---- 顶层字段说明 ----
+id: DECOMP-<FEATURE>-000        # 原子分解方案唯一标识；<FEATURE> 须与对应 TASK-<feature>.yaml 词根一致（关联键）
+title: <功能>原子分解方案        # 人类可读标题
+status: draft                   # 状态机：draft→review→baseline→change→superseded；须达 baseline 方能过 Gate 2
+phase: Design                   # 固定值，标识所属阶段
+owner: dev-<名>                 # 开发工程师 Task Owner (R)；起草人，非审批人（审批人见 approved_by）
+approved_by: techlead-<名>      # Gate 2 审批人（Tech Lead，A）；签 Gate 2 Approved 时填写真实姓名；模板为占位
+approved_at: 2026-08-06         # 签 Gate 2 Approved 日期（YYYY-MM-DD）；签批时填写真实日期；模板为占位
+related_docs:                   # 关联文档；TASK-<feature>.yaml 为必须项（契约源头）
+  - TASK-<feature>.yaml         # 上游 task-spec（why/what/out 契约），本方案为其分解
+  - ADR-DESIGN-000              # 架构决策记录
+  - Context-Injection-<feature>.md  # 上下文注入策略；context_scope 须与之对齐
+last_updated: 2026-08-06        # 最后更新日期（YYYY-MM-DD）
+
+# 目标：把已基线化的 Task Spec 拆为 Agent 可独立完成的原子任务，并映射验收与上下文范围。
+
+# ---- tasks：原子任务列表（1 个 TASK → N 个原子任务）----
+tasks:
+  - id: DECOMP-CART-001         # 原子任务唯一标识，挂接 TASK；建议带 <FEATURE> 前缀
+    title: 购物车加入商品接口     # 原子任务名
+    agent_assignable: true      # true=Agent 独立完成；false=需人类先写骨架，Agent 仅补实现（牵连 ⑨ 越级拦截）
+    depends_on: []              # 前置原子任务 id 列表，构成依赖 DAG；[]=入口任务
+    acceptance_ref: [AC-1, AC-2]  # 对应 Spec AC-<feature>.md 的验收编号；须引用、禁止自创（① 人类语义）
+    context_scope: [src/checkout/*, docs/design/ADR-012]  # 允许 Agent 读取的范围；须与 Context-Injection 对齐（⑤ 安全，不得读 secrets/）
+  - id: DECOMP-CART-002
+    title: 库存校验守卫
+    agent_assignable: true
+    depends_on: [DECOMP-CART-001]
+    acceptance_ref: [AC-2]
+    context_scope: [src/inventory/*]
+  - id: DECOMP-CART-003
+    title: 并发超卖防护
+    agent_assignable: false            # 需人类先写骨架，Agent 仅补实现
+    depends_on: [DECOMP-CART-001, DECOMP-CART-002]
+    acceptance_ref: [AC-3]
+    context_scope: [src/checkout/*, src/inventory/*]
+
+# 依赖与验收映射（人类审阅 = WBS Dictionary）：
+# - DECOMP-CART-001 入口（无前置）；002 依赖 001；003 处理并发边界，依赖前两者。
+# - acceptance_ref 必须对应 Spec 的 acceptance_criteria 编号，禁止自创验收（AC 源自 ① 人类语义）。
+# - agent_assignable=false 的任务需人类先写骨架，Agent 仅补实现。
+# - context_scope 须与 Context-Injection-<feature>.md 一致，落实 ⑤ 安全越权/泄漏防护（不得读 secrets/）。
+# 人类把关点（不可委托/须复核）：agent_assignable（⑨ 越级拦截）、context_scope（⑤ 安全）、acceptance_ref（① 不自创）三字段终值须 Task Owner/Tech Lead 确认，Agent 仅起草。
+# status=baseline 须人类确认；整份经 Tech Lead 在 Gate 2 签 Gate 2 Approved，结果记入 approved_by / approved_at（Harness 可据此校验非空才放行）。
