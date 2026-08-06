@@ -131,6 +131,40 @@ Spec 阶段的产出物（引自 §3.1 / §3.5.1 / §4）共四类，均需在 f
 | 验收"可测性"把关 | 【空间已定义】QA 在 Gate 1 作为 C 把关 acceptance-testability | 【空间已定义】 | `SDIE-RACI-Matrix.md` §6 Gate 1 |
 | 版本化 / 迭代 / 变更 | **SemVer 2.0.0** + **ADR**（Architecture Decision Record） | 【权威推荐】 | semver.org；Michael Nygard 2011 |
 
+### 5.x 优先级标注操作手册（MoSCoW + KANO）
+
+**落点**：Spec 阶段、PRD 的「§7 优先级」一节（见 `Spec/PRD-template.md`）；并联动 User Story Map 的 `release` slices 决定 MVP 边界。
+
+**RACI / 不可委托 ①**：PM=A/R 主导定级（业务价值裁决），SME/Tech Lead/QA=C 评审可行性与可测性；Agent 仅可建议标签、不能定级签字（不可委托 ① 业务语义拍板归 PM/SME）。Gate 1 前冻结。
+
+**定义**
+- MoSCoW（Dai Clegg 1994 / DSDM）：Must（无则发布失败）/ Should（理应，尽力）/ Could（有空做）/ Won't（本期不做）。
+- KANO（Noriaki Kano 1984）：Basic（基础质量）/ Performance（越多越好）/ Excitement（超出预期）/ Indifferent（无所谓）/ Reverse（有反效果）。
+
+**组合判定矩阵（判定规则，仅作交叉校验参考）**
+
+| MoSCoW \ KANO | Basic | Performance | Excitement |
+|---|---|---|---|
+| **Must** | MVP 硬底线，必进首版 | 核心价值，按容量排 | 罕见，若命中需 PM 复核 |
+| **Should** | 同上但可协商 | 核心价值 | 差异化候选 |
+| **Could** | 一般不做 | 后续 release | 亮点，放 A/B 或下迭代 |
+| **Won't / Indifferent / Reverse** | — | — | 剔除或 `deferred` |
+
+> 注意：两维相互独立，勿机械交叉。`Must` 未必等于 `Basic`；`Excitement` 不应优先于 `Basic` 底线。
+
+**双维标注（功能需求清单逐条标注）**：PRD 功能需求清单中，每个功能条目同时标注 `KANO 类型` + `MoSCoW 等级`，并附 `判断理由` 与 `所属版本`（版本与 User Story Map `release` 横线、§7 SemVer 对齐）。
+
+**示例（购物车加购）**
+
+| 功能条目 (ID) | KANO 类型 | MoSCoW 等级 | 判断理由 | 所属版本 |
+|---|---|---|---|---|
+| REQ-1 库存>0 才能加购 | Basic | Must | 缺则无法下单，属用户必然预期 | MVP (v1.0.0) |
+| REQ-2 加购后数量实时同步 | Performance | Must | 多端一致为核心体验底线 | MVP (v1.0.0) |
+| REQ-3 加购成功撒花动画 | Excitement | Could | 加分项，缺失不影响主流程 | v1.1.0 |
+| REQ-4 加购时弹调查问卷 | Reverse | Won't | 打断转化、有反效果，剔除 | deferred |
+
+> **本手册不引入串联决策流程**（KANO 筛选 → RICE 排序 → MoSCoW 收口）。优先级以"逐条双维标注"方式直接落表，不走三步串联。完整可填模板见 `Spec/PRD-template.md` §7。
+
 **原则**：空间已定义的（frontmatter 七字段、why/what/out 人类手写、Gate 1 验收可测把关、不可委托 ①）必须执行；
 缺口的方法论以权威推荐形式补足，团队可裁剪但需记录在 ADR 中。
 
