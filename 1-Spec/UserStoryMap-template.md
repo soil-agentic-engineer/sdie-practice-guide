@@ -11,7 +11,7 @@ last_updated: 2026-08-06
 
 # 用户故事地图：<功能名>
 
-> 方法论：User Story Mapping（Jeff Patton，权威推荐）。四层结构见 `SDIE-Spec-Guide.md` §6.2。
+> 方法论：User Story Mapping（Jeff Patton，权威推荐）。四层结构见 `SDIE-Spec-Guide.md` §4.2。
 > RACI：PM/PO = A；Dev = R（协助梳理）；SME / Tech Lead = C。
 
 ## 主干（Backbone，左→右时序）

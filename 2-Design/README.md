@@ -10,6 +10,7 @@
 - **不可委托**：② 架构选型与 ADR 定稿（Tech Lead）、③ 门禁阈值共定（Tech Lead+QA）、⑩ Harness（Dev+TL）。
 - **status 状态机**：`draft → review → baseline → change → superseded`；只有 `baseline` 才能过 Gate 2。
 - **版本化**：SemVer 2.0.0 + ADR 决策记录 + Git 基线化变更闭环（详见指南 §7）。
+- **版本历史段落（方案 A）**：每篇产出物正文末尾须维护 `## 版本历史`（§6.5，不进 frontmatter）；权威溯源见 `0-References/changelog.md`。
 
 ## 模板清单
 

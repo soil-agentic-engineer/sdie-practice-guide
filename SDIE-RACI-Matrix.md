@@ -5,7 +5,7 @@ status: active
 phase: Design
 related_docs:
   - docs/SDIE-Roles-RACI.md
-last_updated: 2026-08-04
+last_updated: 2026-08-08
 ---
 
 # SDIE 角色 RACI 明细（7 人类 / 12 Agent + 不可委托清单）
@@ -25,7 +25,7 @@ last_updated: 2026-08-04
 
 - [一 RACI 基础约定](#sec-1)
 - [二 人类角色 RACI 矩阵（概览）](#sec-2)
-  - [2.1 角色说明（人类 7 类）](#sec-2-1)
+  - [2.1 角色说明与术语表（人类 7 类）](#sec-2-1)
 - [三 人类角色 × 阶段 RACI 明细（核心）](#sec-3)
   - [3.1 Spec 阶段](#sec-3-1)
   - [3.2 Design 阶段](#sec-3-2)
@@ -71,7 +71,7 @@ last_updated: 2026-08-04
 
 一眼看清 7 类人类角色在四阶段的 RACI 分布。逐格的"具体内容"见 [第三章](#sec-3)；每角色的叙事说明见 [2.1](#sec-2-1)。
 
-| SDIE 阶段        |   产品经理   | 业务专家 | Tech Lead | 开发工程师 | 测试架构师/QA | 安全/红队 |   评审官    |
+| SDIE 阶段        |   产品经理   | 业务专家 (SME) | Tech Lead | 开发工程师 | 测试架构师/QA | 安全/红队 |   评审官    |
 | -------------- | :------: | :--: | :-------: | :---: | :------: | :---: | :------: |
 | **Spec**       | **A/R**  |  C   |     C     |   R   |    C     |   I   |    I     |
 | **Design**     |    I     |  I   |  **A/R**  |   R   |    C     |   C   |    I     |
@@ -85,10 +85,24 @@ Implement 为**三 A**——QA 担"正确性验证"(④·验证)、Reviewer 担"
 Tech Lead 的 A 仅保留在 Design（架构选型 ②），不再覆盖全阶段。
 
 <a id="sec-2-1"></a>
-### 2.1 角色说明（人类 7 类）
+### 2.1 角色说明与术语表（人类 7 类）
 
 > 上面是"谁在哪一格是 A/R/C/I"；下面是每个角色的**定位、能力要求、与 Agent 协作边界、常见反模式**——
 > 补 RACI 矩阵没说的"这个人到底是什么、怎么和 Agent 共事"。
+
+**角色术语表（Glossary）**——7 类人类角色缩写 → 全称对照；逐角色叙事见下方各条目。
+
+| 缩写 | 中文角色名 | 英文全称 | RACI 概览（四阶段） |
+|------|-----------|----------|----------------------|
+| PM / PO | 产品经理 / 产品负责人 | Product Manager / Product Owner | Spec=A/R，Design=I，Implement=A(⑦ 收货合并)，Evaluation=C |
+| **SME** | 业务专家 | **Subject Matter Expert** | Spec=C（关键），Design/Implement/Evaluation=I |
+| TL | Tech Lead / 架构负责人 | Technical Lead / Architect Lead | Spec=C，Design=A/R，Implement=R，Evaluation=C |
+| Dev | 开发工程师 / Task Owner | Developer / Task Owner | Spec/Design/Implement=R，Evaluation=I |
+| QA | 测试架构师 / QA 负责人 | Quality Assurance Lead | Spec=C，Design=C，Implement=A(④·验证)，Evaluation=A/R |
+| Sec | 安全 / 红队工程师 | Security / Red Team Engineer | 判定权始终在其手（⑤），Spec=I，Design/Implement/Eval=C |
+| Rev | 评审官 | Reviewer | Spec=I，Design=I，Implement=A(④·签字)，Evaluation=C |
+
+> 术语说明：**SME（Subject Matter Expert，业务专家）** 是领域语义的最终裁判，在 Spec 阶段作为 **C（被咨询方）** 把关 `acceptance_criteria` 的领域边界与验收语义，防止 Agent 编造伪边界（不可委托 ①）；其领域知识输入是 PM 需求拍板的依据之一。SME 仅在 Spec 阶段深度参与，Design/Implement/Evaluation 退为 I（知会），异常时被重新拉回。
 
 #### 产品经理 PM/PO
 - **定位**：业务价值与验收标准的唯一 owner；AI Coding 里的"需求锚"。
@@ -98,7 +112,7 @@ Tech Lead 的 A 仅保留在 Design（架构选型 ②），不再覆盖全阶�
 - **能力要求**：领域建模、验收标准编写、优先级判断、与 SME 对齐语义。
 - **常见反模式**：把 PRD 直接丢给 Agent 生成验收标准（Agent 会编造伪边界）；Implement 阶段失联，直到合并时才发现偏航。
 
-#### 业务专家 SME
+#### 业务专家 SME（Subject Matter Expert）
 - **定位**：领域语义的最终裁判；防止验收标准"看着对、实际错"。
 - **RACI 速查**：Spec=C（关键），Design/Implement/Evaluation=I。
 - **关键产出**：领域边界确认、验收语义校验意见。

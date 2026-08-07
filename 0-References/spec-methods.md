@@ -23,7 +23,7 @@
 ### BDD / Gherkin（行为驱动 + 场景语法）
 - 来源：Dan North, 2003+（BDD）；Gherkin = Cucumber 场景语法（Given / When / Then）。
 - 定义：以"示例即规格"描述行为，Gherkin 三段式表达验收场景。
-- SDIE 用法：acceptance_criteria 推荐用 Gherkin 表达（SDIE-Spec-Guide §6）。
+- SDIE 用法：acceptance_criteria 推荐用 Gherkin 表达（SDIE-Spec-Guide §4.3）。
 
 ### Specification by Example（实例化需求）
 - 来源：Gojko Adzic, "Specification by Example", 2011。

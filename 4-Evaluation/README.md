@@ -10,6 +10,7 @@
 - **不可委托**：⑧ 发布决策与回滚预案（QA）、⑤ 安全判定与合规结论（安全/红队）、⑩ Harness 维护（Dev+TL）。
 - **status 状态机**：`draft → review → baseline → change → superseded`；只有 `baseline` 才能过 Gate 4。
 - **版本化**：SemVer 2.0.0 + ADR + Git 发布闭环（详见指南 §7）。
+- **版本历史段落（方案 A）**：每篇产出物正文末尾须维护 `## 版本历史`（§6.5，不进 frontmatter）；权威溯源见 `0-References/changelog.md`。
 
 ## 模板清单
 

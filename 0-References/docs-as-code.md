@@ -1,7 +1,7 @@
 # Docs-as-Code（YAML frontmatter 载体）
 
 > 引用来源：静态站点生成器生态（Jekyll / Hugo / MkDocs / Docusaurus）通用实践
-> 在 SDIE 中引用位置：SDIE-Spec-Guide §7.1（frontmatter 七字段的载体来源）
+> 在 SDIE 中引用位置：SDIE-Spec-Guide §6.1（frontmatter 七字段的载体来源）
 > 用途：解释 SDIE 文档为何用 YAML frontmatter 挂元数据块。
 
 ## 定义

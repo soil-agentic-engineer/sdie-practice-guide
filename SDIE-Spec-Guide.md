@@ -7,7 +7,7 @@ owner: PM/PO（产品负责人）
 related_docs:
   - SDIE-RACI-Matrix.md
   - SDIE-Analysis.md
-last_updated: 2026-08-05
+last_updated: 2026-08-08
 ---
 
 # SDIE Spec 阶段工作指南
@@ -20,21 +20,48 @@ last_updated: 2026-08-05
 > `SDIE-RACI-Matrix.md`（7 人类 / 12 Agent 治理版，唯一权威明细）与 `SDIE-Analysis.md`。
 > 方法论与外部实践通过 WebSearch 取得权威定义并标注出处。
 
----
-
-## 0. 一图速览：五问与本文对应
-
-| 你的问题 | 本文回答章节 |
-|----------|--------------|
-| ① Spec 应执行哪些工作？ | §2 Spec 阶段定位与门禁、§3 递进工作清单（R/A/C/I） |
-| ② 分别应输出哪些材料？ | §4 输出材料清单 |
-| ③ 可用什么方法论产出这些材料？ | §5 方法论映射（空间已定义 vs 权威推荐） |
-| ④ 材料内容具体有哪些？ | §6 各材料字段级示例 |
-| ⑤ 如何版本化、迭代与管理？ | §7 版本化 / 迭代 / 变更管理 |
+> **五问速览**：① 工作 → [§3](#sec-3) ② 材料 → [§4](#sec-4) ③ 方法论 → [§5](#sec-5) ④ 字段级内容 → [§4](#sec-4) ⑤ 版本化 → [§6](#sec-6)
 
 ---
 
-## 1. SDIE 与 Spec 阶段定位
+## 目录
+
+- [一 Spec 阶段定位](#sec-1)
+  - [1.1 SDIE 框架与 Spec 定位](#sec-1-1)
+  - [1.2 Gate 1 准入门禁概览](#sec-1-2)
+- [二 角色与 RACI](#sec-2)
+  - [2.1 RACI 速查](#sec-2-1)
+  - [2.2 不可委托红线](#sec-2-2)
+- [三 Spec 执行流程（递进工作清单）](#sec-3)
+  - [3.1 执行总览](#sec-3-1)
+  - [3.2 动作级递进清单](#sec-3-2)
+- [四 产出物：字段级内容（按执行顺序）](#sec-4)
+  - [4.1 PRD（产品需求文档）](#sec-4-1)
+  - [4.2 用户故事地图（User Story Mapping）](#sec-4-2)
+  - [4.3 acceptance_criteria（验收标准）](#sec-4-3)
+  - [4.4 TASK-*.yaml（结构化任务规格）](#sec-4-4)
+  - [4.5 REQ → task-spec 判定规则](#sec-4-5)
+- [五 方法论映射](#sec-5)
+  - [5.1 方法论总表（空间已定义 vs 权威推荐）](#sec-5-1)
+  - [5.2 优先级标注操作手册（MoSCoW + KANO）](#sec-5-2)
+- [六 版本化 / 迭代 / 变更管理](#sec-6)
+  - [6.1 frontmatter 七字段](#sec-6-1)
+  - [6.2 文档状态机](#sec-6-2)
+  - [6.3 SemVer 版本号](#sec-6-3)
+  - [6.4 ADR 决策记录](#sec-6-4)
+  - [6.5 基线化变更流程](#sec-6-5)
+  - [6.6 Git 约定](#sec-6-6)
+- [七 Gate 1 准入检查清单](#sec-7)
+- [八 引用与权威来源](#sec-8)
+- [九 五问一句话总结](#sec-9)
+
+---
+
+<a id="sec-1"></a>
+## 一 Spec 阶段定位
+
+<a id="sec-1-1"></a>
+### 1.1 SDIE 框架与 Spec 定位
 
 SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Coding 的治理框架。
 其关键改造（见 `SDIE-RACI-Matrix.md` §1）：**A（问责 / 批准权）永远由人类承担；AI Agent 仅作为 R（执行者）**——
@@ -43,35 +70,27 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 四阶段中，Spec 是**源头与意图锚点**：它把模糊的业务诉求收敛为结构化、可验证、可追责的需求与验收语义，
 并通过 **Gate 1** 进入 Design 阶段。
 
-### Gate 1：Spec → Design 的准入门禁（§6）
+<a id="sec-1-2"></a>
+### 1.2 Gate 1 准入门禁概览
 
-| 项目 | 内容 |
-|------|------|
-| 准入标准 | Task Spec 完整、AGENTS.md 最新、验收可测 |
-| 人类审批人（A） | **PM**（产品经理 / 产品负责人） |
-| 咨询方（C） | **QA**——把关"验收可测"（acceptance-testability） |
-| 不可委托项 | ① 业务需求与验收语义拍板（PM/SME） |
+Gate 1 是 Spec → Design 的准入门禁。**准入标准**：Task Spec 完整、AGENTS.md 最新、验收可测。
+**人类审批人（A）**：**PM**（产品经理 / 产品负责人）。**咨询方（C）**：**QA**——把关"验收可测"（acceptance-testability）。
+**不可委托项**：① 业务需求与验收语义拍板（PM/SME）。
 
 > 关键纪律：Gate 1 的 A 是 PM，不是 Tech Lead。架构选型（②）留到 Design 阶段，Spec 阶段
-> Tech Lead 仅做**架构可行性初判**（C），不担 A（§3.1 / §3.5.1）。
+> Tech Lead 仅做**架构可行性初判**（C），不担 A（见 `SDIE-RACI-Matrix.md` §3.1 / §3.5.1）。
 
-### Gate 1 准入检查清单（PM 签批前逐项核对）
-
-> 本清单是 `SDIE-RACI-Matrix.md:345` Gate 1 准入标准（**Task Spec 完整、AGENTS.md 最新、验收可测**）的可执行化。PM 作为 A 必须**逐项确认通过**后方可签 Gate 1 放行进 Design；QA 作为 C 把关"验收可测"。
-
-| # | 检查项 | 对应产出物 / 依据 | 不可委托红线 |
-|---|--------|------------------|--------------|
-| 1 | **Task Spec 完整**：PRD / 用户故事地图 / `acceptance_criteria` / `TASK-*.yaml` 四类齐备，均挂 frontmatter 七字段；`TASK-*.yaml` 的 why/what/out 为人类手写 | `1-Spec/*` 模板；§6 | ① 业务需求与验收语义拍板（PM/SME） |
-| 2 | **AGENTS.md 最新**：执行边界承载与最新 RACI 同步，含本任务上下文与不可委托红线 | `AGENTS.md`；§2.1 | ⑩ Harness 维护（Dev+TL） |
-| 3 | **验收可测**：`acceptance_criteria` 具备 Given/When/Then 或正反例，QA 作为 C 确认可测 | `acceptance_criteria`；§6.3 | ① 验收语义拍板（PM/SME） |
-| 4 | **优先级已冻结**：PRD 功能清单逐条双维标注（KANO+MoSCoW+理由+版本），Gate 1 前冻结，无串联决策 | `PRD-template.md` §7；§5.x | ① 定级签字（PM/A） |
-| 5 | **基线化完成**：Spec 包 `status=baseline`（非 draft/review） | §7 状态机 | 只有 baseline 才能过 Gate 1 |
-
-> **放行动作**：PM 在 #1–#5 全部 ✅ 后，于 PR 描述或 `1-Spec/README.md` 签 **Gate 1 Approved**，Spec 包方可进入 Design。任一 ❌ 即退回对应 R 修正，**不得带伤过门**。
+> Gate 1 的**逐项检查清单**见 [§7](#sec-7)，在执行完 [§3](#sec-3)（工作流程）与 [§4](#sec-4)（产出物）后对照核对。
 
 ---
 
-## 2. Spec 阶段 RACI 速查（引自 §3.1）
+<a id="sec-2"></a>
+## 二 角色与 RACI
+
+<a id="sec-2-1"></a>
+### 2.1 RACI 速查
+
+> 以下 RACI 引自 `SDIE-RACI-Matrix.md` §3.1（责任级）与 §3.5.1（动作级）。
 
 | 角色 | RACI | 本阶段定位 |
 |------|:----:|-----------|
@@ -84,36 +103,83 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 | 评审官 Reviewer | **I** | 知会 Task Spec 内容，便于 Implement 阶段审查对齐 |
 
 > Agent 侧：Spec Agent 在 Spec 阶段为 **● 主导执行**（R 侧），产出结构化 Task Spec 草稿，
-> 落位 `docs/specs/task-specs/*.yaml`；但所有产出需人类（PM/Dev）复核（§4）。
+> 落位 `docs/specs/task-specs/*.yaml`；但所有产出需人类（PM/Dev）复核（见 `SDIE-RACI-Matrix.md` §4）。
+
+<a id="sec-2-2"></a>
+### 2.2 不可委托红线
+
+> 引自 `SDIE-RACI-Matrix.md` §5 ①。
+
+**核心不可委托红线**：业务需求与验收语义拍板必须由 PM / SME 亲自完成，
+Agent 不得定义领域规则或拍板需求（见 `SDIE-RACI-Matrix.md` §2.1 角色说明）。
+
+Spec 阶段涉及的不可委托项：
+
+| # | 不可委托事项 | 归属角色 | 说明 |
+|---|-------------|---------|------|
+| ① | 业务需求与验收语义拍板 | PM / SME | Agent 仅可补草稿，不可定义领域规则或拍板需求 |
+| ⑩ | Harness 维护（AGENTS.md / 校验脚本） | Dev + Tech Lead | 全阶段，Spec/Design 为主 |
 
 ---
 
-## 3. Spec 应执行的递进工作（动作级清单，引自 §3.5.1）
+<a id="sec-3"></a>
+## 三 Spec 执行流程（递进工作清单）
 
-行序＝本阶段**递进执行顺序**：作者起草 → 协作咨询 → 问责定稿 → 知会。
+<a id="sec-3-1"></a>
+### 3.1 执行总览
+
+Spec 阶段的执行遵循**递进顺序**：作者起草 → 协作咨询 → 问责定稿 → 知会。
+
+```
+PM/PO 起草需求与验收标准（R）
+        │
+        ▼
+SME / Tech Lead / QA 评审语义与可行性（C）
+        │
+        ▼
+PM/PO 定稿并签 Gate 1（A）
+        │
+        ▼
+Dev 起草 TASK-*.yaml（R）
+        │
+        ▼
+安全 / Reviewer 知会（I）
+```
+
 `acceptance_criteria` 先由 PM/PO **撰写（R）**，再交 SME / Tech Lead / QA 评审（C），
 最终由 PM/PO **定稿并签 Gate 1（A）**。
 
-| # | 角色 | RACI | 具体工作项 |
-|---|------|:----:|-----------|
-| 1 | PM/PO | **R** | 将 SME / 业务方口述整理为结构化需求初稿；逐条撰写 `acceptance_criteria`（用可验证语言定义 done）；维护 PRD 文档与版本 |
-| 2 | SME | **C** | 逐条审 `acceptance_criteria` 领域语义；指出 Agent 易编造的伪边界条件；确认术语定义无歧义 |
-| 3 | Tech Lead | **C** | 对需求做技术可行性初判；标注高风险技术点供 Design 阶段深入 |
-| 4 | QA | **C** | 评估测试可行性与风险；初步建议测试策略与门禁阈值草案 |
-| 5 | PM/PO | **A** | 主持需求澄清会，对齐业务目标与边界；标注 `out_of_scope` 防范围蔓延；**签 Gate 1**（需求评审通过）—— 对定稿的 `acceptance_criteria` 负最终责 |
-| 6 | Dev (Task Owner) | **R** | 基于 PRD 起草 `TASK-*.yaml` 骨架（why/what/out 必须人类写）；标注 `agent_hint` 与上下文来源；提交 Spec Agent 草稿供 PM 审核 |
-| 7 | 安全 / 红队 | **I** | 知会范围；预判安全关注点（认证 / 数据 / 合规） |
-| 8 | Reviewer | **I** | 知会需求；记录潜在审查关注点，便于 Implement 阶段对齐 |
+> 每个步骤应产出什么材料、字段级内容长什么样，见 [§4](#sec-4)（按执行顺序排列）。
+> 可用什么方法论辅助产出，见 [§5](#sec-5)。
 
-**核心不可委托红线（§5 ①）**：业务需求与验收语义拍板必须由 PM / SME 亲自完成，
-Agent 不得定义领域规则或拍板需求（§2.1 角色说明）。
+<a id="sec-3-2"></a>
+### 3.2 动作级递进清单
+
+> 引自 `SDIE-RACI-Matrix.md` §3.5.1。行序＝本阶段**递进执行顺序**。
+
+| # | 角色 | RACI | 具体工作项 | 对应产出物 |
+|---|------|:----:|-----------|-----------|
+| 1 | PM/PO | **R** | 将 SME / 业务方口述整理为结构化需求初稿；逐条撰写 `acceptance_criteria`（用可验证语言定义 done）；维护 PRD 文档与版本 | [§4.1 PRD](#sec-4-1)、[§4.3 AC](#sec-4-3) |
+| 2 | SME | **C** | 逐条审 `acceptance_criteria` 领域语义；指出 Agent 易编造的伪边界条件；确认术语定义无歧义 | — |
+| 3 | Tech Lead | **C** | 对需求做技术可行性初判；标注高风险技术点供 Design 阶段深入 | — |
+| 4 | QA | **C** | 评估测试可行性与风险；初步建议测试策略与门禁阈值草案 | — |
+| 5 | PM/PO | **A** | 主持需求澄清会，对齐业务目标与边界；标注 `out_of_scope` 防范围蔓延；**签 Gate 1**（需求评审通过）—— 对定稿的 `acceptance_criteria` 负最终责 | [§7 Gate 1 清单](#sec-7) |
+| 6 | Dev (Task Owner) | **R** | 基于 PRD 起草 `TASK-*.yaml` 骨架（why/what/out 必须人类写）；标注 `agent_hint` 与上下文来源；提交 Spec Agent 草稿供 PM 审核 | [§4.4 TASK-*.yaml](#sec-4-4)、[§4.5 REQ 判定](#sec-4-5) |
+| 7 | 安全 / 红队 | **I** | 知会范围；预判安全关注点（认证 / 数据 / 合规） | — |
+| 8 | Reviewer | **I** | 知会需求；记录潜在审查关注点，便于 Implement 阶段对齐 | — |
 
 ---
 
-## 4. 输出材料清单
+<a id="sec-4"></a>
+## 四 产出物：字段级内容（按执行顺序）
 
-Spec 阶段的产出物（引自 §3.1 / §3.5.1 / §4）共四类，均需在 frontmatter 挂七字段
-（id / title / status / phase / owner / related_docs / last_updated，见 §7）：
+Spec 阶段的产出物共四类，均需在 frontmatter 挂七字段（见 [§6.1](#sec-6-1)）。
+
+> 四类材料不是平铺的"四份独立文件"，而是**同一意图的不同抽象层**——PRD 是业务层、
+> 故事地图是用户旅程层、`acceptance_criteria` 是验证层、`TASK-*.yaml` 是执行层。
+> 它们通过 frontmatter 的 `related_docs` 互相链接，形成可追溯的 Spec 包。
+
+**产出物总览**（引自 `SDIE-RACI-Matrix.md` §3.1 / §3.5.1 / §4）：
 
 | 材料 | 主要作者（R） | 问责者（A） | 关键读者（C/I） | 落位（参考） |
 |------|--------------|------------|----------------|-------------|
@@ -122,73 +188,14 @@ Spec 阶段的产出物（引自 §3.1 / §3.5.1 / §4）共四类，均需在 f
 | **`acceptance_criteria`**（验收标准集） | PM/PO（R，逐条撰写） | PM/PO（A，①） | SME(C 语义)、QA(C 可测) | 内嵌于 PRD / TASK-SPEC |
 | **`TASK-*.yaml`**（结构化任务规格） | Dev (Task Owner)（R） | PM/PO（A，Gate 1） | Tech Lead(C)、QA(C)、Reviewer(I) | `docs/specs/task-specs/*.yaml` |
 
-> 注：四类材料不是平铺的"四份独立文件"，而是**同一意图的不同抽象层**——PRD 是业务层、
-> 故事地图是用户旅程层、`acceptance_criteria` 是验证层、`TASK-*.yaml` 是执行层。
-> 它们通过 frontmatter 的 `related_docs` 互相链接，形成可追溯的 Spec 包。
+以下按 [§3.2](#sec-3-2) 执行顺序展开各材料的字段级内容。
 
----
+<a id="sec-4-1"></a>
+### 4.1 PRD（产品需求文档）
 
-## 5. 可用方法论映射（空间已定义 vs 权威推荐）
+> **执行步骤**：§3.2 #1（PM/PO 起草，R）→ #5（PM/PO 定稿，A）
 
-> 标记说明：**【空间已定义】**＝SDIE 工作空间内已规定；**【权威推荐】**＝经 WebSearch 取得的外部权威实践，作为补充方法论。
-
-| 产出物 / 工作 | 推荐方法论 | 来源性质 | 权威出处 |
-|---------------|-----------|----------|----------|
-| PRD 业务目标与范围 | **Impact Mapping**（Goal→Actors→Impacts→Deliverables） | 【权威推荐】 | Gojko Adzic，impactmapping.org |
-| 用户故事地图 | **User Story Mapping**（backbone/activities → steps → details → release slices） | 【权威推荐】 | Jeff Patton，jpattonassociates.com |
-| 单条用户故事质量校验 | **INVEST**（Independent/Negotiable/Valuable/Estimable/Small/Testable） | 【权威推荐】 | Bill Wake 2003，xp123.com |
-| `acceptance_criteria` 格式 | **BDD / Given-When-Then / Gherkin**；辅以 **Example Mapping**（黄故事/蓝规则/绿例子/红问题，25 分钟） | 【空间已定义】格式 + 【权威推荐】写法 | Dan North 2006；Cucumber，cucumber.io |
-| 情境化需求表达 | **Job Stories**（When [situation], I want [motivation], so I can [outcome]） | 【权威推荐】 | Paul Adams & Alan Klement @ Intercom 2013 |
-| 领域复杂性发现 | **Event Storming**（domain events / commands / actors / aggregates / hotspots） | 【权威推荐】 | Alberto Brandolini，eventstorming.com |
-| 优先级排序 | **MoSCoW**（Must/Should/Could/Won't）+ **KANO**（Basic/Performance/Excitement/Indifferent/Reverse） | 【权威推荐】 | Dai Clegg 1994 / DSDM；Noriaki Kano 1984 |
-| `TASK-*.yaml` 的 why/what/out | 【空间已定义】why/what/out 为人类强制手写字段 | 【空间已定义】 | `SDIE-RACI-Matrix.md` §3.5.1 / §4 |
-| 验收"可测性"把关 | 【空间已定义】QA 在 Gate 1 作为 C 把关 acceptance-testability | 【空间已定义】 | `SDIE-RACI-Matrix.md` §6 Gate 1 |
-| 版本化 / 迭代 / 变更 | **SemVer 2.0.0** + **ADR**（Architecture Decision Record） | 【权威推荐】 | semver.org；Michael Nygard 2011 |
-
-### 5.x 优先级标注操作手册（MoSCoW + KANO）
-
-**落点**：Spec 阶段、PRD 的「§7 优先级」一节（见 `Spec/PRD-template.md`）；并联动 User Story Map 的 `release` slices 决定 MVP 边界。
-
-**RACI / 不可委托 ①**：PM=A/R 主导定级（业务价值裁决），SME/Tech Lead/QA=C 评审可行性与可测性；Agent 仅可建议标签、不能定级签字（不可委托 ① 业务语义拍板归 PM/SME）。Gate 1 前冻结。
-
-**定义**
-- MoSCoW（Dai Clegg 1994 / DSDM）：Must（无则发布失败）/ Should（理应，尽力）/ Could（有空做）/ Won't（本期不做）。
-- KANO（Noriaki Kano 1984）：Basic（基础质量）/ Performance（越多越好）/ Excitement（超出预期）/ Indifferent（无所谓）/ Reverse（有反效果）。
-
-**组合判定矩阵（判定规则，仅作交叉校验参考）**
-
-| MoSCoW \ KANO | Basic | Performance | Excitement |
-|---|---|---|---|
-| **Must** | MVP 硬底线，必进首版 | 核心价值，按容量排 | 罕见，若命中需 PM 复核 |
-| **Should** | 同上但可协商 | 核心价值 | 差异化候选 |
-| **Could** | 一般不做 | 后续 release | 亮点，放 A/B 或下迭代 |
-| **Won't / Indifferent / Reverse** | — | — | 剔除或 `deferred` |
-
-> 注意：两维相互独立，勿机械交叉。`Must` 未必等于 `Basic`；`Excitement` 不应优先于 `Basic` 底线。
-
-**双维标注（功能需求清单逐条标注）**：PRD 功能需求清单中，每个功能条目同时标注 `KANO 类型` + `MoSCoW 等级`，并附 `判断理由` 与 `所属版本`（版本与 User Story Map `release` 横线、§7 SemVer 对齐）。
-
-**示例（购物车加购）**
-
-| 功能条目 (ID) | KANO 类型 | MoSCoW 等级 | 判断理由 | 所属版本 |
-|---|---|---|---|---|
-| REQ-1 库存>0 才能加购 | Basic | Must | 缺则无法下单，属用户必然预期 | MVP (v1.0.0) |
-| REQ-2 加购后数量实时同步 | Performance | Must | 多端一致为核心体验底线 | MVP (v1.0.0) |
-| REQ-3 加购成功撒花动画 | Excitement | Could | 加分项，缺失不影响主流程 | v1.1.0 |
-| REQ-4 加购时弹调查问卷 | Reverse | Won't | 打断转化、有反效果，剔除 | deferred |
-
-> **本手册不引入串联决策流程**（KANO 筛选 → RICE 排序 → MoSCoW 收口）。优先级以"逐条双维标注"方式直接落表，不走三步串联。完整可填模板见 `Spec/PRD-template.md` §7。
-
-**原则**：空间已定义的（frontmatter 七字段、why/what/out 人类手写、Gate 1 验收可测把关、不可委托 ①）必须执行；
-缺口的方法论以权威推荐形式补足，团队可裁剪但需记录在 ADR 中。
-
----
-
-## 6. 各材料具体内容（字段级示例）
-
-### 6.1 PRD（产品需求文档）
-
-`frontmatter` 七字段见 §7。正文建议结构：
+`frontmatter` 七字段见 [§6.1](#sec-6-1)。正文建议结构：
 
 ```
 # PRD：<功能名>
@@ -201,12 +208,15 @@ Spec 阶段的产出物（引自 §3.1 / §3.5.1 / §4）共四类，均需在 f
 ## 3. 用户与角色（Actors）
    - 主要角色：...；次要角色：...； off-stage：合规/支付网关
 ## 4. 用户故事地图摘要（链接 story-map 文档）
-## 5. 验收标准集（嵌入 acceptance_criteria，见 6.3）
+## 5. 验收标准集（嵌入 acceptance_criteria，见 §4.3）
 ## 6. 非目标与假设（Non-goals / Assumptions）
 ## 7. 优先级（MoSCoW + KANO 标注）
 ```
 
-### 6.2 用户故事地图（User Story Mapping 字段）
+<a id="sec-4-2"></a>
+### 4.2 用户故事地图（User Story Mapping）
+
+> **执行步骤**：§3.2 #1（PM/PO + Dev 起草，R）→ #5（PM/PO 定稿，A）
 
 | 层级 | 字段 | 说明 |
 |------|------|------|
@@ -216,7 +226,10 @@ Spec 阶段的产出物（引自 §3.1 / §3.5.1 / §4）共四类，均需在 f
 | Release slices | `release` | 横向分割线，MVP 在顶部，未来增强在底部 |
 | Out-of-scope | `deferred` | 明确"暂不做"的项，单独区放置 |
 
-### 6.3 `acceptance_criteria`（验收标准——正反例）
+<a id="sec-4-3"></a>
+### 4.3 acceptance_criteria（验收标准）
+
+> **执行步骤**：§3.2 #1（PM/PO 逐条撰写，R）→ #2-#4（SME/Tech Lead/QA 评审，C）→ #5（PM/PO 定稿，A）
 
 **正面示例（可测、具体、无歧义）：**
 ```
@@ -248,10 +261,13 @@ Feature: 加入购物车
 - 绿卡（例子）：库存 5→加购→库存不变、购物车+1
 - 红卡（问题）：超卖边界（并发加购）何时处理？→ 记录为待澄清，不阻塞主流程
 
-### 6.4 `TASK-*.yaml`（结构化任务规格）
+<a id="sec-4-4"></a>
+### 4.4 TASK-*.yaml（结构化任务规格）
 
+> **执行步骤**：§3.2 #6（Dev 起草，R）→ #5（PM 审核 + Gate 1 签批，A）
+>
 > **红线**：`why` / `what` / `out` 三个字段**必须人类手写**，Agent 仅可补 `agent_hint` 等草稿
-> （§3.5.1 #6 / §4 Spec Agent 落位）。
+>（见 `SDIE-RACI-Matrix.md` §3.5.1 #6 / §4 Spec Agent 落位）。
 
 ```yaml
 id: TASK-CART-001
@@ -275,10 +291,11 @@ context_sources:
   - docs/design/cart-ADR-003.md
 ```
 
-### 6.5 REQ → task-spec 判定规则（基于 PRD 内容）
+<a id="sec-4-5"></a>
+### 4.5 REQ → task-spec 判定规则
 
 > 判定某个 REQ 是否需要执行 task-spec（即新建 `TASK-*.yaml`），由 **三层过滤** 组成，全过才执行。
-> 依据：`1-Spec/PRD-template.md` §2 范围 / §7 优先级；本文 §6.4；`SDIE-RACI-Matrix.md` ①。
+> 依据：`1-Spec/PRD-template.md` §2 范围 / §7 优先级；本文 [§4.4](#sec-4-4)；`SDIE-RACI-Matrix.md` ①。
 
 **判定表（三层全过 → 建 task-spec）**
 
@@ -289,32 +306,96 @@ context_sources:
 | ③ 版本归属 | §7 `所属版本` + 用户故事地图 `release` slices | 所属版本 = 当前目标 release（如 MVP v1.0.0） | 所属版本 = 后续 release 或 `deferred` → 本期不建，延至对应 release |
 
 **落到 task-spec（三层全过之后）**
-- **执行**：Dev (Task Owner) = R 基于 PRD 起草 `TASK-*.yaml`，`why/what/out` 人类手写（红线①），`related_docs` 回指 `PRD-<feature>.md` + `AC-<feature>.md`（见 §6.4）。
+- **执行**：Dev (Task Owner) = R 基于 PRD 起草 `TASK-*.yaml`，`why/what/out` 人类手写（红线①），`related_docs` 回指 `PRD-<feature>.md` + `AC-<feature>.md`（见 [§4.4](#sec-4-4)）。
 - **定夺**：PM/PO = A/R，业务需求与验收语义拍板 **不可委托①**，Agent 仅建议；判定在 **Gate 1 前冻结**。
-- **确认**：`TASK-*.yaml` 须 `status=baseline` + **PM 签 Gate 1** 才正式确认，进 Design（§6.4 / §7.2）。
+- **确认**：`TASK-*.yaml` 须 `status=baseline` + **PM 签 Gate 1** 才正式确认，进 Design（见 [§4.4](#sec-4-4) / [§6.2](#sec-6-2)）。
 - **粒度**：`TASK-*.yaml` 按 `TASK-<FEATURE>-NNN` 编号（feature 级），一个 feature 的多个"做" REQ 聚为一条或几条 TASK；后续 Design 阶段再 1:N 拆 `DECOMP-*`。**绑定键始终是 `related_docs → PRD-<feature>.md`**。
 
 **判定流程（一句话）**：REQ 在 `in_scope` 且 §7 双维标为"做"且所属版本=当前 release → 由 Dev 起草、PM 在 Gate 1 冻结确认 → 建 `TASK-*.yaml`；否则不建（进 `out_of_scope` 或 `deferred`）。
 
 ---
 
-## 7. 版本化 / 迭代 / 变更管理
+<a id="sec-5"></a>
+## 五 方法论映射
+
+<a id="sec-5-1"></a>
+### 5.1 方法论总表（空间已定义 vs 权威推荐）
+
+> 标记说明：**【空间已定义】**＝SDIE 工作空间内已规定；**【权威推荐】**＝经 WebSearch 取得的外部权威实践，作为补充方法论。
+
+| 产出物 / 工作 | 推荐方法论 | 来源性质 | 权威出处 |
+|---------------|-----------|----------|----------|
+| PRD 业务目标与范围 | **Impact Mapping**（Goal→Actors→Impacts→Deliverables） | 【权威推荐】 | Gojko Adzic，impactmapping.org |
+| 用户故事地图 | **User Story Mapping**（backbone/activities → steps → details → release slices） | 【权威推荐】 | Jeff Patton，jpattonassociates.com |
+| 单条用户故事质量校验 | **INVEST**（Independent/Negotiable/Valuable/Estimable/Small/Testable） | 【权威推荐】 | Bill Wake 2003，xp123.com |
+| `acceptance_criteria` 格式 | **BDD / Given-When-Then / Gherkin**；辅以 **Example Mapping**（黄故事/蓝规则/绿例子/红问题，25 分钟） | 【空间已定义】格式 + 【权威推荐】写法 | Dan North 2006；Cucumber，cucumber.io |
+| 情境化需求表达 | **Job Stories**（When [situation], I want [motivation], so I can [outcome]） | 【权威推荐】 | Paul Adams & Alan Klement @ Intercom 2013 |
+| 领域复杂性发现 | **Event Storming**（domain events / commands / actors / aggregates / hotspots） | 【权威推荐】 | Alberto Brandolini，eventstorming.com |
+| 优先级排序 | **MoSCoW**（Must/Should/Could/Won't）+ **KANO**（Basic/Performance/Excitement/Indifferent/Reverse） | 【权威推荐】 | Dai Clegg 1994 / DSDM；Noriaki Kano 1984 |
+| `TASK-*.yaml` 的 why/what/out | 【空间已定义】why/what/out 为人类强制手写字段 | 【空间已定义】 | `SDIE-RACI-Matrix.md` §3.5.1 / §4 |
+| 验收"可测性"把关 | 【空间已定义】QA 在 Gate 1 作为 C 把关 acceptance-testability | 【空间已定义】 | `SDIE-RACI-Matrix.md` §6 Gate 1 |
+| 版本化 / 迭代 / 变更 | **SemVer 2.0.0** + **ADR**（Architecture Decision Record） | 【权威推荐】 | semver.org；Michael Nygard 2011 |
+
+**原则**：空间已定义的（frontmatter 七字段、why/what/out 人类手写、Gate 1 验收可测把关、不可委托 ①）必须执行；
+缺口的方法论以权威推荐形式补足，团队可裁剪但需记录在 ADR 中。
+
+<a id="sec-5-2"></a>
+### 5.2 优先级标注操作手册（MoSCoW + KANO）
+
+**落点**：Spec 阶段、PRD 的「§7 优先级」一节（见 `1-Spec/PRD-template.md`）；并联动 User Story Map 的 `release` slices 决定 MVP 边界。
+
+**RACI / 不可委托 ①**：PM=A/R 主导定级（业务价值裁决），SME/Tech Lead/QA=C 评审可行性与可测性；Agent 仅可建议标签、不能定级签字（不可委托 ① 业务语义拍板归 PM/SME）。Gate 1 前冻结。
+
+**定义**
+- MoSCoW（Dai Clegg 1994 / DSDM）：Must（无则发布失败）/ Should（理应，尽力）/ Could（有空做）/ Won't（本期不做）。
+- KANO（Noriaki Kano 1984）：Basic（基础质量）/ Performance（越多越好）/ Excitement（超出预期）/ Indifferent（无所谓）/ Reverse（有反效果）。
+
+**组合判定矩阵（判定规则，仅作交叉校验参考）**
+
+| MoSCoW \ KANO | Basic | Performance | Excitement |
+|---|---|---|---|
+| **Must** | MVP 硬底线，必进首版 | 核心价值，按容量排 | 罕见，若命中需 PM 复核 |
+| **Should** | 同上但可协商 | 核心价值 | 差异化候选 |
+| **Could** | 一般不做 | 后续 release | 亮点，放 A/B 或下迭代 |
+| **Won't / Indifferent / Reverse** | — | — | 剔除或 `deferred` |
+
+> 注意：两维相互独立，勿机械交叉。`Must` 未必等于 `Basic`；`Excitement` 不应优先于 `Basic` 底线。
+
+**双维标注（功能需求清单逐条标注）**：PRD 功能需求清单中，每个功能条目同时标注 `KANO 类型` + `MoSCoW 等级`，并附 `判断理由` 与 `所属版本`（版本与 User Story Map `release` 横线、[§6.3](#sec-6-3) SemVer 对齐）。
+
+**示例（购物车加购）**
+
+| 功能条目 (ID) | KANO 类型 | MoSCoW 等级 | 判断理由 | 所属版本 |
+|---|---|---|---|---|
+| REQ-1 库存>0 才能加购 | Basic | Must | 缺则无法下单，属用户必然预期 | MVP (v1.0.0) |
+| REQ-2 加购后数量实时同步 | Performance | Must | 多端一致为核心体验底线 | MVP (v1.0.0) |
+| REQ-3 加购成功撒花动画 | Excitement | Could | 加分项，缺失不影响主流程 | v1.1.0 |
+| REQ-4 加购时弹调查问卷 | Reverse | Won't | 打断转化、有反效果，剔除 | deferred |
+
+> **本手册不引入串联决策流程**（KANO 筛选 → RICE 排序 → MoSCoW 收口）。优先级以"逐条双维标注"方式直接落表，不走三步串联。完整可填模板见 `1-Spec/PRD-template.md` §7。
+
+---
+
+<a id="sec-6"></a>
+## 六 版本化 / 迭代 / 变更管理
 
 SDIE 的 Spec 材料通过三层机制实现可追溯、可迭代、可变更：
 
-### 7.1 frontmatter 七字段（空间约定，所有 Spec 材料挂此元数据）
+<a id="sec-6-1"></a>
+### 6.1 frontmatter 七字段（空间约定，所有 Spec 材料挂此元数据）
 
 | 字段 | 含义 | 示例 |
 |------|------|------|
 | `id` | 文档唯一标识 | DOC-SPEC-GUIDE-001 / TASK-CART-001 |
 | `title` | 标题 | SDIE Spec 阶段工作指南 |
-| `status` | 生命周期状态（见 7.2 状态机） | draft |
+| `status` | 生命周期状态（见 [6.2](#sec-6-2) 状态机） | draft |
 | `phase` | 所属 SDIE 阶段 | Spec |
 | `owner` | 责任人类角色 | PM/PO |
 | `related_docs` | 关联文档（双向链接） | [PRD-checkout, AC-cart] |
 | `last_updated` | 最后更新日期 | 2026-08-05 |
 
-### 7.2 文档状态机（status 字段取值与流转）
+<a id="sec-6-2"></a>
+### 6.2 文档状态机（status 字段取值与流转）
 
 ```
 draft ──(需求澄清会 + 评审通过)──▶ review
@@ -325,9 +406,10 @@ baseline ──(被新方案替代)─────────▶ superseded by 
 ```
 
 > **基线化（baseline）是硬门槛**：只有 status=baseline 的 Spec 才能过 Gate 1 进入 Design。
-> 一旦 baseline，内容不可原地涂改；任何修改都走 change 流程并产出新版本（7.3）。
+> 一旦 baseline，内容不可原地涂改；任何修改都走 change 流程并产出新版本（[6.5](#sec-6-5)）。
 
-### 7.3 版本号：SemVer 2.0.0（权威推荐，semver.org）
+<a id="sec-6-3"></a>
+### 6.3 SemVer 版本号（权威推荐，semver.org）
 
 对 Spec 文档/包采用 `MAJOR.MINOR.PATCH`：
 
@@ -340,7 +422,8 @@ baseline ──(被新方案替代)─────────▶ superseded by 
 规则（引自 SemVer 2.0.0）：版本一经发布内容不可修改，修改必须发新版本；
 `0.y.z` 为初始开发期（API/语义未稳定），`1.0.0` 起语义稳定。预发布可用 `-alpha` / `-rc` 后缀。
 
-### 7.4 决策记录：ADR（权威推荐，Michael Nygard 2011）
+<a id="sec-6-4"></a>
+### 6.4 ADR 决策记录（权威推荐，Michael Nygard 2011）
 
 当 Spec 阶段出现**需要追溯的架构/范围/验收口径决策**（如"为何把超卖边界推迟到 Implement"），
 写一条 ADR，格式：
@@ -356,15 +439,33 @@ baseline ──(被新方案替代)─────────▶ superseded by 
 
 ADR 不可涂改，替代时新建并标 `Superseded by`。落位 `docs/adr/`。
 
-### 7.5 基线化变更流程（Spec 迭代闭环）
+<a id="sec-6-5"></a>
+### 6.5 基线化变更流程（Spec 迭代闭环）
 
 1. 任何对 baseline Spec 的修改请求 → 开 `change` 状态副本，记录变更动机（可挂 ADR）。
-2. 按 §3 递进流程重新走：PM 改稿（R）→ SME/Tech Lead/QA 审（C）→ PM 定稿（A）。
-3. 版本号按 7.3 递增；`last_updated` 刷新；`related_docs` 互链新旧版本。
+2. 按 [§3](#sec-3) 递进流程重新走：PM 改稿（R）→ SME/Tech Lead/QA 审（C）→ PM 定稿（A）。
+3. 版本号按 [6.3](#sec-6-3) 递增；`last_updated` 刷新；`related_docs` 互链新旧版本。
 4. 重新签 Gate 1（PM 审批，QA 复核验收可测）→ 新 baseline。
 5. 旧版本置 `superseded by <new-id>`，保留考古记录，不删除。
 
-### 7.6 Git 约定（权威推荐实践，落地建议）
+> **版本历史段落（必填，方案 A）**：每一篇基线化的阶段产出物，须在**正文末尾**维护 `## 版本历史` 段落，
+> 把"版本号"与"该版本的具体变化"钉合——满足 IEEE 828 变更记录要求与 Keep a Changelog 惯例
+> （权威溯源见 [0-References/changelog.md](0-References/changelog.md)）。
+> 本段落**不进 frontmatter**（七字段保持不变），避免每篇元数据膨胀；版本号本身由 [6.3](#sec-6-3) 规范推导。
+> 每条记录格式：`| 版本 | 日期 | 变更摘要 | 关联 ADR（可选）|`，与状态机 [6.2](#sec-6-2)、版本号 [6.3](#sec-6-3) 协同。
+>
+> 模板示例（放入文档正文末尾）：
+> ```markdown
+> ## 版本历史
+> | 版本 | 日期 | 变更摘要 | 关联 ADR |
+> |------|------|----------|----------|
+> | 1.0.0 | 2026-08-08 | 初始 baseline：PRD/用户故事地图/AC/TASK 齐备，过 Gate 1 | — |
+> | 1.1.0 | 2026-08-12 | MINOR：补充"游客结账"用户故事（向后兼容新增） | ADR-0012 |
+> | 2.0.0 | 2026-08-20 | MAJOR：删除超卖边界语义，范围重大收缩 | ADR-0015 |
+> ```
+
+<a id="sec-6-6"></a>
+### 6.6 Git 约定（权威推荐实践，落地建议）
 
 | 约定 | 规则 |
 |------|------|
@@ -375,7 +476,28 @@ ADR 不可涂改，替代时新建并标 `Superseded by`。落位 `docs/adr/`。
 
 ---
 
-## 8. 引用与权威来源清单
+<a id="sec-7"></a>
+## 七 Gate 1 准入检查清单
+
+> 本清单是 `SDIE-RACI-Matrix.md:345` Gate 1 准入标准（**Task Spec 完整、AGENTS.md 最新、验收可测**）的可执行化。
+> PM 作为 A 必须**逐项确认通过**后方可签 Gate 1 放行进 Design；QA 作为 C 把关"验收可测"。
+>
+> 在执行完 [§3](#sec-3)（工作流程）与 [§4](#sec-4)（产出物字段级内容）后，对照本清单逐项核对。
+
+| # | 检查项 | 对应产出物 / 依据 | 不可委托红线 |
+|---|--------|------------------|--------------|
+| 1 | **Task Spec 完整**：PRD / 用户故事地图 / `acceptance_criteria` / `TASK-*.yaml` 四类齐备，均挂 frontmatter 七字段；`TASK-*.yaml` 的 why/what/out 为人类手写 | `1-Spec/*` 模板；[§4](#sec-4) | ① 业务需求与验收语义拍板（PM/SME） |
+| 2 | **AGENTS.md 最新**：执行边界承载与最新 RACI 同步，含本任务上下文与不可委托红线 | `AGENTS.md`；[§2.1](#sec-2-1) | ⑩ Harness 维护（Dev+TL） |
+| 3 | **验收可测**：`acceptance_criteria` 具备 Given/When/Then 或正反例，QA 作为 C 确认可测 | `acceptance_criteria`；[§4.3](#sec-4-3) | ① 验收语义拍板（PM/SME） |
+| 4 | **优先级已冻结**：PRD 功能清单逐条双维标注（KANO+MoSCoW+理由+版本），Gate 1 前冻结，无串联决策 | `PRD-template.md` §7；[§5.2](#sec-5-2) | ① 定级签字（PM/A） |
+| 5 | **基线化完成**：Spec 包 `status=baseline`（非 draft/review） | [§6.2](#sec-6-2) 状态机 | 只有 baseline 才能过 Gate 1 |
+
+> **放行动作**：PM 在 #1–#5 全部 ✅ 后，于 PR 描述或 `1-Spec/README.md` 签 **Gate 1 Approved**，Spec 包方可进入 Design。任一 ❌ 即退回对应 R 修正，**不得带伤过门**。
+
+---
+
+<a id="sec-8"></a>
+## 八 引用与权威来源
 
 ### 8.1 工作空间（SDIE 事实唯一内部权威）
 - `SDIE-RACI-Matrix.md`
@@ -404,13 +526,14 @@ ADR 不可涂改，替代时新建并标 `Superseded by`。落位 `docs/adr/`。
 
 ---
 
-## 9. 五问一句话总结
+<a id="sec-9"></a>
+## 九 五问一句话总结
 
 - **① 工作**：PM 起草需求与验收标准（R）→ SME/Tech Lead/QA 评审语义与可行性（C）→ PM 定稿并签 Gate 1（A）→ Dev 起草 TASK-*.yaml（R）；安全/Reviewer 知会（I）。
 - **② 材料**：PRD、用户故事地图、`acceptance_criteria`、`TASK-*.yaml` 四类，均挂 frontmatter 七字段。
 - **③ 方法论**：空间已定义（七字段、why/what/out 人类手写、Gate 1 验收可测把关）；权威推荐补足（Impact Mapping / User Story Mapping / INVEST / BDD / Example Mapping / Job Stories / Event Storming / MoSCoW / KANO）。
-- **④ 内容**：见 §6 字段级示例——PRD 七段、故事地图四层、`acceptance_criteria` 正反例 + Gherkin、TASK-*.yaml 的 why/what/out 强制人类手写。
-- **⑤ 版本化**：frontmatter 七字段 + status 状态机（draft→review→baseline→change→superseded）+ SemVer 版本号 + ADR 决策记录 + Git 基线化变更闭环。
+- **④ 内容**：见 [§4](#sec-4) 字段级示例——PRD 七段、故事地图四层、`acceptance_criteria` 正反例 + Gherkin、TASK-*.yaml 的 why/what/out 强制人类手写。
+- **⑤ 版本化**：frontmatter 七字段 + status 状态机（draft→review→baseline→change→superseded）+ SemVer 版本号 + ADR 决策记录 + Git 基线化变更闭环 + 正文 `## 版本历史` 段落（§6.5，方案 A）。
 
 ---
 

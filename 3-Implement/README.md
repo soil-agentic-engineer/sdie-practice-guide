@@ -10,6 +10,7 @@
 - **不可委托**：④ 正确性问责（验证+签字）、⑤ 安全判定、⑥ 测试删/禁用授权、⑦ 收货合并、⑨ 越级拦截。
 - **status 状态机**：`draft → review → baseline → change → superseded`；只有 `baseline` 才能过 Gate 3。
 - **版本化**：SemVer 2.0.0 + ADR + Git 三 A 串联变更闭环（详见指南 §7）。
+- **版本历史段落（方案 A）**：每篇产出物正文末尾须维护 `## 版本历史`（§6.5，不进 frontmatter）；权威溯源见 `0-References/changelog.md`。
 
 ## 模板清单
 

@@ -15,7 +15,7 @@ last_updated: 2026-08-06
 
 > **RACI**：PM/PO = A/R（① 业务需求与验收语义拍板，不可委托）；SME / Tech Lead / QA = C；安全/红队、Reviewer = I。
 > **Gate 1**：本 PRD 需 `status=baseline` 且经 PM 签 Gate 1、QA 复核验收可测，方可进入 Design（§6）。
-> 正文结构依据 `SDIE-Spec-Guide.md` §6.1；方法论标注见 §8.2。
+> 正文结构依据 `SDIE-Spec-Guide.md` §4.1；方法论标注见 §8.2。
 
 ## 1. 背景与目标（Business Goal）
    - 目标（建议用 Impact Mapping 的 Goal 写法，SMART，权威推荐）：
@@ -39,7 +39,7 @@ last_updated: 2026-08-06
 
 ## 7. 优先级（MoSCoW + KANO 双维标注，权威推荐）
 
-> 方法论文献：MoSCoW — Dai Clegg (1994) / DSDM；KANO — Noriaki Kano (1984) "Attractive Quality and Must-Be Quality"。操作细节见 `SDIE-Spec-Guide.md` §5.x 与 §8。
+> 方法论文献：MoSCoW — Dai Clegg (1994) / DSDM；KANO — Noriaki Kano (1984) "Attractive Quality and Must-Be Quality"。操作细节见 `SDIE-Spec-Guide.md` §5.2 与 §8。
 
 **① MoSCoW（交付承诺分级）**
 - `Must`：无则发布失败，必做
@@ -76,8 +76,19 @@ PRD 功能需求清单中，每个功能条目同时标注 `KANO 类型` + `MoSC
 | REQ-3 加购成功撒花动画 | Excitement | Could | 加分项，缺失不影响主流程 | v1.1.0 |
 | REQ-4 加购时弹调查问卷 | Reverse | Won't | 打断转化、有反效果，剔除 | deferred |
 
-> `所属版本` 与 User Story Map 的 `release` 横线、`SDIE-Spec-Guide.md` §7 的 SemVer 对齐：`MVP=v1.0.0`、后续迭代=`v1.1.0`、`deferred`=剔除。
+> `所属版本` 与 User Story Map 的 `release` 横线、`SDIE-Spec-Guide.md` §6.3 的 SemVer 对齐：`MVP=v1.0.0`、后续迭代=`v1.1.0`、`deferred`=剔除。
 
 > **本节约不引入串联决策流程**（KANO 筛选 → RICE 排序 → MoSCoW 收口）。优先级以"逐条双维标注"方式直接落表，不走三步串联。
 
 **⑤ 红线（不可委托 ①）**：优先级定级属业务语义拍板，归 PM/SME；Agent 仅可"建议"标签，不能"定级签字"。Gate 1 前冻结。
+
+---
+
+## 版本历史（方案 A，依据 SDIE-Spec-Guide.md §6.5）
+
+> 不进 frontmatter（七字段不变）；版本号遵循 §6.3 SemVer。权威溯源见 `0-References/changelog.md`。
+
+| 版本 | 日期 | 变更摘要 | 关联 ADR |
+|------|------|----------|----------|
+| 1.0.0 | 2026-08-08 | 初始 baseline：背景/范围/用户/验收/优先级齐备，过 Gate 1 | — |
+| 1.1.0 | 2026-08-12 | MINOR：补充"游客结账"用户故事（向后兼容新增） | ADR-0012 |

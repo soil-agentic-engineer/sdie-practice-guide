@@ -54,3 +54,9 @@ tasks:
 # risk 字段为可选（建议非强制）：仅对带不确定性/后果严重的 task 标注；level=high 触发 Gate 2 优先审、Implement 优先验、加强 Review（联动 0-References/risk-matrix.md）；评分标尺以团队 Risk Management Plan 为准。med/high 建议在 risk 行末补一句依据注释（威胁/为何打此分），便于 Gate 2 复核；low 可不标亦可不注。
 # estimated_complexity 字段为可选（建议非强制）：Agent 可执行性分级 L1-L5，指导 Implement 调度/上下文预算/风险预判；客观信号清单（改文件数/行数、跨子系统、领域知识、并发/安全边界）见 0-References/agent-task-complexity.md。与 risk（威胁轴）、estimate（工作量轴，本模板不含）三者正交，互不可替。Dev 起草、Tech Lead 在 Gate 2 确认。
 # status=baseline 须人类确认；整份经 Tech Lead 在 Gate 2 签 Gate 2 Approved，结果记入 approved_by / approved_at（Harness 可据此校验非空才放行）。
+
+# ── 版本历史（方案 A，依据 SDIE-Spec-Guide.md §6.5；不进 frontmatter 顶层字段）──
+# 与状态机 §6.2、SemVer §6.3 协同；权威溯源见 0-References/changelog.md
+# | 版本 | 日期 | 变更摘要 | 关联 ADR |
+# | 1.0.0 | 2026-08-06 | 初始 baseline：原子分解 + 依赖 DAG 定稿，过 Gate 2 | — |
+# | 2.0.0 | 2026-08-20 | MAJOR：并发超卖防护改为人类先写骨架(agent_assignable=false) | ADR-0015 |
