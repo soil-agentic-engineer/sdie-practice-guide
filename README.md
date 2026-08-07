@@ -1,4 +1,4 @@
-# SDIE 知识库（sdie-knowledge-base）
+# SDIE 工程实践指南（SDIE practice guide）
 
 > 一套面向 **AI Coding（人机协作编程）** 的工程阶段框架与治理模型。
 > 核心命题不是"怎么把代码写得更快"，而是"当代码能被 AI 秒级生成时，**人类把判断权握在手里**"。
@@ -19,7 +19,7 @@
 ## 目录结构
 
 ```
-sdie-knowlege-base/
+sdie-practice-guide/
 ├── overview.md                  # 工程总览（本文的延伸阅读）
 ├── SDIE-Analysis.md             # 什么是 SDIE — 详细分析（定义/阶段/角色/不可委托/门禁）
 ├── SDIE-RACI-Matrix.md          # 7 人类 / 12 Agent 的权威 RACI 明细 + 不可委托清单（唯一权威基准）
