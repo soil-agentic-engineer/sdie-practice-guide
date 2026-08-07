@@ -116,6 +116,8 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 Implement 阶段的产出物（引自 §3.3 / §3.5.3 / §4）共六类，均需在 frontmatter 挂七字段
 （id / title / status / phase / owner / related_docs / last_updated，见 §7）：
 
+> 载体格式遵循**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：人类契约型（Review 建议、Case Delta 报告）用 Markdown + frontmatter；机器规格型（行为清单、测试代码、Harness 配置）用 YAML。
+
 | 材料 | 主要作者（R） | 问责者（A） | 关键读者（C/I） | 落位（参考） |
 |------|--------------|------------|----------------|-------------|
 | **实现代码 + 自验结果** | Coding Agent（R） | PO（⑦）/ QA（④·验证） | Reviewer（④·签字）、Dev(R)、Tech Lead(R) | `src/` + PR |

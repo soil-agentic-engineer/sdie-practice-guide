@@ -173,6 +173,9 @@ Dev 起草 TASK-*.yaml（R）
 <a id="sec-4"></a>
 ## 四 产出物：字段级内容（按执行顺序）
 
+> **模板格式选型原则（Markdown vs YAML）**：Spec 产出物遵循**全局原则**（详见 `SDIE-Analysis.md` §8.1）——按「消费者类型」决定载体格式：人类契约型（PRD、用户故事地图、`acceptance_criteria`）用 **Markdown + frontmatter 七字段**；机器规格型（`TASK-*.yaml`）用 **YAML**。
+> 核心：**纯 YAML 仅限机器消费型规格，不应用于人类契约型文档**（PRD 转纯 YAML 收益低、牺牲人类对齐价值）。
+
 Spec 阶段的产出物共四类，均需在 frontmatter 挂七字段（见 [§6.1](#sec-6-1)）。
 
 > 四类材料不是平铺的"四份独立文件"，而是**同一意图的不同抽象层**——PRD 是业务层、

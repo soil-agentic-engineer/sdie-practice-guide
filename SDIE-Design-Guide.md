@@ -118,6 +118,8 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在 frontmatter 挂七字段
 （id / title / status / phase / owner / related_docs / last_updated，见 §7）：
 
+> 载体格式遵循**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：人类契约型文档（ADR、测试策略、上下文注入、安全设计点）用 Markdown + frontmatter；机器规格型（Decomposition）用纯 YAML。
+
 | 材料 | 主要作者（R） | 问责者（A） | 关键读者（C/I） | 落位（参考） |
 |------|--------------|------------|----------------|-------------|
 | **ADR**（架构决策记录） | Tech Lead（R，Design Agent 起草草稿） | Tech Lead（A，②） | Dev(C)、QA(C)、安全(C)、Reviewer(I) | `docs/design/` |
@@ -172,7 +174,7 @@ Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在
 
 ### 6.2 原子分解方案（Decomposition）
 
-> 规范格式见 `2-Design/Decomposition-template.yml`（纯 YAML 单文档，供 Coding Agent / Harness 程序化消费；字段说明以 YAML 行内注释承载，即"方案 A"风格）。
+> 规范格式见 `2-Design/Decomposition-template.yml`（纯 YAML 单文档，供 Coding Agent / Harness 程序化消费；字段说明以 YAML 行内注释承载，即"方案 A"风格）。其选型依据见**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：机器规格型文档用 YAML。
 
 | 字段 | 必填 | 说明 | 示例 |
 |------|------|------|------|
