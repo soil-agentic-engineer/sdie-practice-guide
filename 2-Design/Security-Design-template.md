@@ -7,7 +7,7 @@ status: draft
 phase: Design
 owner: security-<名>       # 安全 / 红队（C，判定权 ⑤）
 related_docs:
-  - ADR-DESIGN-000
+  - SDIE-Design-Guide.md
 last_updated: 2026-08-06
 ```
 

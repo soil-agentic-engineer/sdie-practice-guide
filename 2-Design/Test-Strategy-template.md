@@ -8,7 +8,6 @@ phase: Design
 owner: qa-<名>              # 测试架构师 / QA（C，草案）
 related_docs:
   - SDIE-Design-Guide.md
-  - ADR-DESIGN-000
 last_updated: 2026-08-06
 ```
 

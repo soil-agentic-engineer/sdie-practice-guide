@@ -11,7 +11,6 @@ meta:
   owner: dev-<名>                 # 开发工程师 Task Owner (R)；起草人，非审批人（审批人见 approval:）
   related_docs:                   # 关联文档；TASK-<feature>.yaml 为必须项（契约源头）
     - TASK-<feature>.yaml         # 上游 task-spec（why/what/out 契约），本方案为其分解
-    - ADR-DESIGN-000              # 架构决策记录
     - Context-Injection-<feature>.md  # 上下文注入策略；context_scope 须与之对齐
   last_updated: 2026-08-06        # 最后更新日期（YYYY-MM-DD）
 

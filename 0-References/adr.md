@@ -14,7 +14,7 @@ ADR 是一篇简短、聚焦的文档，记录一项架构决策：背景（Cont
 - **Consequences**：带来的正 / 负后果与权衡
 
 ## 在 SDIE 中的用法
-- Design 阶段产出 ADR（如 `ADR-DESIGN-000`），由 Tech Lead 定稿（② 不可委托）。
+- Design 阶段产出 ADR（如 `ADR-DESIGN-<NNN>`），由 Tech Lead 定稿（② 不可委托）。
 - Decomposition 的 `related_docs` 回溯对应 ADR，保证原子任务与架构决策一致。
 - ADR 状态机与文档状态机呼应：被取代的 ADR 标 Superseded。
 

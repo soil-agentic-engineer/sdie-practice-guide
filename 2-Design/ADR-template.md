@@ -1,7 +1,7 @@
 ## 元信息（meta）
 
 ```yaml
-id: ADR-DESIGN-000
+id: ADR-DESIGN-<NNN>
 title: <架构决策标题>
 status: draft            # draft → review → baseline → change → superseded
 phase: Design
@@ -12,7 +12,7 @@ related_docs:
 last_updated: 2026-08-06
 ```
 
-# ADR-DESIGN-000：<架构决策标题>
+# ADR-DESIGN-<NNN>：<架构决策标题>
 
 > **红线**：ADR 的 Status / Decision 由 **Tech Lead 定稿（不可委托 ②）**，Design Agent 仅可起草；
 > ADR 不可原地涂改，替代时标 `Superseded by`。本文件是 Design 阶段 Gate 2 的核心证据。
