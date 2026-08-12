@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: ADR-DESIGN-000
 title: <架构决策标题>
 status: draft            # draft → review → baseline → change → superseded
@@ -8,7 +10,7 @@ related_docs:
   - SDIE-Design-Guide.md
   - TASK-<feature>.yaml
 last_updated: 2026-08-06
----
+```
 
 # ADR-DESIGN-000：<架构决策标题>
 

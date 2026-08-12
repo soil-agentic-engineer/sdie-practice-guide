@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: RELEASE-DECISION-<ITER>
 title: <项目>发布决策与回滚预案
 status: review
@@ -8,7 +10,7 @@ related_docs:
   - QUALITY-DASH-<ITER>
   - ADR-<release>
 last_updated: 2026-08-06
----
+```
 
 # 发布决策与回滚预案：<项目>
 
@@ -37,7 +39,7 @@ last_updated: 2026-08-06
 
 ## 版本历史（方案 A，依据 SDIE-Spec-Guide.md §6.5）
 
-> 不进 frontmatter（七字段不变）；版本号遵循 §6.3 SemVer。权威溯源见 `0-References/changelog.md`。
+> 不进元信息七字段（七字段不变）；版本号遵循 §6.3 SemVer。权威溯源见 `0-References/changelog.md`。
 
 | 版本 | 日期 | 变更摘要 | 关联 ADR |
 |------|------|----------|----------|

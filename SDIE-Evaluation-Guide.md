@@ -116,10 +116,10 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 
 ## 4. 输出材料清单
 
-Evaluation 阶段的产出物（引自 §3.4 / §3.5.4 / §4）共七类，均需在 frontmatter 挂七字段
+Evaluation 阶段的产出物（引自 §3.4 / §3.5.4 / §4）共七类，均需在正文第 1 节「元信息」挂七字段
 （id / title / status / phase / owner / related_docs / last_updated，见 §7）：
 
-> 载体格式遵循**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：人类契约型（发布决策、质量看板、业务价值确认、回顾）用 Markdown + frontmatter；本阶段多为人类决策文档，少有机器规格型。
+> 载体格式遵循**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：人类契约型（发布决策、质量看板、业务价值确认、回顾）用 Markdown、第 1 节「元信息」七字段；本阶段多为人类决策文档，少有机器规格型。
 
 | 材料 | 主要作者（R） | 问责者（A） | 关键读者（C/I） | 落位（参考） |
 |------|--------------|------------|----------------|-------------|
@@ -202,14 +202,20 @@ Evaluation 阶段的产出物（引自 §3.4 / §3.5.4 / §4）共七类，均�
 ### 6.5 能力指标报告（Eval Agent 产出）
 
 ```yaml
-id: EVAL-CAP-001
-title: Agent 能力指标-购物车迭代
+meta:
+  id: EVAL-CAP-001
+  title: Agent 能力指标-购物车迭代
+  status: review
+  phase: Evaluation
+  owner: eval-agent
+  related_docs:
+    - QUALITY-DASH-001
+  last_updated: 2026-08-06
 metrics:
   hallucination_rate: 0.03      # 幻觉率
   task_accuracy: 0.94           # 任务准确率
   guardrail_pass_rate: 0.97     # 护栏通过率
   coverage_of_ac: 1.0           # 验收标准覆盖
-reviewed_by: QA / Tech Lead
 ```
 
 ### 6.6 回顾 / Retrospective
@@ -225,9 +231,9 @@ reviewed_by: QA / Tech Lead
 
 ## 7. 版本化 / 迭代 / 变更管理
 
-Evaluation 材料沿用 Spec/Design/Implement 指南 §7 的三层机制（frontmatter 七字段 + 状态机 + SemVer + ADR + Git 闭环），并补充阶段专属门槛。
+Evaluation 材料沿用 Spec/Design/Implement 指南 §7 的三层机制（元信息七字段 + 状态机 + SemVer + ADR + Git 闭环），并补充阶段专属门槛。
 
-### 7.1 frontmatter 七字段（所有 Evaluation 材料挂此元数据）
+### 7.1 元信息七字段（所有 Evaluation 材料第 1 节挂此元数据）
 同 Spec 指南 §7.1：`id / title / status / phase / owner / related_docs / last_updated`。
 
 ### 7.2 文档状态机（status 字段取值与流转）
@@ -296,10 +302,10 @@ Evaluation 中出现的发布策略/回滚标准/Harness 调整若影响基线�
 ## 9. 五问一句话总结
 
 - **① 工作**：QA 主导质量度量+发布决策与回滚预案（R/A，⑧）→ 安全对抗演练与合规结论（C，⑤）→ PM 业务价值确认（C，非 A）→ Reviewer 回顾推动 Harness 迭代（C）→ Tech Lead 监督 Harness 更新（C，⑩）→ Dev/SME 知会（I）。
-- **② 材料**：质量看板、发布决策+回滚预案、对抗演练报告、合规结论、业务价值确认、能力指标报告、回顾七类，均挂 frontmatter 七字段。
+- **② 材料**：质量看板、发布决策+回滚预案、对抗演练报告、合规结论、业务价值确认、能力指标报告、回顾七类，均挂元信息七字段（MD 第 1 节 / YAML `meta:` 块）。
 - **③ 方法论**：空间已定义（⑧ 发布 QA 担、⑤ 安全 human-only、⑩ Harness human-only、PM 降 C）；权威推荐补足（DORA / Mutation Testing / Chaos Engineering / Red Teaming / Postmortem / LLM Eval）。
 - **④ 内容**：见 §6 字段级示例——质量看板(DORA+变异分)、发布决策(质量触发+回滚标准)、对抗报告、业务价值确认、能力指标 yaml、回顾。
-- **⑤ 版本化**：frontmatter 七字段 + status 状态机（baseline 才能过 Gate 4）+ SemVer + ADR + Git 发布闭环（⑧ 发布 A 归 QA）。
+- **⑤ 版本化**：元信息七字段 + status 状态机（baseline 才能过 Gate 4）+ SemVer + ADR + Git 发布闭环（⑧ 发布 A 归 QA）。
 
 ---
 

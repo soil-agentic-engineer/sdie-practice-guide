@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: QUALITY-DASH-<ITER>
 title: <项目>-<迭代>质量看板
 status: review
@@ -8,7 +10,7 @@ related_docs:
   - RELEASE-DECISION-<ITER>
   - SDIE-Evaluation-Guide.md
 last_updated: 2026-08-06
----
+```
 
 # 质量看板：<项目>-<迭代>
 

@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: REVIEW-<TASK-ID>
 title: <功能>Review 清单（④·签字 依据）
 status: review
@@ -8,7 +10,7 @@ related_docs:
   - PR-<TASK-ID>
   - CASE-DELTA-<TASK-ID>
 last_updated: 2026-08-06
----
+```
 
 # Review 清单：<功能>（<TASK-ID>）
 

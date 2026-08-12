@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: GATE3-<TASK-ID>
 title: <功能>Gate 3 准入自检
 status: review
@@ -8,7 +10,7 @@ related_docs:
   - PR-<TASK-ID>
   - REVIEW-<TASK-ID>
 last_updated: 2026-08-06
----
+```
 
 # Gate 3 准入自检：<功能>（<TASK-ID>）
 

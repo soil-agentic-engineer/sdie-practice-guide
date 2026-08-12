@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: BIZVALUE-<ITER>
 title: <项目>业务价值确认
 status: review
@@ -8,7 +10,7 @@ related_docs:
   - PRD-<feature>
   - RELEASE-DECISION-<ITER>
 last_updated: 2026-08-06
----
+```
 
 # 业务价值确认：<项目>
 

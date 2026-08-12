@@ -127,14 +127,14 @@ SDIE 对 RACI 的关键改造：**A（批准权）严格由人类承担，Agent 
 
 > **原则（全局，跨四阶段）**：SDIE 所有阶段产出物的载体格式，**由「消费者类型」决定，而非所处阶段**。
 >
-> - **Markdown + frontmatter 七字段** → **人类契约型文档**：消费者为 PM / SME / 业务方 / QA / Reviewer 等人类，需可读、可评审、可叙事论证；机器可校验元数据由 frontmatter 承载（docs-as-code「元数据 / 正文分离」）。
-> - **YAML（纯 YAML 单文档或 YAML 块）** → **机器规格型文档**：消费者为 Coding Agent / Harness，需程序化解析原子字段、依赖 DAG、Gate 自动校验。
+> - **人类契约型文档（Markdown）**：消费者为 PM / SME / 业务方 / QA / Reviewer 等人类，需可读、可评审、可叙事论证；**第 1 节为「元信息」七字段**（id / title / status / phase / owner / related_docs / last_updated），元数据独立成节、与正文同文呈现。
+> - **机器规格型文档（YAML）**：消费者为 Coding Agent / Harness，需程序化解析原子字段、依赖 DAG、Gate 自动校验；**`meta:` 块下挂七字段**（同七字段），其余业务字段归入语义分组键（如 `spec:` / `plan:` / `checklist:` / `metrics:`），与规格主体分离。
 >
 > 两类互补、不互相外溢：**纯 YAML 仅限机器消费型规格，不应用于人类契约型文档**（如 PRD 转纯 YAML 收益低、牺牲人类对齐价值）。
 
 **四阶段实例映射**（各阶段 §4 产出物均遵循本原则）：
 
-| 阶段 | 人类契约型（→ MD + frontmatter） | 机器规格型（→ YAML） |
+| 阶段 | 人类契约型（→ MD，第 1 节元信息） | 机器规格型（→ YAML，`meta:` 块下挂七字段 + 业务分组键） |
 |------|-------------------------------|---------------------|
 | Spec | PRD、用户故事地图、`acceptance_criteria` | `TASK-*.yaml` |
 | Design | ADR、测试策略、上下文注入策略、安全设计点 | `Decomposition-*.yml` |

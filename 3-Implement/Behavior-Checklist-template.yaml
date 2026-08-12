@@ -1,36 +1,37 @@
----
-id: BC-<TASK-ID>
-title: <功能>行为清单
-status: review
-phase: Implement
-owner: test-designer-<名>   # Test Designer（◐，R 侧）
-related_docs:
-  - TASK-<feature>.yaml
-  - AC-<feature>.md
-last_updated: 2026-08-06
----
+# <功能>行为清单（Behavior Checklist，纯 YAML，供 Coding Agent / Harness 消费）
+# 本清单定义"验什么"，是 ④·验证 的证据起点。
+# 作者 Test Designer（◐，R 侧）；问责 QA / Reviewer。
+# 七字段挂在 meta: 块下；行为明细归入 checklist: 分组键。
 
-# <功能>行为清单（Behavior Checklist）
+meta:
+  id: BC-<TASK-ID>
+  title: <功能>行为清单
+  status: review
+  phase: Implement
+  owner: test-designer-<名>   # Test Designer（◐，R 侧）
+  related_docs:
+    - TASK-<feature>.yaml
+    - AC-<feature>.md
+  last_updated: 2026-08-06
 
-> **作者**：Test Designer（◐）；**问责**：QA / Reviewer。定义"验什么"，是 ④·验证 的证据起点。
-> 每条 behavior 必须对应 Spec 阶段 `acceptance_criteria` 编号，禁止自创验收语义。
+checklist:
+  # 每条 behavior 必须对应 Spec 阶段 `acceptance_criteria` 编号，禁止自创验收语义。
+  behaviors:
+    - id: B1
+      given: 库存>0，已登录用户
+      when: 点击"加入购物车"
+      then: 购物车+1，返回 200，展示 toast
+      maps_to: AC-1
+    - id: B2
+      given: 库存=0
+      when: 点击"加入购物车"
+      then: 按钮禁用，返回 409，无写操作
+      maps_to: AC-2
+    - id: B3
+      given: 并发加购同一商品
+      when: 多请求同时到达
+      then: 库存不超卖，最终一致
+      maps_to: AC-红卡（并发边界）
 
-behaviors:
-  - id: B1
-    given: 库存>0，已登录用户
-    when: 点击"加入购物车"
-    then: 购物车+1，返回 200，展示 toast
-    maps_to: AC-1
-  - id: B2
-    given: 库存=0
-    when: 点击"加入购物车"
-    then: 按钮禁用，返回 409，无写操作
-    maps_to: AC-2
-  - id: B3
-    given: 并发加购同一商品
-    when: 多请求同时到达
-    then: 库存不超卖，最终一致
-    maps_to: AC-红卡（并发边界）
-
-coverage_note: >
-  B1/B2 覆盖 AC-1/AC-2；B3 覆盖并发红卡，须 Implement 处理并在测试报告中体现。
+  coverage_note: >
+    B1/B2 覆盖 AC-1/AC-2；B3 覆盖并发红卡，须 Implement 处理并在测试报告中体现。

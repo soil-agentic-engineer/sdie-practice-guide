@@ -6,7 +6,7 @@
 2. 输出哪些材料（§4：PRD、用户故事地图、acceptance_criteria、TASK-*.yaml）
 3. 可用什么方法论（§5：空间已定义 + 权威推荐双层映射）
 4. 材料字段级内容（§6：含正反例、Gherkin、TASK-*.yaml 模板）
-5. 如何版本化迭代管理（§7：frontmatter 七字段 + 状态机 + SemVer + ADR + Git 约定）
+5. 如何版本化迭代管理（§7：元信息七字段 + 状态机 + SemVer + ADR + Git 约定）
 
 ## 关键纪律
 - 所有 SDIE 事实仅取自工作空间 `SDIE-RACI-Matrix.md`（7/12 治理版）与 `SDIE-Analysis.md`，可回溯到具体章节。

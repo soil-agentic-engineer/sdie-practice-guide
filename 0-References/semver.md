@@ -1,7 +1,7 @@
 # SemVer 2.0.0 — 语义化版本
 
 > 引用来源：SemVer 官方规范 https://semver.org/lang/zh-CN/ （作者 Tom Preston-Werner，初始版本 2013）
-> 在 SDIE 中引用位置：各阶段指南 §7「版本化」、README「通用约定」、frontmatter `last_updated` 配套
+> 在 SDIE 中引用位置：各阶段指南 §7「版本化」、README「通用约定」、元信息 `last_updated` 配套
 > 用途：为 SDIE 所有阶段产出物（PRD / TASK / DECOMP / ADR / 报告）提供统一的版本号语义。
 
 ## 定义

@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: TEST-STRATEGY-<FEATURE>
 title: <功能>测试策略与门禁阈值草案
 status: draft
@@ -8,7 +10,7 @@ related_docs:
   - SDIE-Design-Guide.md
   - ADR-DESIGN-000
 last_updated: 2026-08-06
----
+```
 
 # <功能>测试策略与门禁阈值草案
 

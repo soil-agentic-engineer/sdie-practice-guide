@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: CASE-DELTA-<TASK-ID>
 title: <功能>Case Delta 报告（测试删/禁用审计）
 status: review
@@ -7,7 +9,7 @@ owner: dev-<名>            # 开发工程师（R）；授权人=提交 trailer 
 related_docs:
   - PR-<TASK-ID>
 last_updated: 2026-08-06
----
+```
 
 # Case Delta 报告：<功能>（<TASK-ID>）
 

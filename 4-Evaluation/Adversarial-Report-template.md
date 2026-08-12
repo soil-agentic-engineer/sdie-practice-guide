@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: REDTEAM-<ITER>
 title: <项目>对抗演练与合规结论
 status: review
@@ -8,7 +10,7 @@ related_docs:
   - SEC-DESIGN-<feature>
   - RELEASE-DECISION-<ITER>
 last_updated: 2026-08-06
----
+```
 
 # 对抗演练与合规结论：<项目>
 

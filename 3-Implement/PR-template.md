@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: PR-<TASK-ID>
 title: <功能>实现 PR
 status: review             # draft → review → baseline → change → superseded
@@ -8,7 +10,7 @@ related_docs:
   - TASK-<feature>.yaml
   - DECOMP-<feature>-001
 last_updated: 2026-08-06
----
+```
 
 # PR：<功能>实现（<TASK-ID>）
 

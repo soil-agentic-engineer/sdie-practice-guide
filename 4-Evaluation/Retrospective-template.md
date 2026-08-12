@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: RETRO-<ITER>
 title: <项目>迭代回顾
 status: review
@@ -8,7 +10,7 @@ related_docs:
   - RELEASE-DECISION-<ITER>
   - EVAL-CAP-<ITER>
 last_updated: 2026-08-06
----
+```
 
 # 迭代回顾（Retrospective）：<项目>
 

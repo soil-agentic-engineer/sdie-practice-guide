@@ -113,10 +113,10 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 
 ## 4. 输出材料清单
 
-Implement 阶段的产出物（引自 §3.3 / §3.5.3 / §4）共六类，均需在 frontmatter 挂七字段
+Implement 阶段的产出物（引自 §3.3 / §3.5.3 / §4）共六类，均需在正文第 1 节「元信息」挂七字段
 （id / title / status / phase / owner / related_docs / last_updated，见 §7）：
 
-> 载体格式遵循**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：人类契约型（Review 建议、Case Delta 报告）用 Markdown + frontmatter；机器规格型（行为清单、测试代码、Harness 配置）用 YAML。
+> 载体格式遵循**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：人类契约型（Review 建议、Case Delta 报告）用 Markdown、第 1 节「元信息」七字段；机器规格型（行为清单、测试代码、Harness 配置）用 YAML、`meta:` 块下挂七字段，其余业务字段归入分组键（如 `checklist:`）。
 
 | 材料 | 主要作者（R） | 问责者（A） | 关键读者（C/I） | 落位（参考） |
 |------|--------------|------------|----------------|-------------|
@@ -223,9 +223,9 @@ coverage_note: B1/B2 覆盖 AC-1/AC-2；并发超卖见 AC 红卡，留 Implemen
 
 ## 7. 版本化 / 迭代 / 变更管理
 
-Implement 材料沿用 Spec/Design 指南 §7 的三层机制（frontmatter 七字段 + 状态机 + SemVer + ADR + Git 闭环），并补充阶段专属门槛。
+Implement 材料沿用 Spec/Design 指南 §7 的三层机制（元信息七字段 + 状态机 + SemVer + ADR + Git 闭环），并补充阶段专属门槛。
 
-### 7.1 frontmatter 七字段（所有 Implement 材料挂此元数据）
+### 7.1 元信息七字段（所有 Implement 材料第 1 节挂此元数据）
 同 Spec 指南 §7.1：`id / title / status / phase / owner / related_docs / last_updated`。
 
 ### 7.2 文档/PR 状态机（status 字段取值与流转）
@@ -292,10 +292,10 @@ Implement 中出现的架构/测试策略/安全策略调整若影响基线，�
 ## 9. 五问一句话总结
 
 - **① 工作**：Dev 注入上下文+审 Agent 输出+自验（R，⑨）→ Tech Lead 技术把关（R）→ 安全评估风险（C，⑤）→ QA 建正确性证据（A，④·验证）→ Reviewer 技术批准签字（A，④·签字）→ PO 收货合并（A，⑦）→ SME 知会（I）。
-- **② 材料**：实现代码+自验、行为清单、测试代码、测试报告/覆盖率、Review 建议、Case Delta 报告六类，均挂 frontmatter 七字段。
+- **② 材料**：实现代码+自验、行为清单、测试代码、测试报告/覆盖率、Review 建议、Case Delta 报告六类，均挂元信息七字段（MD 第 1 节 / YAML `meta:` 块）。
 - **③ 方法论**：空间已定义（④ 验证/签字 human-only、⑤ 安全 human-only、⑥ commit trailer 授权、⑨ 越级拦截）；权威推荐补足（TDD / Test Pyramid / Mutation Testing(PITest) / Conventional Commits / Trunk-based / Google Review）。
 - **④ 内容**：见 §6 字段级示例——PR+trailer、行为清单、测试报告(含变异分)、Review 清单、Case Delta 报告。
-- **⑤ 版本化**：frontmatter 七字段 + status 状态机（baseline 才能过 Gate 3）+ SemVer + ADR + Git 三 A 串联变更闭环。
+- **⑤ 版本化**：元信息七字段 + status 状态机（baseline 才能过 Gate 3）+ SemVer + ADR + Git 三 A 串联变更闭环。
 
 ---
 

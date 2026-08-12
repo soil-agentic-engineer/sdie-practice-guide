@@ -5,7 +5,7 @@
 > 当知识不在工作空间内时，须经由权威渠道（官方文档 / 标准组织 / 原作者论著）取得并标注出处。
 
 ## 本目录的定位
-- **不是 SDIE 的阶段产出物**：本目录文档**不挂 frontmatter 七字段**，而用「引用来源」元数据块，以明确区分"外部权威知识"与"空间内 SDIE 约定"。
+- **不是 SDIE 的阶段产出物**：本目录文档**不挂元信息七字段**，而用「引用来源」元数据块，以明确区分"外部权威知识"与"空间内 SDIE 约定"。
 - **是引用溯源中枢**：每份方法文档记录其官方定义、核心要素、在 SDIE 中的用法、以及权威出处，便于回溯与复核。
 - **随引用增长而扩充**：每当 SDIE 指南 / 模板引用新的外部方法，应在此补一份同格式文档，并在下方索引登记。
 
@@ -27,7 +27,7 @@
 | Risk Matrix（概率×影响） | 风险管理 | PMBOK 7th / ISO 31000:2018 | Decomposition 讨论（task `risk` 字段） |
 | Agent Task Complexity（L1–L5 可执行性分级） | 任务复杂度分级 | Temporal L1–L5 / SWE-bench 结构因子 / Parasuraman LOA | Decomposition 讨论（task `estimated_complexity` 字段） |
 | Spec 阶段方法集（Impact Mapping / User Story Mapping / INVEST / BDD-Gherkin / Spec-by-Example / Event Storming） | 需求 / 规格方法论 | Adzic / Patton / Wake / North / Brandolini | SDIE-Spec-Guide §5 |
-| Docs-as-Code（YAML frontmatter） | 文档工程 | Jekyll / Hugo / MkDocs 生态 | SDIE-Spec-Guide §6.1（frontmatter 载体） |
+| Docs-as-Code（YAML 元数据块） | 文档工程 | Jekyll / Hugo / MkDocs 生态 | SDIE-Spec-Guide §6.1（元信息载体） |
 | Git / Conventional Commits / trunk-based | 版本控制约定 | Git / conventionalcommits.org / P. Hammant | 各阶段指南 §7、README「通用约定」 |
 | CHANGELOG / 版本变化说明（Keep a Changelog） | 版本化配套 | O. Lacan, 2016 (keepachangelog.com) / IEEE 828-2012 变更记录 | SDIE-Spec-Guide §6.5（方案 A）、0-References/changelog.md |
 

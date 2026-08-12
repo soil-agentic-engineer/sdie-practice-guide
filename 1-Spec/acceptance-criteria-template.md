@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: AC-<FEATURE>-001
 title: 验收标准集：<功能名>
 status: draft
@@ -8,7 +10,7 @@ related_docs:
   - PRD-<feature>.md
   - TASK-<feature>.yaml
 last_updated: 2026-08-06
----
+```
 
 # 验收标准集（acceptance_criteria）：<功能名>
 

@@ -7,7 +7,7 @@ owner: PM/PO（产品负责人）
 related_docs:
   - SDIE-RACI-Matrix.md
   - SDIE-Analysis.md
-last_updated: 2026-08-08
+last_updated: 2026-08-12
 ---
 
 # SDIE Spec 阶段工作指南
@@ -45,7 +45,7 @@ last_updated: 2026-08-08
   - [5.1 方法论总表（空间已定义 vs 权威推荐）](#sec-5-1)
   - [5.2 优先级标注操作手册（MoSCoW + KANO）](#sec-5-2)
 - [六 版本化 / 迭代 / 变更管理](#sec-6)
-  - [6.1 frontmatter 七字段](#sec-6-1)
+  - [6.1 元信息七字段](#sec-6-1)
   - [6.2 文档状态机](#sec-6-2)
   - [6.3 SemVer 版本号](#sec-6-3)
   - [6.4 ADR 决策记录](#sec-6-4)
@@ -173,14 +173,14 @@ Dev 起草 TASK-*.yaml（R）
 <a id="sec-4"></a>
 ## 四 产出物：字段级内容（按执行顺序）
 
-> **模板格式选型原则（Markdown vs YAML）**：Spec 产出物遵循**全局原则**（详见 `SDIE-Analysis.md` §8.1）——按「消费者类型」决定载体格式：人类契约型（PRD、用户故事地图、`acceptance_criteria`）用 **Markdown + frontmatter 七字段**；机器规格型（`TASK-*.yaml`）用 **YAML**。
-> 核心：**纯 YAML 仅限机器消费型规格，不应用于人类契约型文档**（PRD 转纯 YAML 收益低、牺牲人类对齐价值）。
+> **模板格式选型原则（Markdown vs YAML）**：Spec 产出物遵循**全局原则**（详见 `SDIE-Analysis.md` §8.1）——按「消费者类型」决定载体格式：人类契约型（PRD、用户故事地图、`acceptance_criteria`）用 **Markdown、第 1 节「元信息」七字段**；机器规格型（`TASK-*.yaml`）用 **YAML、`meta:` 块下挂七字段，其余业务字段归入分组键（如 `spec:`）**。
+> 核心：**纯 YAML 仅限机器消费型规格，不应用于人类契约型文档**（PRD 转纯 YAML 收益低、牺牲人类对齐价值）。YAML 模板的七字段统一挂在 `meta:` 块下，其余业务字段归入语义分组键（如 `spec:`）。
 
-Spec 阶段的产出物共四类，均需在 frontmatter 挂七字段（见 [§6.1](#sec-6-1)）。
+Spec 阶段的产出物共四类，均需在正文第 1 节「元信息」挂七字段（见 [§6.1](#sec-6-1)）。
 
 > 四类材料不是平铺的"四份独立文件"，而是**同一意图的不同抽象层**——PRD 是业务层、
 > 故事地图是用户旅程层、`acceptance_criteria` 是验证层、`TASK-*.yaml` 是执行层。
-> 它们通过 frontmatter 的 `related_docs` 互相链接，形成可追溯的 Spec 包。
+> 它们通过元信息的 `related_docs` 互相链接，形成可追溯的 Spec 包。
 
 **产出物总览**（引自 `SDIE-RACI-Matrix.md` §3.1 / §3.5.1 / §4）：
 
@@ -198,7 +198,7 @@ Spec 阶段的产出物共四类，均需在 frontmatter 挂七字段（见 [§6
 
 > **执行步骤**：§3.2 #1（PM/PO 起草，R）→ #5（PM/PO 定稿，A）
 
-`frontmatter` 七字段见 [§6.1](#sec-6-1)。正文建议结构：
+`元信息` 七字段见 [§6.1](#sec-6-1)。正文建议结构：
 
 ```
 # PRD：<功能名>
@@ -223,9 +223,11 @@ Spec 阶段的产出物共四类，均需在 frontmatter 挂七字段（见 [§6
 
 | 层级 | 字段 | 说明 |
 |------|------|------|
-| Backbone | `activity` | 主干活动（左→右时序），如"浏览→加购→结算→管理订单" |
+| Backbone | `actor` | 用户视角（来自 PRD §3 的 Actors），地图围绕该用户旅程构建 |
+| | `activity` | 主干活动（左→右时序），如"浏览→加购→结算→管理订单" |
 | | `step` | 活动下的用户任务，如"加购"下的"查看加购按钮/点击加购" |
-| Details | `story` | 实现细节，高优先置顶、低优先置底 |
+| Details | `story` | 实现细节，高优先置顶、低优先置底；每条 story 标注挂接的 backbone 步骤，并过 INVEST 校验 |
+| | `impact` | 支撑的 PRD §4 Impact（IMP-x）；未挂 impact 的 story 视为范围外候选（见 PRD §2） |
 | Release slices | `release` | 横向分割线，MVP 在顶部，未来增强在底部 |
 | Out-of-scope | `deferred` | 明确"暂不做"的项，单独区放置 |
 
@@ -273,25 +275,26 @@ Feature: 加入购物车
 >（见 `SDIE-RACI-Matrix.md` §3.5.1 #6 / §4 Spec Agent 落位）。
 
 ```yaml
-id: TASK-CART-001
-title: 购物车加入商品接口
-# ---- frontmatter 七字段 ----
-status: draft            # draft → review → baseline → change → superseded
-phase: Spec
-owner: dev-zhang         # Task Owner
-related_docs:
-  - PRD-checkout-2026-08.md
-  - AC-cart.md
-last_updated: 2026-08-05
-# ---- 人类强制手写核心三字段 ----
-why: 购物车放弃率高，需在详情页提供一键加购以降低流失   # 业务动机，人类写
-what: 提供 POST /cart/add 接口，入参 sku+qty，出参购物车快照 # 做什么，人类写
-out: 加购成功返回 200 + 购物车快照；库存不足返回 409      # 期望产出/验收，人类写
-# ---- Agent 可补草稿（需人类审核）----
-agent_hint: 参考现有 order 服务的事务写法；注意并发库存校验
-context_sources:
-  - src/checkout/CartService.java
-  - docs/design/cart-ADR-003.md
+meta:
+  id: TASK-CART-001
+  title: 购物车加入商品接口
+  status: draft            # draft → review → baseline → change → superseded
+  phase: Spec
+  owner: dev-zhang         # Task Owner
+  related_docs:
+    - PRD-checkout-2026-08.md
+    - AC-cart.md
+  last_updated: 2026-08-05
+spec:
+  # ---- 人类强制手写核心三字段 ----
+  why: 购物车放弃率高，需在详情页提供一键加购以降低流失   # 业务动机，人类写
+  what: 提供 POST /cart/add 接口，入参 sku+qty，出参购物车快照 # 做什么，人类写
+  out: 加购成功返回 200 + 购物车快照；库存不足返回 409      # 期望产出/验收，人类写
+  # ---- Agent 可补草稿（需人类审核）----
+  agent_hint: 参考现有 order 服务的事务写法；注意并发库存校验
+  context_sources:
+    - src/checkout/CartService.java
+    - docs/design/cart-ADR-003.md
 ```
 
 <a id="sec-4-5"></a>
@@ -339,7 +342,7 @@ context_sources:
 | 验收"可测性"把关 | 【空间已定义】QA 在 Gate 1 作为 C 把关 acceptance-testability | 【空间已定义】 | `SDIE-RACI-Matrix.md` §6 Gate 1 |
 | 版本化 / 迭代 / 变更 | **SemVer 2.0.0** + **ADR**（Architecture Decision Record） | 【权威推荐】 | semver.org；Michael Nygard 2011 |
 
-**原则**：空间已定义的（frontmatter 七字段、why/what/out 人类手写、Gate 1 验收可测把关、不可委托 ①）必须执行；
+**原则**：空间已定义的（元信息七字段、why/what/out 人类手写、Gate 1 验收可测把关、不可委托 ①）必须执行；
 缺口的方法论以权威推荐形式补足，团队可裁剪但需记录在 ADR 中。
 
 <a id="sec-5-2"></a>
@@ -385,7 +388,7 @@ context_sources:
 SDIE 的 Spec 材料通过三层机制实现可追溯、可迭代、可变更：
 
 <a id="sec-6-1"></a>
-### 6.1 frontmatter 七字段（空间约定，所有 Spec 材料挂此元数据）
+### 6.1 元信息七字段（空间约定，所有 Spec 材料第 1 节挂此元数据）
 
 | 字段 | 含义 | 示例 |
 |------|------|------|
@@ -454,7 +457,7 @@ ADR 不可涂改，替代时新建并标 `Superseded by`。落位 `docs/adr/`。
 > **版本历史段落（必填，方案 A）**：每一篇基线化的阶段产出物，须在**正文末尾**维护 `## 版本历史` 段落，
 > 把"版本号"与"该版本的具体变化"钉合——满足 IEEE 828 变更记录要求与 Keep a Changelog 惯例
 > （权威溯源见 [0-References/changelog.md](0-References/changelog.md)）。
-> 本段落**不进 frontmatter**（七字段保持不变），避免每篇元数据膨胀；版本号本身由 [6.3](#sec-6-3) 规范推导。
+> 本段落**不进元信息七字段**（七字段保持不变），避免每篇元数据膨胀；版本号本身由 [6.3](#sec-6-3) 规范推导。
 > 每条记录格式：`| 版本 | 日期 | 变更摘要 | 关联 ADR（可选）|`，与状态机 [6.2](#sec-6-2)、版本号 [6.3](#sec-6-3) 协同。
 >
 > 模板示例（放入文档正文末尾）：
@@ -489,7 +492,7 @@ ADR 不可涂改，替代时新建并标 `Superseded by`。落位 `docs/adr/`。
 
 | # | 检查项 | 对应产出物 / 依据 | 不可委托红线 |
 |---|--------|------------------|--------------|
-| 1 | **Task Spec 完整**：PRD / 用户故事地图 / `acceptance_criteria` / `TASK-*.yaml` 四类齐备，均挂 frontmatter 七字段；`TASK-*.yaml` 的 why/what/out 为人类手写 | `1-Spec/*` 模板；[§4](#sec-4) | ① 业务需求与验收语义拍板（PM/SME） |
+| 1 | **Task Spec 完整**：PRD / 用户故事地图 / `acceptance_criteria` / `TASK-*.yaml` 四类齐备，均挂元信息七字段（MD 第 1 节 / YAML `meta:` 块）；`TASK-*.yaml` 的 why/what/out 为人类手写 | `1-Spec/*` 模板；[§4](#sec-4) | ① 业务需求与验收语义拍板（PM/SME） |
 | 2 | **AGENTS.md 最新**：执行边界承载与最新 RACI 同步，含本任务上下文与不可委托红线 | `AGENTS.md`；[§2.1](#sec-2-1) | ⑩ Harness 维护（Dev+TL） |
 | 3 | **验收可测**：`acceptance_criteria` 具备 Given/When/Then 或正反例，QA 作为 C 确认可测 | `acceptance_criteria`；[§4.3](#sec-4-3) | ① 验收语义拍板（PM/SME） |
 | 4 | **优先级已冻结**：PRD 功能清单逐条双维标注（KANO+MoSCoW+理由+版本），Gate 1 前冻结，无串联决策 | `PRD-template.md` §7；[§5.2](#sec-5-2) | ① 定级签字（PM/A） |
@@ -533,10 +536,10 @@ ADR 不可涂改，替代时新建并标 `Superseded by`。落位 `docs/adr/`。
 ## 九 五问一句话总结
 
 - **① 工作**：PM 起草需求与验收标准（R）→ SME/Tech Lead/QA 评审语义与可行性（C）→ PM 定稿并签 Gate 1（A）→ Dev 起草 TASK-*.yaml（R）；安全/Reviewer 知会（I）。
-- **② 材料**：PRD、用户故事地图、`acceptance_criteria`、`TASK-*.yaml` 四类，均挂 frontmatter 七字段。
-- **③ 方法论**：空间已定义（七字段、why/what/out 人类手写、Gate 1 验收可测把关）；权威推荐补足（Impact Mapping / User Story Mapping / INVEST / BDD / Example Mapping / Job Stories / Event Storming / MoSCoW / KANO）。
+- **② 材料**：PRD、用户故事地图、`acceptance_criteria`、`TASK-*.yaml` 四类，均挂元信息七字段（MD 第 1 节 / YAML `meta:` 块）。
+- **③ 方法论**：空间已定义（元信息七字段、why/what/out 人类手写、Gate 1 验收可测把关）；权威推荐补足（Impact Mapping / User Story Mapping / INVEST / BDD / Example Mapping / Job Stories / Event Storming / MoSCoW / KANO）。
 - **④ 内容**：见 [§4](#sec-4) 字段级示例——PRD 七段、故事地图四层、`acceptance_criteria` 正反例 + Gherkin、TASK-*.yaml 的 why/what/out 强制人类手写。
-- **⑤ 版本化**：frontmatter 七字段 + status 状态机（draft→review→baseline→change→superseded）+ SemVer 版本号 + ADR 决策记录 + Git 基线化变更闭环 + 正文 `## 版本历史` 段落（§6.5，方案 A）。
+- **⑤ 版本化**：元信息七字段 + status 状态机（draft→review→baseline→change→superseded）+ SemVer 版本号 + ADR 决策记录 + Git 基线化变更闭环 + 正文 `## 版本历史` 段落（§6.5，方案 A）。
 
 ---
 

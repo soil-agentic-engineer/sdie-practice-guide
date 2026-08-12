@@ -17,7 +17,7 @@
 - **与提交历史互补**：Git Conventional Commits 可自动生成 CHANGELOG（见 `git-conventions.md`），但文档消费者（PM/SME/QA）未必翻 Git 历史，故文档层须自含变化说明。
 
 ## 在 SDIE 中的用法（方案 A）
-- SDIE 采用**轻量版**：每篇基线化产出物正文末尾维护 `## 版本历史` 段落（Markdown 表格 / YAML 注释），**不进 frontmatter**（七字段不变，避免膨胀）。
+- SDIE 采用**轻量版**：每篇基线化产出物正文末尾维护 `## 版本历史` 段落（Markdown 表格 / YAML 注释），**不进元信息七字段**（七字段不变，避免膨胀）。
 - 每条：`| 版本 | 日期 | 变更摘要 | 关联 ADR |`，与 `SDIE-Spec-Guide.md` §6.2 状态机、§6.3 SemVer 协同。
 - 重大变更挂 ADR（§6.4），版本历史条目链接 ADR，形成"版本号（机器可校验）+ 变化说明（人类/审计）+ ADR（决策溯源）"闭环。
 - YAML 型模板（如 `TASK-*.yaml` / `Decomposition-template.yml`）用注释块承载同等版本历史。

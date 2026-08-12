@@ -115,10 +115,10 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 
 ## 4. 输出材料清单
 
-Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在 frontmatter 挂七字段
+Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在正文第 1 节「元信息」挂七字段
 （id / title / status / phase / owner / related_docs / last_updated，见 §7）：
 
-> 载体格式遵循**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：人类契约型文档（ADR、测试策略、上下文注入、安全设计点）用 Markdown + frontmatter；机器规格型（Decomposition）用纯 YAML。
+> 载体格式遵循**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：人类契约型文档（ADR、测试策略、上下文注入、安全设计点）用 Markdown、第 1 节「元信息」七字段；机器规格型（Decomposition）用纯 YAML、`meta:` 块下挂七字段，其余业务字段归入分组键（`approval:` / `plan:`）。
 
 | 材料 | 主要作者（R） | 问责者（A） | 关键读者（C/I） | 落位（参考） |
 |------|--------------|------------|----------------|-------------|
@@ -130,7 +130,7 @@ Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在
 
 > 注：五类材料是**同一架构决策的不同切面**——ADR 是"为何这样选"，原子分解是"怎么拆给 Agent 做"，
 > 测试策略是"怎么验"，上下文注入是"Agent 能看什么"，安全设计点是"红线在哪"。
-> 它们通过 frontmatter 的 `related_docs` 互相链接，形成可追溯的 Design 包。
+> 它们通过元信息的 `related_docs` 互相链接，形成可追溯的 Design 包。
 
 ---
 
@@ -149,7 +149,7 @@ Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在
 | 上下文注入策略设计 | 【空间已定义】Tech Lead 定义 Agent 可读文件集合 | 【空间已定义】 | `SDIE-RACI-Matrix.md` §3.2 / §2.1 |
 | 版本化 / 迭代 / 变更 | **SemVer 2.0.0** + **ADR** | 【权威推荐】 | semver.org；Michael Nygard 2011 |
 
-**原则**：空间已定义的（frontmatter 七字段、② 架构选型与 ADR 定稿 human-only、③ 阈值共定、上下文注入策略）必须执行；
+**原则**：空间已定义的（元信息七字段、② 架构选型与 ADR 定稿 human-only、③ 阈值共定、上下文注入策略）必须执行；
 缺口的方法论以权威推荐形式补足，团队可裁剪但需记录在 ADR 中。
 
 ---
@@ -158,7 +158,7 @@ Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在
 
 ### 6.1 ADR（架构决策记录）
 
-`frontmatter` 七字段见 §7；正文采用 Nygard 四段式：
+`元信息` 七字段见 §7；正文采用 Nygard 四段式：
 
 ```
 # ADR-DESIGN-012：购物车服务采用领域事件驱动
@@ -225,9 +225,9 @@ Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在
 
 ## 7. 版本化 / 迭代 / 变更管理
 
-Design 材料沿用 Spec 指南 §7 的三层机制（frontmatter 七字段 + 状态机 + SemVer + ADR + Git 闭环），并补充阶段专属门槛。
+Design 材料沿用 Spec 指南 §7 的三层机制（元信息七字段 + 状态机 + SemVer + ADR + Git 闭环），并补充阶段专属门槛。
 
-### 7.1 frontmatter 七字段（所有 Design 材料挂此元数据）
+### 7.1 元信息七字段（所有 Design 材料第 1 节挂此元数据）
 同 Spec 指南 §7.1：`id / title / status / phase / owner / related_docs / last_updated`。
 
 ### 7.2 文档状态机（status 字段取值与流转）
@@ -295,10 +295,10 @@ Design 阶段**每条架构选型本身就是一条 ADR**（不可委托 ②）�
 ## 9. 五问一句话总结
 
 - **① 工作**：Tech Lead 主导架构审查、定稿 ADR、定义上下文注入策略并签 Gate 2（R/A，②）→ Dev 拆原子任务（R）→ QA 拟测试策略与阈值草案（C，③ 共定）→ 安全咨询设计点（C，⑤ 判定权在手）→ PM/SME/Reviewer 知会（I）。
-- **② 材料**：ADR、原子分解方案、测试策略+门禁阈值草案、上下文注入策略、安全设计点五类，均挂 frontmatter 七字段。
+- **② 材料**：ADR、原子分解方案、测试策略+门禁阈值草案、上下文注入策略、安全设计点五类，均挂元信息七字段（MD 第 1 节 / YAML `meta:` 块）。
 - **③ 方法论**：空间已定义（② ADR 定稿 human-only、③ 阈值共定、上下文注入策略）；权威推荐补足（C4 / DDD 限界上下文 / 4+1 视图 / Test Pyramid / STRIDE / ADR / SemVer）。
 - **④ 内容**：见 §6 字段级示例——ADR 四段式、分解方案的 agent_assignable/depends_on/context_scope、测试策略分级占比+变异分、上下文注入 allow/deny、安全设计点清单。
-- **⑤ 版本化**：frontmatter 七字段 + status 状态机（baseline 才能过 Gate 2）+ SemVer + ADR 决策记录 + Git 基线化变更闭环。
+- **⑤ 版本化**：元信息七字段 + status 状态机（baseline 才能过 Gate 2）+ SemVer + ADR 决策记录 + Git 基线化变更闭环。
 
 ---
 

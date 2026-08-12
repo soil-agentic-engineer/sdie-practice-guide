@@ -108,7 +108,7 @@ sdie-practice-guide/
 
 ## 通用约定（贯穿四阶段）
 
-所有阶段产出文档均挂 **frontmatter 七字段**：`id / title / status / phase / owner / related_docs / last_updated`。
+所有阶段产出文档均挂 **元信息七字段**（Markdown 第 1 节 / YAML `meta:` 块下挂）：`id / title / status / phase / owner / related_docs / last_updated`。YAML 模板中其余业务字段归入语义分组键（如 `spec:` / `plan:` / `checklist:` / `metrics:`）。
 
 **文档状态机**：`draft → review → baseline → change → superseded`
 > 基线化（baseline）是硬门槛：只有 baseline 的包才能过对应 Gate 进入下一阶段；baseline 后内容不可原地涂改，需走 change 流程并递增版本。

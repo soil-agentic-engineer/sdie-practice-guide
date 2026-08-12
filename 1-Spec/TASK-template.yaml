@@ -2,30 +2,31 @@
 # 落位：docs/specs/task-specs/*.yaml
 # 依据：SDIE-Spec-Guide.md §4.4 / §6.1；RACI §3.5.1
 # RACI：Dev (Task Owner) = R；PM/PO = A（Gate 1 审批）
+# 七字段挂在 meta: 块下（§6.1）；其余业务字段归入 spec: 分组键。
 
-id: TASK-<FEATURE>-001
-title: <任务标题>
+meta:
+  id: TASK-<FEATURE>-001
+  title: <任务标题>
+  status: draft            # draft → review → baseline → change → superseded（§6.2）
+  phase: Spec
+  owner: <dev-owner>       # Task Owner（R）；最终 A 为 PM/PO（Gate 1）
+  related_docs:
+    - PRD-<feature>.md
+    - AC-<feature>.md
+  last_updated: 2026-08-06
 
-# ---- frontmatter 七字段（§6.1）----
-status: draft            # draft → review → baseline → change → superseded（§6.2）
-phase: Spec
-owner: <dev-owner>       # Task Owner（R）；最终 A 为 PM/PO（Gate 1）
-related_docs:
-  - PRD-<feature>.md
-  - AC-<feature>.md
-last_updated: 2026-08-06
+spec:
+  # ---- 人类强制手写核心三字段（红线：Agent 不得代写，§3.5.1 #6 / §4）----
+  why: <业务动机，人类写>          # 为什么做
+  what: <做什么，人类写>           # 提供什么能力/接口
+  out: <期望产出/验收，人类写>     # 成功标准
 
-# ---- 人类强制手写核心三字段（红线：Agent 不得代写，§3.5.1 #6 / §4）----
-why: <业务动机，人类写>          # 为什么做
-what: <做什么，人类写>           # 提供什么能力/接口
-out: <期望产出/验收，人类写>     # 成功标准
+  # ---- Agent 可补草稿（需人类审核）----
+  agent_hint: <Agent 建议的实现提示，人类审核>
+  context_sources:
+    - <相关代码/文档路径>
 
-# ---- Agent 可补草稿（需人类审核）----
-agent_hint: <Agent 建议的实现提示，人类审核>
-context_sources:
-  - <相关代码/文档路径>
-
-# ── 版本历史（方案 A，依据 SDIE-Spec-Guide.md §6.5；不进 frontmatter 七字段）──
+# ── 版本历史（方案 A，依据 SDIE-Spec-Guide.md §6.5；不进 meta 七字段）──
 # 与状态机 §6.2、SemVer §6.3 协同；权威溯源见 0-References/changelog.md
 # | 版本 | 日期 | 变更摘要 | 关联 ADR |
 # | 1.0.0 | 2026-08-08 | 初始 baseline：why/what/out 人类手写完成，过 Gate 1 | — |

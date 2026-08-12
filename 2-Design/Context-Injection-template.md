@@ -1,4 +1,6 @@
----
+## 元信息（meta）
+
+```yaml
 id: CTX-INJECT-<FEATURE>
 title: <功能>上下文注入策略
 status: draft
@@ -7,7 +9,7 @@ owner: techlead-<名>      # Tech Lead（R/A）
 related_docs:
   - DECOMP-<FEATURE>-000
 last_updated: 2026-08-06
----
+```
 
 # <功能>上下文注入策略
 
