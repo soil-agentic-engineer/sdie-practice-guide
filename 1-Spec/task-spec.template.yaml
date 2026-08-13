@@ -1,33 +1,54 @@
 # TASK-*.yaml 结构化任务规格模板
 # 落位：docs/specs/task-specs/*.yaml
-# 依据：SDIE-Spec-Guide.md §4.4 / §6.1；RACI §3.5.1
-# RACI：Dev (Task Owner) = R；PM/PO = A（Gate 1 审批）
-# 七字段挂在 meta: 块下（§6.1）；其余业务字段归入 spec: 分组键。
+# 依据：SDIE-Spec-Guide.md §4.4 / §4.5 / §6.1；RACI §3.5.1
+# RACI：Dev (Task Owner) = R 起草；PM/PO = A（Gate 1 审批，签批记入 approval:）
+# 消费者：Coding Agent / Harness（机器规格型，YAML）；下游 DECOMP-* 的契约源头
+# 结构：七字段挂 meta: 块下（§6.1）；业务字段归入 spec: 分组键；Gate 1 签批入 approval:（对齐 DECOMP 模板先例）
 
 meta:
-  id: TASK-<FEATURE>-001
-  title: <任务标题>
-  status: draft            # draft → review → baseline → change → superseded（§6.2）
-  phase: Spec
-  owner: <dev-owner>       # Task Owner（R）；最终 A 为 PM/PO（Gate 1）
-  related_docs:
+  id: TASK-<FEATURE>-001        # feature 级唯一标识；下游 DECOMP-<FEATURE>-* 词根须与此一致（关联键）
+  title: <任务标题>              # 人类可读标题
+  status: draft                 # draft → review → baseline → change → superseded（§6.2）；baseline 才能过 Gate 1
+  phase: Spec                   # 固定值，标识所属阶段
+  owner: dev-<名>               # Task Owner（R），起草人，非审批人（审批人见 approval:）
+  related_docs:                 # 绑定键：PRD-<feature>.md 为必须项（§4.5）；AC 文件为验收源头
     - PRD-<feature>.md
     - AC-<feature>.md
-  last_updated: 2026-08-06
+  last_updated: 2026-08-13      # 最后更新日期（YYYY-MM-DD）
+  approval:                       # Gate 1 签批记录（对齐 DECOMP approval 块先例；Harness 可校验非空才放行）
+    approved_by: <pm-名>          # PM/PO（A）签 Gate 1 Approved 时填写真实姓名；模板为占位
+    approved_at: <YYYY-MM-DD>     # 签批日期；模板为占位
 
 spec:
-  # ---- 人类强制手写核心三字段（红线：Agent 不得代写，§3.5.1 #6 / §4）----
-  why: <业务动机，人类写>          # 为什么做
-  what: <做什么，人类写>           # 提供什么能力/接口
-  out: <期望产出/验收，人类写>     # 成功标准
+  # ══ 契约区：人类强制手写三字段（红线①：Agent 不得代写，RACI §3.5.1 #6 / §4）══
+  why: <业务动机，人类写>        # 为什么做：业务痛点与价值
+  what: <做什么，人类写>         # 提供什么能力/接口（入参/出参）
+  out: <期望产出/验收，人类写>   # 成功标准：可测的期望结果
 
-  # ---- Agent 可补草稿（需人类审核）----
+  # ══ 追溯区：§4.5 三层过滤的冻结产物（Gate 1 前由 PM 冻结，Agent 仅起草）══
+  req_ref: [REQ-1, REQ-2]       # 本任务聚合的 PRD REQ 编号（§4.5 粒度：多个"做" REQ 聚为一条 TASK）
+  acceptance_ref: [AC-1, AC-2]  # 本任务覆盖的 AC 编号；下游 DECOMP acceptance_ref 的直接源头，禁止自创（①）
+  priority:                     # 冻结快照：直接抄 PRD §7 双维评级；禁止在 TASK 内重新定级（红线①语义归属 PM/SME）；变更须回 PRD 走 change 流程（三层过滤第②层证据）
+    kano: Basic                 # KANO 类型：Basic / Performance / Excitement / Reverse / Indifferent
+    moscow: Must                # MoSCoW 等级：Must / Should / Could（Won't 不建 TASK）
+  target_release: MVP (v1.0.0)  # 所属版本（三层过滤第③层）；与故事地图 release 横线、SemVer 对齐
+
+  # ══ Agent 草稿区：Agent 可补，须人类审核 ══
   agent_hint: <Agent 建议的实现提示，人类审核>
-  context_sources:
+  context_sources:              # 相关代码/文档路径，供下游 Context-Injection-<feature>.md 参考
     - <相关代码/文档路径>
+
+
+# ── 人类审阅与维护指北 ──
+# - why/what/out 人类手写是红线①；Harness/Reviewer 可按 spec.why / spec.what / spec.out 路径校验非占位。
+# - acceptance_ref 禁止自创验收：编号须存在于 related_docs 的 AC-<feature>.md；下游 DECOMP-* 的
+#   acceptance_ref 只允许引用此处列出的子集，保证 AC 覆盖链可追溯（支撑 Gate 1"验收可测"项）。
+# - priority / target_release 是 §4.5 三层过滤②③层的冻结快照（非 TASK 内定级）：其值直接来自 PRD §7，
+#   仅作"本条 TASK 凭何被建"的就近 trace 证据；TASK 内不得重新评级（红线①），如需调整须回 PRD 走 change 状态 + 版本历史。
+# - status=baseline 且 approval 非空，方视为 Gate 1 通过、可进 Design。
 
 # ── 版本历史（方案 A，依据 SDIE-Spec-Guide.md §6.5；不进 meta 七字段）──
 # 与状态机 §6.2、SemVer §6.3 协同；权威溯源见 0-References/changelog.md
 # | 版本 | 日期 | 变更摘要 | 关联 ADR |
-# | 1.0.0 | 2026-08-08 | 初始 baseline：why/what/out 人类手写完成，过 Gate 1 | — |
-# | 1.1.0 | 2026-08-12 | MINOR：补充 agent_hint 实现提示（向后兼容） | ADR-0012 |
+# | 1.0.0 | 2026-08-13 | 初始 baseline：why/what/out 人类手写完成，过 Gate 1 | — |
+# | 1.1.0 | 2026-08-20 | MINOR：补充 agent_hint 实现提示（向后兼容） | ADR-0012 |

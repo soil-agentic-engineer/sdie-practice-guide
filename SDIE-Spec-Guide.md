@@ -203,17 +203,21 @@ Spec 阶段的产出物共四类，均需在正文第 1 节「元信息」挂七
 ```
 # PRD：<功能名>
 ## 1. 背景与目标（Business Goal）
-   - 目标（用 Impact Mapping 的 Goal 写法，SMART）：
-     "在 Q3 将购物车放弃率从 68% 降到 55%"
+   - 目标用 Impact Mapping 的 Goal 写法，SMART；每条赋编号 GOAL-x，供 §4 Impact 引用
+   - GOAL-1（SMART）："在 Q3 将购物车放弃率从 68% 降到 55%"
+   - 多 Goal 时每条独占一行编号
 ## 2. 范围（Scope）
    - in_scope: [...]
    - out_of_scope: [...]   ← PM 在 Gate 1 标注，防范围蔓延（§3.5.1 #5）
 ## 3. 用户与角色（Actors）
    - 主要角色：...；次要角色：...； off-stage：合规/支付网关
-## 4. 用户故事地图摘要（链接 story-map 文档）
-## 5. 验收标准集（嵌入 acceptance_criteria，见 §4.3）
-## 6. 非目标与假设（Non-goals / Assumptions）
-## 7. 优先级（MoSCoW + KANO 标注）
+## 4. 行为影响（Impacts）    ← Impact Mapping 第 3 层
+   - 每条赋 IMP-x；"关联 Goal"列填 §1 的 GOAL-x 编号（禁用自然语言或"同上"）
+   - §4.1 Goal→Impact 校验矩阵：Gate 1 双向 trace（每 Goal 至少 1 条 Impact，每 Impact 可反查 Goal）
+## 5. 用户故事地图摘要（链接 story-map 文档）
+## 6. 验收标准集（嵌入 acceptance_criteria，见 §4.3）
+## 7. 非目标与假设（Non-goals / Assumptions）
+## 8. 优先级（MoSCoW + KANO 标注）
 ```
 
 <a id="sec-4-2"></a>
@@ -280,17 +284,28 @@ meta:
   title: 购物车加入商品接口
   status: draft            # draft → review → baseline → change → superseded
   phase: Spec
-  owner: dev-zhang         # Task Owner
+  owner: dev-zhang         # Task Owner（R），起草人，非审批人（审批人见 approval:）
   related_docs:
     - PRD-checkout-2026-08.md
     - AC-cart.md
   last_updated: 2026-08-05
+  approval:
+    approved_by: pm-li            # PM/PO（A）签 Gate 1 Approved 时填写；Harness 校验非空才放行
+    approved_at: 2026-08-05
+    
 spec:
-  # ---- 人类强制手写核心三字段 ----
+  # ---- 契约区：人类强制手写核心三字段（红线①）----
   why: 购物车放弃率高，需在详情页提供一键加购以降低流失   # 业务动机，人类写
   what: 提供 POST /cart/add 接口，入参 sku+qty，出参购物车快照 # 做什么，人类写
   out: 加购成功返回 200 + 购物车快照；库存不足返回 409      # 期望产出/验收，人类写
-  # ---- Agent 可补草稿（需人类审核）----
+  # ---- 追溯区：§4.5 三层过滤的冻结产物（Gate 1 前由 PM 冻结，Agent 仅起草）----
+  req_ref: [REQ-1, REQ-2]       # 本任务聚合的 PRD REQ 编号
+  acceptance_ref: [AC-1, AC-2]  # 覆盖的 AC 编号；下游 DECOMP acceptance_ref 的源头，禁止自创（①）
+  priority:                     # PRD §7 双维评级快照（三层过滤第②层）
+    kano: Basic
+    moscow: Must
+  target_release: MVP (v1.0.0)  # 所属版本（第③层）；与故事地图 release 横线对齐
+  # ---- Agent 草稿区：可补草稿，需人类审核 ----
   agent_hint: 参考现有 order 服务的事务写法；注意并发库存校验
   context_sources:
     - src/checkout/CartService.java
@@ -496,7 +511,8 @@ ADR 不可涂改，替代时新建并标 `Superseded by`。落位 `docs/adr/`。
 | 2 | **AGENTS.md 最新**：执行边界承载与最新 RACI 同步，含本任务上下文与不可委托红线 | `AGENTS.md`；[§2.1](#sec-2-1) | ⑩ Harness 维护（Dev+TL） |
 | 3 | **验收可测**：`acceptance_criteria` 具备 Given/When/Then 或正反例，QA 作为 C 确认可测 | `acceptance_criteria`；[§4.3](#sec-4-3) | ① 验收语义拍板（PM/SME） |
 | 4 | **优先级已冻结**：PRD 功能清单逐条双维标注（KANO+MoSCoW+理由+版本），Gate 1 前冻结，无串联决策 | `prd.template.md` §7；[§5.2](#sec-5-2) | ① 定级签字（PM/A） |
-| 5 | **基线化完成**：Spec 包 `status=baseline`（非 draft/review） | [§6.2](#sec-6-2) 状态机 | 只有 baseline 才能过 Gate 1 |
+| 5 | **Goal↔Impact 双向 trace**：§1 每条 `GOAL-x` 至少有 §4 一条 `IMP-x` 支撑（§4.1 矩阵对应行非全空）；每条 `IMP-x` 的"关联 Goal"列填的是 `GOAL-x` 编号而非自然语言或"同上" | `prd.template.md` §1/§4/§4.1 | ① 业务需求与验收语义拍板（PM/SME） |
+| 6 | **基线化完成**：Spec 包 `status=baseline`（非 draft/review） | [§6.2](#sec-6-2) 状态机 | 只有 baseline 才能过 Gate 1 |
 
 > **放行动作**：PM 在 #1–#5 全部 ✅ 后，于 PR 描述或 `1-Spec/README.md` 签 **Gate 1 Approved**，Spec 包方可进入 Design。任一 ❌ 即退回对应 R 修正，**不得带伤过门**。
 

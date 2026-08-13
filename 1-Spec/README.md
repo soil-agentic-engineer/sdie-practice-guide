@@ -24,7 +24,7 @@ last_updated: 2026-08-06
 | PRD（产品需求文档） | `prd.template.md` | `docs/specs/` | PM/PO（①） |
 | 用户故事地图 User Story Map | `user-story-map.template.md` | `docs/specs/story-map/` | PM/PO |
 | `acceptance_criteria`（验收标准集） | `acceptance-criteria.template.md` | 内嵌 PRD / TASK-SPEC | PM/PO（①，SME 语义 C、QA 可测 C） |
-| `TASK-*.yaml`（结构化任务规格） | `task-spec.template.yaml` | `docs/specs/task-specs/*.yaml` | PM/PO（Gate 1） |
+| `task-spec-*.yaml`（结构化任务规格） | `task-spec.template.yaml` | `docs/specs/task-specs/*.yaml` | PM/PO（Gate 1） |
 
 ## 通用规则（全部来自工作空间，可回溯）
 
@@ -35,6 +35,7 @@ last_updated: 2026-08-06
 - **status 状态机**：`draft → review → baseline → change → superseded`；只有 `baseline` 才能过 Gate 1（§6.2）。
 - **版本化**：SemVer 2.0.0 + ADR 决策记录 + Git 约定（§6.3 / §6.4 / §6.6）。
 - **版本历史段落（方案 A）**：每篇基线化产出物正文末尾须维护 `## 版本历史`（版本/日期/变更摘要/关联 ADR），不进元信息七字段（§6.5）；权威溯源见 `0-References/changelog.md`。
+- **`task-spec-*.yaml` 字段结构**：`meta:` 七字段 + `spec:` 三分区（契约区 `why/what/out` 人类手写红线①；追溯区 `req_ref/acceptance_ref/priority/target_release` 为 §4.5 三层过滤冻结产物；Agent 草稿区 `agent_hint/context_sources`）+ `approval:` Gate 1 签批记录（对齐 `2-Design/decomposition.template.yml` 先例）（§4.4 / §4.5）。
 
 > 权威性原则：本目录模板的 SDIE 事实均取自工作空间 `SDIE-RACI-Matrix.md` 与 `SDIE-Spec-Guide.md`；
 > 方法论（Impact Mapping / User Story Mapping / INVEST / BDD 等）标注为权威推荐，来源见 `SDIE-Spec-Guide.md` §8.2。
