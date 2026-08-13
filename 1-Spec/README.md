@@ -21,10 +21,10 @@ last_updated: 2026-08-06
 
 | 产出物 | 模板文件 | 推荐落位 | RACI（A） |
 |--------|----------|----------|-----------|
-| PRD（产品需求文档） | `PRD-template.md` | `docs/specs/` | PM/PO（①） |
-| 用户故事地图 User Story Map | `UserStoryMap-template.md` | `docs/specs/story-map/` | PM/PO |
-| `acceptance_criteria`（验收标准集） | `acceptance-criteria-template.md` | 内嵌 PRD / TASK-SPEC | PM/PO（①，SME 语义 C、QA 可测 C） |
-| `TASK-*.yaml`（结构化任务规格） | `TASK-template.yaml` | `docs/specs/task-specs/*.yaml` | PM/PO（Gate 1） |
+| PRD（产品需求文档） | `prd.template.md` | `docs/specs/` | PM/PO（①） |
+| 用户故事地图 User Story Map | `user-story-map.template.md` | `docs/specs/story-map/` | PM/PO |
+| `acceptance_criteria`（验收标准集） | `acceptance-criteria.template.md` | 内嵌 PRD / TASK-SPEC | PM/PO（①，SME 语义 C、QA 可测 C） |
+| `TASK-*.yaml`（结构化任务规格） | `task-spec.template.yaml` | `docs/specs/task-specs/*.yaml` | PM/PO（Gate 1） |
 
 ## 通用规则（全部来自工作空间，可回溯）
 
@@ -38,3 +38,19 @@ last_updated: 2026-08-06
 
 > 权威性原则：本目录模板的 SDIE 事实均取自工作空间 `SDIE-RACI-Matrix.md` 与 `SDIE-Spec-Guide.md`；
 > 方法论（Impact Mapping / User Story Mapping / INVEST / BDD 等）标注为权威推荐，来源见 `SDIE-Spec-Guide.md` §8.2。
+
+## 多 Task 的组织约定
+
+一个 Feature 的多个通过三层过滤（§4.5）的 REQ，各自生成独立的
+`TASK-<FEATURE>-NNN.yaml`（一文件一任务，便于独立 baseline / 过 Gate 1 / SemVer）。
+建议按 feature 目录聚合，并配一份 Markdown 索引导航：
+
+```
+docs/specs/task-specs/
+└── <feature>/
+    ├── TASK-<FEATURE>-001.yaml
+    ├── TASK-<FEATURE>-002.yaml
+    └── README.md   ← 本 feature 下 Task Spec 索引（状态 / AC 覆盖，非 YAML、不进 meta 七字段）
+```
+
+单 REQ 内的 1:N 细粒度拆解留给 Design 阶段的 `DECOMP-*`（§4.5）。

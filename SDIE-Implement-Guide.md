@@ -61,11 +61,11 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 
 | # | 检查项 | 对应产出物 / 依据 | 不可委托红线 |
 |---|--------|------------------|--------------|
-| 1 | **Lint / 构建 0 违规**：build & lint 零告警，提交带 Conventional Commit trailer | `PR-template.md` §6.1 | — |
+| 1 | **Lint / 构建 0 违规**：build & lint 零告警，提交带 Conventional Commit trailer | `pr.template.md` §6.1 | — |
 | 2 | **测试 100% 通过，覆盖率/变异达标**：单测全绿，覆盖率与变异分（PITest）达阈值（③ 共定值） | 测试报告；§6.3 | ④·验证（QA） |
 | 3 | **安全 0 高危**：安全扫描零高危，无越权/注入；安全判定由安全/红队出具 | 安全评估；§6 | ⑤ 安全判定 |
 | 4 | **Case Delta 无未授权删/禁用**：测试删/禁用均带 `Test-Disable-Authorization` trailer（⑥），否则 Gate 3 卡住 | Case Delta 报告；§6.5 | ⑥ 测试删/禁用授权 |
-| 5 | **PR 标签 / 证据链正确**：PR 标签、关联 TASK/DECOMP 正确，上下文注入合规 | `PR-template.md` | ⑨ 越级拦截（人类在环） |
+| 5 | **PR 标签 / 证据链正确**：PR 标签、关联 TASK/DECOMP 正确，上下文注入合规 | `pr.template.md` | ⑨ 越级拦截（人类在环） |
 | 6 | **Review 通过（三 A 串联）**：QA 验证（④·验证）→ Reviewer 签字（④·签字）→ PO 收货（⑦）顺序正确、证据齐备 | Review 清单/测试报告/PR；§3 | ④·验证 / ④·签字 / ⑦ 收货 |
 
 > **放行动作**：三 A 串联（QA 验证 → Reviewer 签字 → PO 收货）全部 ✅ 后，于 PR 描述签 **Gate 3 Approved**，方可进入 Evaluation。任一 ❌ 退回对应 R 修正，**不得带伤过门**。自动化门禁只证明格式合规，不能替代人的正确性判断（④ 红线）。

@@ -1,7 +1,7 @@
 # MoSCoW — 优先级分类（DSDM）
 
 > 引用来源：Dai Clegg, 1994, within DSDM (Dynamic Systems Development Method)；后由 Oracle 采用
-> 在 SDIE 中引用位置：PRD-template §7、SDIE-Spec-Guide §5.2（与 KANO 双维标注）
+> 在 SDIE 中引用位置：prd.template §7、SDIE-Spec-Guide §5.2（与 KANO 双维标注）
 > 用途：在一个时间盒（迭代 / Sprint）内，按"非做不可吗"对需求分级。
 
 ## 定义

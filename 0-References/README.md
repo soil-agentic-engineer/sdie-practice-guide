@@ -19,10 +19,10 @@
 | 方法 | 类别 | 权威来源 | 在 SDIE 中的引用位置 |
 |------|------|----------|----------------------|
 | SemVer 2.0.0 | 版本化 | semver.org（T. Preston-Werner, 2013） | 各阶段指南 §7、README「通用约定」 |
-| ADR（架构决策记录） | 决策记录 | M. Nygard, 2011 | SDIE-Spec-Guide §6.4、2-Design/ADR-template.md |
-| KANO 模型 | 需求优先级 | N. Kano et al., 1984 | PRD-template §7、SDIE-Spec-Guide §5.2 |
-| MoSCoW | 需求优先级 | D. Clegg, 1994 / DSDM | PRD-template §7、SDIE-Spec-Guide §5.2 |
-| WBS / PMBOK | 任务分解 | PMI（PMBOK Guide） | SDIE-Design-Guide §6.2、2-Design/Decomposition-template.yml |
+| ADR（架构决策记录） | 决策记录 | M. Nygard, 2011 | SDIE-Spec-Guide §6.4、2-Design/adr.template.md |
+| KANO 模型 | 需求优先级 | N. Kano et al., 1984 | prd.template §7、SDIE-Spec-Guide §5.2 |
+| MoSCoW | 需求优先级 | D. Clegg, 1994 / DSDM | prd.template §7、SDIE-Spec-Guide §5.2 |
+| WBS / PMBOK | 任务分解 | PMI（PMBOK Guide） | SDIE-Design-Guide §6.2、2-Design/decomposition.template.yml |
 | Story Points / Planning Poker | 估算 | M. Cohn / R. Jeffries / J. Grenning | Decomposition 讨论（task `estimate` 字段） |
 | Risk Matrix（概率×影响） | 风险管理 | PMBOK 7th / ISO 31000:2018 | Decomposition 讨论（task `risk` 字段） |
 | Agent Task Complexity（L1–L5 可执行性分级） | 任务复杂度分级 | Temporal L1–L5 / SWE-bench 结构因子 / Parasuraman LOA | Decomposition 讨论（task `estimated_complexity` 字段） |

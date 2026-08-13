@@ -16,11 +16,11 @@
 
 | 模板 | 产出物 | 主要作者（R） | A（问责） |
 |------|--------|--------------|-----------|
-| `PR-template.md` | PR + 自验 + ⑥ commit trailer | Dev (Task Owner) | PO（⑦）/ QA（④·验证） |
-| `Behavior-Checklist-template.yaml` | 行为清单 | Test Designer（◐） | QA / Reviewer |
-| `Case-Delta-template.md` | 测试删/禁用审计报告（⑥） | Dev / 安全 | 提交 trailer 的人类（⑥） |
-| `Review-Checklist-template.md` | Review 清单（④·签字 依据） | Review Agent（建议） | Reviewer（④·签字） |
-| `Gate3-Checklist-template.md` | Gate 3 准入自检 | Dev (Task Owner) | QA→Reviewer→PO |
+| `pr.template.md` | PR + 自验 + ⑥ commit trailer | Dev (Task Owner) | PO（⑦）/ QA（④·验证） |
+| `behavior-checklist.template.yaml` | 行为清单 | Test Designer（◐） | QA / Reviewer |
+| `case-delta.template.md` | 测试删/禁用审计报告（⑥） | Dev / 安全 | 提交 trailer 的人类（⑥） |
+| `review-checklist.template.md` | Review 清单（④·签字 依据） | Review Agent（建议） | Reviewer（④·签字） |
+| `gate3-checklist.template.md` | Gate 3 准入自检 | Dev (Task Owner) | QA→Reviewer→PO |
 
 ## 落位建议
 - 实现代码/测试：`src/`、`tests/`；PR 评论为 Review 建议。

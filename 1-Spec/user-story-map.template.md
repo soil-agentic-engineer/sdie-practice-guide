@@ -193,4 +193,4 @@ last_updated: 2026-08-12
 |------|------|----------|----------|
 | 1.0.0 | 2026-08-06 | 初始 baseline：四层结构（Backbone/Details/Release slices/Out-of-scope）+ 方法论溯源 + RACI | — |
 | 1.1.0 | 2026-08-12 | MINOR：补 impact trace 列（对应 PRD §4）、actor 用户视角、story 挂接列与 INVEST 注记；补版本历史段落（对齐 SDIE-Spec-Guide §6.5） | — |
-| 1.2.0 | 2026-08-13 | MINOR：参考 user-story-map-template.md 规范充实结构——补 ID 方案、§0 地图信息、§1 用户画像、§3 任务层级、§4 卡片正反面与 As-a/I-want/so-that 注记、§5 发布切片（MVP/增强/待定/砍枝/关联与依赖 ID 视图）、§6 暂不做、§7 待澄清；保留顶部元信息块 | — |
+| 1.2.0 | 2026-08-13 | MINOR：参考 user-story-map.template.md 规范充实结构——补 ID 方案、§0 地图信息、§1 用户画像、§3 任务层级、§4 卡片正反面与 As-a/I-want/so-that 注记、§5 发布切片（MVP/增强/待定/砍枝/关联与依赖 ID 视图）、§6 暂不做、§7 待澄清；保留顶部元信息块 | — |

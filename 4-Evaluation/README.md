@@ -16,12 +16,12 @@
 
 | 模板 | 产出物 | 主要作者（R） | A（问责） |
 |------|--------|--------------|-----------|
-| `Quality-Dashboard-template.md` | 质量看板 / 度量报告 | QA（R） | QA（⑧） |
-| `Release-Decision-template.md` | 发布决策 + 回滚预案 | QA（R/A） | QA（⑧） |
-| `Adversarial-Report-template.md` | 对抗演练报告 | 安全/红队（C） | 安全/红队（⑤） |
-| `Business-Value-Confirmation-template.md` | 业务价值确认 | PM/PO（C） | PM/PO（签确认，非 A） |
-| `Eval-Metrics-template.yaml` | 能力指标报告（Eval Agent） | Eval Agent（●） | QA/TL 复核 |
-| `Retrospective-template.md` | 回顾 / Retrospective | Reviewer（C）牵头 | 团队（知会） |
+| `quality-dashboard.template.md` | 质量看板 / 度量报告 | QA（R） | QA（⑧） |
+| `release-decision.template.md` | 发布决策 + 回滚预案 | QA（R/A） | QA（⑧） |
+| `adversarial-report.template.md` | 对抗演练报告 | 安全/红队（C） | 安全/红队（⑤） |
+| `business-value-confirmation.template.md` | 业务价值确认 | PM/PO（C） | PM/PO（签确认，非 A） |
+| `eval-metrics.template.yaml` | 能力指标报告（Eval Agent） | Eval Agent（●） | QA/TL 复核 |
+| `retrospective.template.md` | 回顾 / Retrospective | Reviewer（C）牵头 | 团队（知会） |
 
 ## 落位建议
 - 统一落位 `docs/eval/`（与 `SDIE-RACI-Matrix.md` §4 Eval Agent 落位一致）。

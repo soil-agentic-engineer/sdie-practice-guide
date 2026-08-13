@@ -1,7 +1,7 @@
 # KANO 模型 — 需求满意度分类
 
 > 引用来源：Noriaki Kano et al., "Attractive Quality and Must-be Quality", 1984
-> 在 SDIE 中引用位置：PRD-template §7、SDIE-Spec-Guide §5.2（与 MoSCoW 双维标注）
+> 在 SDIE 中引用位置：prd.template §7、SDIE-Spec-Guide §5.2（与 MoSCoW 双维标注）
 > 用途：按"实现与否对用户满意度的影响"对需求分类，辅助优先级判断。
 
 ## 定义

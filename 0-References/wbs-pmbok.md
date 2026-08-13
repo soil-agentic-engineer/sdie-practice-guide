@@ -1,7 +1,7 @@
 # WBS / PMBOK — 工作分解结构
 
 > 引用来源：PMI, A Guide to the Project Management Body of Knowledge (PMBOK Guide)；WBS 标准实践
-> 在 SDIE 中引用位置：SDIE-Design-Guide §6.2、2-Design/Decomposition-template.yml
+> 在 SDIE 中引用位置：SDIE-Design-Guide §6.2、2-Design/decomposition.template.yml
 > 用途：为 Task Decomposition 提供"可交付成果导向的层级分解"权威基准。
 
 ## 定义

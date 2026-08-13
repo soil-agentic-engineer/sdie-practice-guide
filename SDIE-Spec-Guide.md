@@ -301,7 +301,7 @@ spec:
 ### 4.5 REQ → task-spec 判定规则
 
 > 判定某个 REQ 是否需要执行 task-spec（即新建 `TASK-*.yaml`），由 **三层过滤** 组成，全过才执行。
-> 依据：`1-Spec/PRD-template.md` §2 范围 / §7 优先级；本文 [§4.4](#sec-4-4)；`SDIE-RACI-Matrix.md` ①。
+> 依据：`1-Spec/prd.template.md` §2 范围 / §7 优先级；本文 [§4.4](#sec-4-4)；`SDIE-RACI-Matrix.md` ①。
 
 **判定表（三层全过 → 建 task-spec）**
 
@@ -348,7 +348,7 @@ spec:
 <a id="sec-5-2"></a>
 ### 5.2 优先级标注操作手册（MoSCoW + KANO）
 
-**落点**：Spec 阶段、PRD 的「§7 优先级」一节（见 `1-Spec/PRD-template.md`）；并联动 User Story Map 的 `release` slices 决定 MVP 边界。
+**落点**：Spec 阶段、PRD 的「§7 优先级」一节（见 `1-Spec/prd.template.md`）；并联动 User Story Map 的 `release` slices 决定 MVP 边界。
 
 **RACI / 不可委托 ①**：PM=A/R 主导定级（业务价值裁决），SME/Tech Lead/QA=C 评审可行性与可测性；Agent 仅可建议标签、不能定级签字（不可委托 ① 业务语义拍板归 PM/SME）。Gate 1 前冻结。
 
@@ -378,7 +378,7 @@ spec:
 | REQ-3 加购成功撒花动画 | Excitement | Could | 加分项，缺失不影响主流程 | v1.1.0 |
 | REQ-4 加购时弹调查问卷 | Reverse | Won't | 打断转化、有反效果，剔除 | deferred |
 
-> **本手册不引入串联决策流程**（KANO 筛选 → RICE 排序 → MoSCoW 收口）。优先级以"逐条双维标注"方式直接落表，不走三步串联。完整可填模板见 `1-Spec/PRD-template.md` §7。
+> **本手册不引入串联决策流程**（KANO 筛选 → RICE 排序 → MoSCoW 收口）。优先级以"逐条双维标注"方式直接落表，不走三步串联。完整可填模板见 `1-Spec/prd.template.md` §7。
 
 ---
 
@@ -495,7 +495,7 @@ ADR 不可涂改，替代时新建并标 `Superseded by`。落位 `docs/adr/`。
 | 1 | **Task Spec 完整**：PRD / 用户故事地图 / `acceptance_criteria` / `TASK-*.yaml` 四类齐备，均挂元信息七字段（MD 第 1 节 / YAML `meta:` 块）；`TASK-*.yaml` 的 why/what/out 为人类手写 | `1-Spec/*` 模板；[§4](#sec-4) | ① 业务需求与验收语义拍板（PM/SME） |
 | 2 | **AGENTS.md 最新**：执行边界承载与最新 RACI 同步，含本任务上下文与不可委托红线 | `AGENTS.md`；[§2.1](#sec-2-1) | ⑩ Harness 维护（Dev+TL） |
 | 3 | **验收可测**：`acceptance_criteria` 具备 Given/When/Then 或正反例，QA 作为 C 确认可测 | `acceptance_criteria`；[§4.3](#sec-4-3) | ① 验收语义拍板（PM/SME） |
-| 4 | **优先级已冻结**：PRD 功能清单逐条双维标注（KANO+MoSCoW+理由+版本），Gate 1 前冻结，无串联决策 | `PRD-template.md` §7；[§5.2](#sec-5-2) | ① 定级签字（PM/A） |
+| 4 | **优先级已冻结**：PRD 功能清单逐条双维标注（KANO+MoSCoW+理由+版本），Gate 1 前冻结，无串联决策 | `prd.template.md` §7；[§5.2](#sec-5-2) | ① 定级签字（PM/A） |
 | 5 | **基线化完成**：Spec 包 `status=baseline`（非 draft/review） | [§6.2](#sec-6-2) 状态机 | 只有 baseline 才能过 Gate 1 |
 
 > **放行动作**：PM 在 #1–#5 全部 ✅ 后，于 PR 描述或 `1-Spec/README.md` 签 **Gate 1 Approved**，Spec 包方可进入 Design。任一 ❌ 即退回对应 R 修正，**不得带伤过门**。

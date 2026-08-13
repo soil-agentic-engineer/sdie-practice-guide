@@ -16,17 +16,17 @@
 
 | 模板 | 产出物 | 主要作者（R） | A（问责） |
 |------|--------|--------------|-----------|
-| `ADR-template.md` | ADR 架构决策记录 | Tech Lead（Design Agent 起草） | Tech Lead（②） |
-| `Decomposition-template.yml` | 原子分解方案 | Dev (Task Owner) | Tech Lead（Gate 2） |
-| `Test-Strategy-template.md` | 测试策略 + 门禁阈值草案 | QA（C，草案） | Tech Lead+QA（③ 共定） |
-| `Context-Injection-template.md` | 上下文注入策略 | Tech Lead（R/A） | Tech Lead |
-| `Security-Design-template.md` | 安全设计点 | 安全/红队（C） | 安全/红队（⑤ 判定权） |
+| `adr.template.md` | ADR 架构决策记录 | Tech Lead（Design Agent 起草） | Tech Lead（②） |
+| `decomposition.template.yml` | 原子分解方案 | Dev (Task Owner) | Tech Lead（Gate 2） |
+| `test-strategy.template.md` | 测试策略 + 门禁阈值草案 | QA（C，草案） | Tech Lead+QA（③ 共定） |
+| `context-injection.template.md` | 上下文注入策略 | Tech Lead（R/A） | Tech Lead |
+| `security-design.template.md` | 安全设计点 | 安全/红队（C） | 安全/红队（⑤ 判定权） |
 
 ## 落位建议
 - ADR / 分解 / 测试策略 / 上下文注入 / 安全设计：统一落位 `docs/design/`（与 `SDIE-RACI-Matrix.md` §4 Design Agent 落位一致）。
 - 关联文档通过元信息 `related_docs` 互链，形成可追溯 Design 包。
 
-## Decomposition-template.yml 字段提示
+## decomposition.template.yml 字段提示
 - task 级字段：**六必填** `id` / `title` / `agent_assignable` / `depends_on` / `acceptance_ref` / `context_scope` + **两可选** `risk`、`estimated_complexity`。
 - **可选 `risk` 字段**：`{ probability, impact, level }`，仅对带不确定性/后果严重的 task 标注；`probability×impact` 1–5 量表与三档阈值（low 1–6 / med 7–12 / high 13–25，阈值由团队定）见 `0-References/risk-matrix.md`；`level=high` 联动 Gate 2 优先审、Implement 优先验、加强 Review。
 - **可选 `estimated_complexity` 字段**：取值 `L1`–`L5`（Agent 可执行性分级），指导 Implement 阶段 Agent 调度策略、上下文预算分配与风险预判；与 `risk`（威胁轴）、`estimate`（工作量轴，本模板不含）三者正交，互不可替。Dev 起草、Tech Lead 在 Gate 2 确认。

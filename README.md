@@ -33,35 +33,35 @@ sdie-practice-guide/
 │
 ├── 1-Spec/                      # Spec 阶段模板与说明
 │   ├── README.md
-│   ├── PRD-template.md
-│   ├── UserStoryMap-template.md
-│   ├── acceptance-criteria-template.md
-│   └── TASK-template.yaml
+│   ├── prd.template.md
+│   ├── user-story-map.template.md
+│   ├── acceptance-criteria.template.md
+│   └── task-spec.template.yaml
 │
 ├── 2-Design/                    # Design 阶段模板与说明
 │   ├── README.md
-│   ├── ADR-template.md
-│   ├── Decomposition-template.yml
-│   ├── Test-Strategy-template.md
-│   ├── Context-Injection-template.md
-│   └── Security-Design-template.md
+│   ├── adr.template.md
+│   ├── decomposition.template.yml
+│   ├── test-strategy.template.md
+│   ├── context-injection.template.md
+│   └── security-design.template.md
 │
 ├── 3-Implement/                 # Implement 阶段模板与说明
 │   ├── README.md
-│   ├── PR-template.md
-│   ├── Behavior-Checklist-template.yaml
-│   ├── Case-Delta-template.md
-│   ├── Review-Checklist-template.md
-│   └── Gate3-Checklist-template.md
+│   ├── pr.template.md
+│   ├── behavior-checklist.template.yaml
+│   ├── case-delta.template.md
+│   ├── review-checklist.template.md
+│   └── gate3-checklist.template.md
 │
 └── 4-Evaluation/                # Evaluation 阶段模板与说明
     ├── README.md
-    ├── Quality-Dashboard-template.md
-    ├── Release-Decision-template.md
-    ├── Adversarial-Report-template.md
-    ├── Business-Value-Confirmation-template.md
-    ├── Eval-Metrics-template.yaml
-    └── Retrospective-template.md
+    ├── quality-dashboard.template.md
+    ├── release-decision.template.md
+    ├── adversarial-report.template.md
+    ├── business-value-confirmation.template.md
+    ├── eval-metrics.template.yaml
+    └── retrospective.template.md
 ```
 
 ---
@@ -124,7 +124,7 @@ sdie-practice-guide/
 1. **先读 `SDIE-Analysis.md`**：建立对 SDIE 的整体认知（定义、阶段、角色、不可委托、门禁）。
 2. **再读 `SDIE-RACI-Matrix.md`**：这是所有事实的**唯一权威基准**（7/12 治理版），四份阶段指南均以其为依据。
 3. **按阶段查 `SDIE-*-Guide.md`**：每份指南系统回答五问——① 应执行哪些工作？② 输出哪些材料？③ 可用什么方法论？④ 材料字段级内容？⑤ 如何版本化迭代？
-4. **落地时翻对应阶段的模板目录**（如 `1-Spec/`、`3-Implement/`）：每个 `*-template.*` 提供可直接填写的字段级模板，`README.md` 给出使用说明。
+4. **落地时翻对应阶段的模板目录**（如 `1-Spec/`、`3-Implement/`）：每个 `*.template.*` 提供可直接填写的字段级模板，`README.md` 给出使用说明。
 
 ---
 

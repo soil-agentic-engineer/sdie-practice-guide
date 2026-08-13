@@ -13,7 +13,7 @@
 ### User Story Mapping（用户故事地图）
 - 来源：Jeff Patton, "User Story Mapping", 2014。
 - 定义：以"骨架（主干活动）+ 走查（用户旅程）+ 切片（发布计划）"组织故事，兼顾全景与优先级。
-- SDIE 用法：`1-Spec/UserStoryMap-template.md` 承载。
+- SDIE 用法：`1-Spec/user-story-map.template.md` 承载。
 
 ### INVEST（好故事准则）
 - 来源：Bill Wake, 2003（"INVEST in Good Stories"）。

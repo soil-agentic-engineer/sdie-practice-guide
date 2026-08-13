@@ -13,7 +13,7 @@ Docs-as-Code = 用写代码的方式写文档（版本化、纯文本、可构�
 
 ## 在 SDIE 中的用法
 - SDIE 当前约定：每篇阶段产出物在 **第 1 节「元信息（meta）」以 YAML 代码块**挂七字段（id / title / status / phase / owner / related_docs / last_updated）；机器规格型文档（YAML）则将七字段挂在 **`meta:` 块下**，其余业务字段归入语义分组键（如 `spec:` / `plan:` / `checklist:` / `metrics:`）。该约定由 `SDIE-Analysis.md` §8.1 定义，frontmatter 仅是可选历史形态。
-- **重要区分**：七字段本身是 SDIE「空间已定义」约定（非外部方法论）；Docs-as-Code 只是其技术载体。纯 YAML 模板（如 Decomposition-template.yml）去掉 `---` 围栏，整篇即 YAML，并以 `meta:` 顶层键承载七字段。
+- **重要区分**：七字段本身是 SDIE「空间已定义」约定（非外部方法论）；Docs-as-Code 只是其技术载体。纯 YAML 模板（如 decomposition.template.yml）去掉 `---` 围栏，整篇即 YAML，并以 `meta:` 顶层键承载七字段。
 
 ## 权威出处
 - Jekyll (Tom Preston-Werner, 2008) 首创 frontmatter 惯例。

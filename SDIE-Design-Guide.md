@@ -61,12 +61,12 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 
 | # | 检查项 | 对应产出物 / 依据 | 不可委托红线 |
 |---|--------|------------------|--------------|
-| 1 | **架构选型已定稿**：ADR 的 `Status/Decision` 由 Tech Lead 定稿（Design Agent 仅起草） | `2-Design/ADR-template.md`；§6.1 | ② 架构选型与 ADR 定稿（Tech Lead human-only） |
-| 2 | **原子分解合理**：每个 `DECOMP` 任务粒度满足"Agent 可独立完成"，`depends_on` 依赖图闭合、`acceptance_ref` 对应 Spec 的 AC 且不自创 | `2-Design/Decomposition-template.yml`；§6.2 | — |
-| 3 | **上下文注入策略就绪**：`allow_read`/`deny_read` 已定义，`context_scope` 与之对齐，无越权读 secrets 风险 | `2-Design/Context-Injection-template.md`；§6.4 | ⑤ 安全判定权 |
-| 4 | **门禁阈值已共定**：覆盖率/变异/安全级别由 Tech Lead + QA 共同设定，写入 Harness 草案 | `2-Design/Test-Strategy-template.md`；§6.3 | ③ 阈值共定（不可单方拍板） |
+| 1 | **架构选型已定稿**：ADR 的 `Status/Decision` 由 Tech Lead 定稿（Design Agent 仅起草） | `2-Design/adr.template.md`；§6.1 | ② 架构选型与 ADR 定稿（Tech Lead human-only） |
+| 2 | **原子分解合理**：每个 `DECOMP` 任务粒度满足"Agent 可独立完成"，`depends_on` 依赖图闭合、`acceptance_ref` 对应 Spec 的 AC 且不自创 | `2-Design/decomposition.template.yml`；§6.2 | — |
+| 3 | **上下文注入策略就绪**：`allow_read`/`deny_read` 已定义，`context_scope` 与之对齐，无越权读 secrets 风险 | `2-Design/context-injection.template.md`；§6.4 | ⑤ 安全判定权 |
+| 4 | **门禁阈值已共定**：覆盖率/变异/安全级别由 Tech Lead + QA 共同设定，写入 Harness 草案 | `2-Design/test-strategy.template.md`；§6.3 | ③ 阈值共定（不可单方拍板） |
 | 5 | **测试策略已起草**：分级占比（单元/集成/端到端）与测试数据方案明确 | §6.3 | — |
-| 6 | **安全设计点已落**：认证/授权、数据保护、红队攻击面已标注 | `2-Design/Security-Design-template.md`；§6.5 | ⑤ |
+| 6 | **安全设计点已落**：认证/授权、数据保护、红队攻击面已标注 | `2-Design/security-design.template.md`；§6.5 | ⑤ |
 | 7 | **Harness 确认**：`AGENTS.md` / 校验脚本 / `Jenkinsfile` 与最新 RACI 同步且可执行 | 不可委托 ⑩（Dev + Tech Lead） | ⑩ |
 | 8 | **基线化完成**：上述 Design 包 `status=baseline`（非 draft/review） | §7 状态机 | 只有 baseline 才能过 Gate 2 |
 
@@ -174,7 +174,7 @@ Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在
 
 ### 6.2 原子分解方案（Decomposition）
 
-> 规范格式见 `2-Design/Decomposition-template.yml`（纯 YAML 单文档，供 Coding Agent / Harness 程序化消费；字段说明以 YAML 行内注释承载，即"方案 A"风格）。其选型依据见**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：机器规格型文档用 YAML。
+> 规范格式见 `2-Design/decomposition.template.yml`（纯 YAML 单文档，供 Coding Agent / Harness 程序化消费；字段说明以 YAML 行内注释承载，即"方案 A"风格）。其选型依据见**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：机器规格型文档用 YAML。
 
 | 字段 | 必填 | 说明 | 示例 |
 |------|------|------|------|
