@@ -116,7 +116,7 @@ SDIE = **S**pec / **D**esign / **I**mplement / **E**valuation，是面向 AI Cod
 
 ## 4. 输出材料清单
 
-Evaluation 阶段的产出物（引自 §3.4 / §3.5.4 / §4）共七类，均需在正文第 1 节「元信息」挂七字段
+Evaluation 阶段的产出物（引自 §3.4 / §3.5.4 / §4）共八类，均需在正文第 1 节「元信息」挂七字段
 （id / title / status / phase / owner / related_docs / last_updated，见 §7）：
 
 > 载体格式遵循**全局模板格式选型原则**（`SDIE-Analysis.md` §8.1）：人类契约型（发布决策、质量看板、业务价值确认、回顾）用 Markdown、第 1 节「元信息」七字段；本阶段多为人类决策文档，少有机器规格型。
@@ -128,6 +128,7 @@ Evaluation 阶段的产出物（引自 §3.4 / §3.5.4 / §4）共七类，均�
 | **对抗演练报告** | 安全 / 红队（C） | 安全/红队（⑤） | QA(C)、Tech Lead(C) | `docs/eval/red-team.md` |
 | **合规结论** | 安全 / 红队（C） | 安全/红队（⑤） | QA(C)、PO(C) | `docs/eval/compliance.md` |
 | **业务价值确认** | PM/PO（C） | PM/PO（签确认，非 A） | QA(A)、SME(I) | `docs/eval/business-value.md` |
+| **验收结果判定（per-AC）** | QA（R/A，⑧） | QA（A） | PM(C)、SME(I) | `docs/eval/acceptance-result.md` |
 | **能力指标报告（Eval Agent）** | Eval Agent（●） | QA / Tech Lead（复核） | Reviewer(C) | `docs/eval/` |
 | **回顾 / Retrospective** | Reviewer(C) 牵头 | 团队（知会） | 全员 I/C | `docs/eval/retro.md` |
 
@@ -149,6 +150,7 @@ Evaluation 阶段的产出物（引自 §3.4 / §3.5.4 / §4）共七类，均�
 | 安全对抗（⑤） | **Red Teaming** 框架（提示注入/越狱/越权） | 【权威推荐】 | 安全红队通用实践；NIST/行业红队方法 |
 | 回顾 / Retrospective | **Postmortem / Retrospective**（无责复盘） | 【权威推荐】 | Google SRE Book，sre.google/sre-book；Norm Kerth *Project Retrospectives* |
 | 能力指标（Eval Agent） | **LLM Capability Eval**（幻觉率/准确率/护栏通过率） | 【权威推荐】 | 大模型评测通用实践；落位 `docs/eval/` |
+| 验收结果判定（per-AC） | 【空间已定义】逐条判定 AC-N，派生 `coverage_of_ac` | 【空间已定义】 | `4-Evaluation/acceptance-result.template.md` |
 | Harness 更新（⑩） | 【空间已定义】Dev+TL 维护 AGENTS.md/校验脚本 | 【空间已定义】 | `SDIE-RACI-Matrix.md` §5⑩ |
 | 版本化 / 迭代 / 变更 | **SemVer 2.0.0** + **ADR** | 【权威推荐】 | semver.org；Michael Nygard 2011 |
 
@@ -215,7 +217,7 @@ metrics:
   hallucination_rate: 0.03      # 幻觉率
   task_accuracy: 0.94           # 任务准确率
   guardrail_pass_rate: 0.97     # 护栏通过率
-  coverage_of_ac: 1.0           # 验收标准覆盖
+  coverage_of_ac: 1.0           # 验收标准覆盖（派生自 acceptance-result 的 per-AC 判定，禁止手填）
 ```
 
 ### 6.6 回顾 / Retrospective
@@ -226,6 +228,12 @@ metrics:
 - 待改进: 并发超卖边界在 Implement 暴露晚，应在 Design 预埋
 - 行动项: 更新 AGENTS.md 上下文策略（⑩）；新增并发测试模板（ADR-yyy）
 ```
+
+### 6.7 验收结果判定（Acceptance Result，对应 ⑧ 签收）
+- 模板：`4-Evaluation/acceptance-result.template.md`（Markdown + 元信息七字段，人类契约型）。
+- 作用：Gate 4「验收覆盖可追溯」的逐条证据——每条 `acceptance_criteria` 的 AC-N 必须有对应 behavior 与结论（`pass` / `fail` / `blocked` / `na`），禁止用"整体通过"掩盖单条失败。
+- 数据来源：behavior 由 Implement `behavior-checklist.yaml` 经 `maps_to: AC-N` 派生；结论由 QA（⑧）在 Evaluation 据 CI / 测试报告判定。
+- 联动：`coverage_of_ac`（eval-metrics）由本表 per-AC 判定**派生，禁止手填**——与 ④·验证 红线一致，证据不得自报自批。
 
 ---
 
