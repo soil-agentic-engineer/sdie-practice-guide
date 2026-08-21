@@ -106,6 +106,8 @@ Gate1      Gate2       Gate3        Gate4
 
 > **覆盖率的幻觉**：行/分支覆盖率只说明"代码被执行"，不说明"测试能发现缺陷"。变异测试是检验测试有效性的黄金标准（pitest.org）——这正是 SDIE 把变异分而非覆盖率作为 ④·验证 核心证据的原因。
 
+> **方案 B · 分层独立门禁（与 `2-Design/test-strategy.template.md` 一致）**：上表四层质量指标各自独立评分、各自独立门禁，放行 = **全部通过（AND）**，不压成单一加权分。单分仅作对外沟通摘要，**不得作为 Gate 放行输入**——量纲不可加（变异分% / 覆盖率% / `coverage_of_ac` 比率 / DORA 频率 彼此不可通约）且会掩盖弱层（如 `coverage_of_ac` 偏低被高分稀释）；这也守住 ④·验证 红线（证据不得自报自批）。
+
 ---
 
 ## 5. 工具链与 Harness 自动化
@@ -138,6 +140,7 @@ Gate1      Gate2       Gate3        Gate4
 5. **探索性测试补位**：自动化验证已知期望，探索性测试发现未知行为（ISTQB）——AI Coding 下更需人类探索性把关。
 6. **测试层级补全**：`2-Design/test-strategy.template.md` 已补 ① 测试层级命名（单元/集成/系统/验收四层）+ 占比、② 验收层级枚举（跨阶段，AC-N→behavior 转自动化测试、Gate 4 签收）、③ 非功能测试类型（可选，按 risk 启用）。
 7. **验收结果可追溯**：新增 `4-Evaluation/acceptance-result.template.md`（方案 B，per-AC 判定表）；`coverage_of_ac` 改为由其派生、禁止手填，呼应 ④·验证 红线。
+8. **前后端架构层维度（B2 矩阵）**：`2-Design/test-strategy.template.md` 与 `SDIE-Design-Guide.md §6.3` 的测试层级表新增「适用端（前端/后端/跨端）」列、门禁阈值补端工具/口径注；并补「测试覆盖与质量打分」小节（覆盖率阶梯 + 四层打分）。采用「层级 × 端」矩阵而非拆文档——避免 e2e/验收跨端层成孤儿层、且符合 SDIE 单 feature 单制品约定。
 
 ---
 

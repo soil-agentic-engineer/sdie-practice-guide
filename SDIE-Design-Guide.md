@@ -194,24 +194,25 @@ Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在
 ```
 ## 测试层级（Test Levels）与分级占比（草案，③ 与 Tech Lead 共定）
 > 层级按集成范围：单元 / 集成 / 系统(端到端) / 验收；验收为跨阶段层级（语义 Spec、执行 Gate 3、签收 Gate 4），不计入金字塔条数。
+> 组织：测试层级为脊、架构端（前端 / 后端 / 跨端）为列，采用「层级 × 端」矩阵，不拆成前端/后端两份文档。
 
-| 测试层级 | 占比（草案） | 说明 / 落点 |
-|----------|-------------|-------------|
-| 单元测试(unit / component) | 70% | 亚秒级、确定性、TDD 红-绿-重构 |
-| 集成测试(integration) | 20% | WireMock/本地 fake 窄集成 |
-| 系统测试(system / e2e) | 10% | 仅覆盖核心旅程 |
-| 验收测试(acceptance) | —（跨阶段） | AC-N 经 `behavior-checklist.yaml` 的 `maps_to` 转自动化行为测试，Gate 3 须 100% 通过；Gate 4 由 QA(⑧) 放行 + PM(C) 价值确认 |
+| 测试层级 | 占比（草案） | 适用端 | 说明 / 落点 |
+|----------|-------------|--------|-------------|
+| 单元测试(unit / component) | 70% | 前端 + 后端 | 前端：组件/RTL（Jest/Vitest）；后端：服务方法（JUnit/pytest）；亚秒级、确定性、TDD 红-绿-重构 |
+| 集成测试(integration) | 20% | 后端为主（前端为辅） | 后端：DB/JPA、缓存、MQ、外部 HTTP（WireMock/Testcontainers）、CDC 契约（Pact）；前端：多组件+状态+MSW mock 网络（RTL+MSW） |
+| 系统测试(system / e2e) | 10% | 跨端 | 仅覆盖核心旅程，Playwright/Cypress 穿越前后端 |
+| 验收测试(acceptance) | —（跨阶段） | 跨端 | AC-N 经 `behavior-checklist.yaml` 的 `maps_to` 转自动化行为测试（前端+后端行为共同满足），Gate 3 须 100% 通过；Gate 4 由 QA(⑧) 放行 + PM(C) 价值确认 |
 
 ## 门禁阈值草案（待共定后写入 Harness）
-- 覆盖率(coverage): ≥ 80%
-- 变异分(mutation/PITest): ≥ 60%   ← ④·验证 的核心证据，非仅覆盖率
-- 安全: 0 高危 (0 high)
+- 覆盖率(coverage): ≥ 80%（前端：Istanbul 不计 e2e；后端：JaCoCo 含集成真 DB）
+- 变异分(mutation/PITest): ≥ 60%   ← ④·验证 的核心证据，非仅覆盖率（后端 PITest 成熟；前端单测变异工具可选）
+- 安全: 0 高危 (0 high)（前端依赖审计+SAST；后端 SAST+DAST）
 
 ## 非功能测试类型（可选）
-- [ ] 性能/负载/压力（risk=high 建议启用）  
-- [ ] 可靠性/混沌/容错  
-- [ ] 兼容性/跨浏览器  
-- [ ] 易用性/a11y  
+- [ ] 性能/负载/压力（risk=high 建议启用）
+- [ ] 可靠性/混沌/容错
+- [ ] 兼容性/跨浏览器
+- [ ] 易用性/a11y
 - [ ] 安全测试（作为类型，详见 `security-design.template.md` ⑤）
 ## 测试数据方案: 用影子库 + 工厂方法，禁止生产数据入测试
 ```
