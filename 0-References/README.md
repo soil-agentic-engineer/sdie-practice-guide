@@ -30,6 +30,7 @@
 | Docs-as-Code（YAML 元数据块） | 文档工程 | Jekyll / Hugo / MkDocs 生态 | SDIE-Spec-Guide §6.1（元信息载体） |
 | Git / Conventional Commits / trunk-based | 版本控制约定 | Git / conventionalcommits.org / P. Hammant | 各阶段指南 §7、README「通用约定」 |
 | CHANGELOG / 版本变化说明（Keep a Changelog） | 版本化配套 | O. Lacan, 2016 (keepachangelog.com) / IEEE 828-2012 变更记录 | SDIE-Spec-Guide §6.5（方案 A）、0-References/changelog.md |
+| 契约测试（Consumer-Driven Contracts / Pact） | 服务间接口兼容性验证 | Pact Foundation（docs.pact.io）/ M. Fowler, "ContractTest" | 2-Design/test-strategy.template.md、SDIE-Design-Guide.md §5 / §6.3 |
 
 ## 文档模板（新增方法时套用）
 每份方法文档采用六段式：

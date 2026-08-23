@@ -145,6 +145,7 @@ Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在
 | 领域边界划分 | **DDD 限界上下文**（Bounded Context） | 【权威推荐】 | Eric Evans，*Domain-Driven Design* (2003)；martinfowler.com/bliki/BoundedContext |
 | 多视图架构表达 | **4+1 视图模型**（Logical/Process/Development/Physical + Scenarios） | 【权威推荐】 | Philippe Kruchten 1995，IEEE Software |
 | 测试策略 / 门禁阈值草案（③） | **Test Pyramid / Test Strategy**（单元/集成/端到端 分级占比） | 【权威推荐】 | Mike Cohn；martinfowler.com/articles/practical-test-pyramid |
+| 服务间接口兼容性验证 | **契约测试 / 消费者驱动契约（Contract Testing / CDC, Pact）** | 【权威推荐】 | Pact Foundation（docs.pact.io）；Martin Fowler, "ContractTest" |
 | 安全设计点（⑤ 判定权在手） | **STRIDE 威胁建模**（Spoofing/Tampering/Repudiation/InfoDisclosure/DenialOfService/Elevation） | 【权威推荐】 | Microsoft，learn.microsoft.com/.../security/thread-modeling |
 | 上下文注入策略设计 | 【空间已定义】Tech Lead 定义 Agent 可读文件集合 | 【空间已定义】 | `SDIE-RACI-Matrix.md` §3.2 / §2.1 |
 | 版本化 / 迭代 / 变更 | **SemVer 2.0.0** + **ADR** | 【权威推荐】 | semver.org；Michael Nygard 2011 |
@@ -199,8 +200,13 @@ Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在
 | 测试层级 | 占比（草案） | 适用端 | 说明 / 落点 |
 |----------|-------------|--------|-------------|
 | 单元测试(unit / component) | 70% | 前端 + 后端 | 前端：组件/RTL（Jest/Vitest）；后端：服务方法（JUnit/pytest）；亚秒级、确定性、TDD 红-绿-重构 |
-| 集成测试(integration) | 20% | 后端为主（前端为辅） | 后端：DB/JPA、缓存、MQ、外部 HTTP（WireMock/Testcontainers）、CDC 契约（Pact）；前端：多组件+状态+MSW mock 网络（RTL+MSW） |
+| 集成测试(integration) | 20% | 后端为主（前端为辅） | 后端：DB/JPA、缓存、MQ、外部 HTTP（WireMock/Testcontainers）、**CDC 契约（Pact）**；前端：多组件+状态+MSW mock 网络（RTL+MSW） |
 | 系统测试(system / e2e) | 10% | 跨端 | 仅覆盖核心旅程，Playwright/Cypress 穿越前后端 |
+
+## 契约测试使用约定（跨服务 / RPC 接口兼容性，详见 0-References/contract-testing.md）
+- 适用：跨团队/跨模块、接口稳定且被多方依赖的服务间调用（HTTP / gRPC / Kafka 等），归入「集成层」占比内。
+- CDC 顺序：Consumer 先写 expectation 并发布契约 → Provider 拉取后用真实服务验证（Provider 侧禁 mock）。
+- 门禁：Provider PR 必须契约验证通过；契约级破坏性变更由 Tech Lead 审批（②），版本走 SemVer MAJOR。
 | 验收测试(acceptance) | —（跨阶段） | 跨端 | AC-N 经 `behavior-checklist.yaml` 的 `maps_to` 转自动化行为测试（前端+后端行为共同满足），Gate 3 须 100% 通过；Gate 4 由 QA(⑧) 放行 + PM(C) 价值确认 |
 
 ## 门禁阈值草案（待共定后写入 Harness）

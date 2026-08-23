@@ -27,7 +27,7 @@ last_updated: 2026-08-06
 | 测试层级 | 占比（草案） | 适用端 | 说明 / 落点 |
 |----------|-------------|--------|-------------|
 | 单元测试(unit / component) | 70% | 前端 + 后端 | 前端：组件 / RTL（Jest / Vitest），mock 依赖；后端：服务方法（JUnit / pytest），mock 依赖；亚秒级、确定性、不触网/库；TDD 红-绿-重构 |
-| 集成测试(integration) | 20% | 后端为主（前端为辅） | 后端：DB/JPA、缓存、MQ、外部 HTTP（WireMock / Testcontainers）、CDC 契约（Pact）；前端：多组件+状态+MSW mock 网络（RTL + MSW），验用户交互 |
+| 集成测试(integration) | 20% | 后端为主（前端为辅） | 后端：DB/JPA、缓存、MQ、外部 HTTP（WireMock / Testcontainers）、**CDC 契约（Pact）**；前端：多组件+状态+MSW mock 网络（RTL + MSW），验用户交互 |
 | 系统测试(system / e2e) | 10% | 跨端 | 仅覆盖核心旅程（如 搜索→加购→结算），Playwright / Cypress 穿越前后端 |
 | 验收测试(acceptance) | —（跨阶段） | 跨端 | 可执行形态＝`acceptance_criteria` 的 AC-N 经 `behavior-checklist.yaml` 的 `maps_to` 转自动化行为/端到端测试（前端行为 + 后端行为共同满足），Gate 3 随 CI 执行须 100% 通过；人类签收＝Gate 4 由 QA(⑧) 发布放行 + PM(C) 业务价值确认，并以 `coverage_of_ac` 度量验收覆盖 |
 
@@ -41,6 +41,15 @@ last_updated: 2026-08-06
 - 安全: 0 高危 (0 high)
   - 前端：依赖审计 + SAST
   - 后端：SAST + DAST
+- 契约验证(contract): 通过（Provider CI 强制，见下方「契约测试使用约定」）
+
+## 契约测试使用约定（跨服务 / RPC 接口兼容性）
+> 详细方法与规则见 `0-References/contract-testing.md`（消费者驱动契约 / Pact）。
+- 适用清单：列出本功能涉及的跨团队/跨模块服务对与协议（HTTP / gRPC / Kafka 等）。
+- CDC 顺序：Consumer 先写 expectation 并发布契约 → Provider 拉取后用**真实服务**验证（Provider 侧禁止 mock）。
+- 契约仓库：统一存于 Pact Broker / `docs/contracts/`，版本化，破坏性变更走 SemVer MAJOR（联动 SDIE-Design-Guide.md §7.3）。
+- 协议支持：gRPC 用 `pact-protobuf-plugin`（proto 即契约）；异步消息用 Message Pact；Thrift/Dubbo 需自写方案并记 ADR。
+- 归属：契约测试归入「集成层」占比内，非独立条数；与 RACI 联动——QA(C) 拟策略、Dev(R) 落用例、Tech Lead(A) 审契约级破坏性变更（②）。
 
 ## 非功能测试类型（可选）
 > 以下质量属性测试类型**默认可选**，按模块风险（risk-matrix）与业务关键度启用；
