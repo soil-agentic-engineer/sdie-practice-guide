@@ -131,6 +131,8 @@ Design 阶段的产出物（引自 §3.2 / §3.5.2 / §4）共五类，均需在
 > 注：五类材料是**同一架构决策的不同切面**——ADR 是"为何这样选"，原子分解是"怎么拆给 Agent 做"，
 > 测试策略是"怎么验"，上下文注入是"Agent 能看什么"，安全设计点是"红线在哪"。
 > 它们通过元信息的 `related_docs` 互相链接，形成可追溯的 Design 包。
+>
+> **参考模式（非必交付物）**：`2-Design/references/microservices-scaffolding-polyrepo.md` 是 Design 阶段可复用参考模式（微服务目录结构·范式 C 垂直切片），不计入上述五类必交付物，仅供架构选型参考；其 `related_docs` 已双向链本文与 `SDIE-RACI-Matrix.md`。
 
 ---
 

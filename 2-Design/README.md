@@ -26,6 +26,9 @@
 - ADR / 分解 / 测试策略 / 上下文注入 / 安全设计：统一落位 `docs/design/`（与 `SDIE-RACI-Matrix.md` §4 Design Agent 落位一致）。
 - 关联文档通过元信息 `related_docs` 互链，形成可追溯 Design 包。
 
+## 参考模式（可复用，非模板）
+- `references/microservices-scaffolding-polyrepo.md`：微服务目录结构·范式 C 垂直切片（多 git 仓 + 前后端同仓）。Design 阶段可复用参考模式，非五类必交付物模板；其 `related_docs` 链 `SDIE-RACI-Matrix.md` 与 `SDIE-Design-Guide.md`。
+
 ## decomposition.template.yml 字段提示
 - task 级字段：**六必填** `id` / `title` / `agent_assignable` / `depends_on` / `acceptance_ref` / `context_scope` + **两可选** `risk`、`estimated_complexity`。
 - **可选 `risk` 字段**：`{ probability, impact, level }`，仅对带不确定性/后果严重的 task 标注；`probability×impact` 1–5 量表与三档阈值（low 1–6 / med 7–12 / high 13–25，阈值由团队定）见 `0-References/risk-matrix.md`；`level=high` 联动 Gate 2 优先审、Implement 优先验、加强 Review。
