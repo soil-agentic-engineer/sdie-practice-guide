@@ -15,8 +15,7 @@ last_updated: 2026-08-27
 
 # Spec 阶段目录结构（docs/1-Spec/）
 
-> 本文件**只覆盖 SDIE Spec 阶段**的目录结构——即业务域仓中 `docs/1-Spec/` 之下，四类 Spec 产出物（PRD / 用户故事地图 / 验收标准 / TASK 规格）及其模板副本的落位约定。
-> 占位符：`<domain>`（业务域仓）、`<id>`（产出物唯一标识，建议语义化短名或序号）。
+> 本文件只覆盖 SDIE Spec 阶段的目录结构——业务域仓中 `docs/1-Spec/` 之下，四类 Spec 产出物及其模板副本的落位约定。占位符：`<domain>`（业务域仓）、`<id>`（产出物唯一标识，语义化短名或序号）。
 
 ---
 
@@ -39,7 +38,7 @@ last_updated: 2026-08-27
 
 ```
 <domain>/docs/1-Spec/
-├── _templates/                # ★ Spec 四模板「受控副本」（由 meta-sdie 推送钉选版本，局部可用）
+├── _templates/                # ★ Spec 四模板（生成时所用规范模板）
 │   ├── prd.template.md
 │   ├── user-story-map.template.md
 │   ├── acceptance-criteria.template.md
@@ -73,15 +72,7 @@ last_updated: 2026-08-27
 
 ---
 
-## 3. 模板治理（Spec 侧口径）
-
-- `_templates/` 是 meta-sdie 推送的**受控副本**：本地可用、构建密闭（域仓 CI 不依赖 meta-sdie 被 checkout）。
-- 域仓 Agent 生成本域 PRD / 故事地图 / 验收标准 / TASK 时，在本仓 `1-Spec/_templates/` 内取用规范模板，与 `docs/1-Spec/` 同仓闭环、可追溯。
-- 模板结构 / 字段变更属治理变更，须由 **Tech Lead 审定**后统一下发；域仓不得私自改写副本内容。
-
----
-
-## 4. 与 Skill 的配合
+## 3. 与 Skill 的配合
 
 - 本 Skill 的 `@references/*.template.*` 为生成时所用规范模板；生成结果按 §2 落位到 `<domain>/docs/1-Spec/...`。
 - Skill 仅做**落位认知与提示**，不主动创建目录树；仅在用户明确要求初始化脚手架、且 Tech Lead 审定结构后，才据本文件生成骨架。

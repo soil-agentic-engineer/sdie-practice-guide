@@ -14,10 +14,7 @@ last_updated: 2026-08-06
 
 # 验收标准集（acceptance_criteria）：<功能名>
 
-> **红线（不可委托 ①）**：逐条由 PM/PO 撰写（R），SME 审语义（C）、QA 审可测性（C）；
-> Agent 不得自创领域规则或伪边界（§5 / §3.5.1）。
-> 写法：BDD / Given-When-Then / Gherkin（Dan North / Cucumber，权威推荐）；辅以 Example Mapping（25 分钟，三 amigos）。
-> 依据 `spec-guide.md` §4.3。
+> 红线①：逐条由 PM/PO 撰写（R），SME 审语义（C）、QA 审可测性（C）；Agent 不得自创领域规则或伪边界。写法：BDD / Given-When-Then / Gherkin；辅以 Example Mapping（25 分钟，三 amigos）。
 
 ## 正面示例（可测、具体、无歧义）
 

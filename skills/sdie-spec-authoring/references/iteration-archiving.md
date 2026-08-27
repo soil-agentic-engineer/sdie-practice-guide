@@ -16,16 +16,14 @@ last_updated: 2026-08-28
 
 # 跨阶段迭代归档（docs/iterations/iter-NNN/）
 
-> 本文件从 **Spec 阶段写作视角** 描述"跨阶段迭代归档"：即业务域仓 `<domain>/docs/iterations/iter-NNN/` 的构成、Spec 产出物如何进入归档、以及 Spec 作者在归档中的职责边界。
->
-> 归档本身是 **跨阶段制品**（覆盖 Spec → Design → Implement → Evaluation），不归任一阶段私有；本文档只讲 Spec 侧**怎么用、贡献什么、边界在哪**，避免越界代写其他阶段的归档内容。
+> 本文件从 **Spec 阶段写作视角** 描述跨阶段迭代归档：业务域仓 `<domain>/docs/iterations/iter-NNN/` 的构成、Spec 产出物如何进入归档、以及 Spec 作者在归档中的职责边界。归档本身是跨阶段制品（覆盖 Spec → Design → Implement → Evaluation），本文档只讲 Spec 侧怎么用、贡献什么、边界在哪。
 
 ---
 
 ## 0. 为什么需要跨阶段迭代归档
 
-- **一轮迭代（iter-NNN）= 一个可发布增量**：把本轮从需求（Spec）到上线（Eval）的所有制品、门禁结论、发布说明、复盘**绑在一个目录里**，形成闭环、可回溯。
-- **跨阶段串联**：单份 PRD / AC 只描述"要什么"，迭代归档描述"这一轮我们**实际交付了什么、过没过门、为何能发、下次改什么**"。
+- **一轮迭代（iter-NNN）= 一个可发布增量**：把本轮从需求（Spec）到上线（Eval）的所有制品、门禁结论、发布说明、复盘绑在一个目录里，形成闭环、可回溯。
+- **跨阶段串联**：单份 PRD / AC 只描述"要什么"，迭代归档描述"这一轮我们实际交付了什么、过没过门、为何能发、下次改什么"。
 - **域仓本地闭环**：`iter-NNN/` 落在 `<domain>/docs/iterations/`，与 `1-Spec/…4-Evaluation/` 同仓，不依赖 `meta-sdie` 被 checkout 即可追溯本轮全貌。
 - **系统级兜底**：多个域仓的 `iter-NNN` 在 `meta-sdie/releases/train-vX/` 被聚合编排（见 §4）。
 
@@ -47,7 +45,7 @@ last_updated: 2026-08-28
     └── RETRO.md                   # 无责复盘（phase: Evaluation，非 Spec 侧）
 ```
 
-> 命名说明：根约定用短名 `ITER-PLAN / MANIFEST / RELEASE-NOTES / RETRO`；本仓库统一加 `.md` 以契合 frontmatter / 模板体系。`RETRO` 的元信息模板见 `4-Evaluate/retrospective.template.md`（`id: RETRO-<ITER>`，`phase: Evaluation`）。
+> 命名：根约定用短名 `ITER-PLAN / MANIFEST / RELEASE-NOTES / RETRO`；本仓库统一加 `.md` 以契合 frontmatter / 模板体系。`RETRO` 的元信息模板见 `4-Evaluate/retrospective.template.md`（`id: RETRO-<ITER>`，`phase: Evaluation`）。
 
 ---
 
