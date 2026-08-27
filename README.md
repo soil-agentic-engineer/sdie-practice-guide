@@ -27,7 +27,7 @@ sdie-practice-guide/
 ├── SDIE-Spec-Guide.md           # Spec 阶段工作指南（五问：工作/材料/方法论/字段/版本化）
 ├── SDIE-Design-Guide.md         # Design 阶段工作指南
 ├── SDIE-Implement-Guide.md      # Implement 阶段工作指南
-├── SDIE-Evaluation-Guide.md     # Evaluation 阶段工作指南
+├── SDIE-Evaluate-Guide.md     # Evaluate 阶段工作指南
 │
 ├── 0-References/                # 权威方法引用库（外部权威方法的知识与溯源，详见其 README）
 │

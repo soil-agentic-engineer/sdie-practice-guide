@@ -149,7 +149,7 @@ Gate1      Gate2       Gate3        Gate4
 ### 8.1 工作空间（SDIE 事实唯一内部权威）
 - `SDIE-RACI-Matrix.md`：§1 基础约定、§2 概览矩阵、§2.1 角色说明（④⑤⑥⑦⑧⑨⑩）、§3.x 各阶段 RACI、§5 不可委托清单、§6 Gate 2/3/4。
 - `SDIE-Analysis.md`：§3 各阶段详解、§6 不可委托、§7 Gate、§8.1 模板格式选型原则、§9 误区。
-- `SDIE-Spec-Guide.md` / `SDIE-Design-Guide.md` / `SDIE-Implement-Guide.md` / `SDIE-Evaluation-Guide.md`：四阶段五问指南。
+- `SDIE-Spec-Guide.md` / `SDIE-Design-Guide.md` / `SDIE-Implement-Guide.md` / `SDIE-Evaluate-Guide.md`：四阶段五问指南。
 - `1-Spec/acceptance-criteria.template.md`、`1-Spec/task-spec.template.yaml`、`2-Design/test-strategy.template.md`、`2-Design/decomposition.template.yml`、`3-Implement/behavior-checklist.template.yaml`、`3-Implement/gate3-checklist.template.md`、`4-Evaluation/README.md`、`4-Evaluation/acceptance-result.template.md`。
 - `0-References/risk-matrix.md`、`0-References/spec-methods.md`。
 

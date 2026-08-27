@@ -8,7 +8,7 @@ phase: Evaluation
 owner: qa-<名>              # 测试架构师 / QA（R/A，⑧）
 related_docs:
   - RELEASE-DECISION-<ITER>
-  - SDIE-Evaluation-Guide.md
+  - SDIE-Evaluate-Guide.md
 last_updated: 2026-08-06
 ```
 

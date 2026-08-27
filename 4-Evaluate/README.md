@@ -1,6 +1,6 @@
 # Evaluation 阶段产出物格式模板索引
 
-> 本目录是 SDIE **Evaluation（评估）阶段**各产出物的**文档格式模板**，配合 `SDIE-Evaluation-Guide.md` 使用。
+> 本目录是 SDIE **Evaluation（评估）阶段**各产出物的**文档格式模板**，配合 `SDIE-Evaluate-Guide.md` 使用。
 > 所有模板均带 **元信息七字段**（Markdown 第 1 节 `## 元信息（meta）` / YAML `meta:` 块下挂；id / title / status / phase / owner / related_docs / last_updated），
 > 并标注对应 RACI / Gate 4 / 不可委托红线。填用时删除示例注释即可。
 
